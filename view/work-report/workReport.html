@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=1.0">
+    <title>工作汇报</title>
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="../../resources/css/select.css">
+    <link rel="stylesheet" href="../../resources/css/workReport.css">
+</head>
+<body >
+    <div class="header">
+        <span>周报</span>
+        <span class="on">月报</span>
+    </div>  
+    <!-- 周报 -->
+    <div class="content" style="display: none;">
+        <div class="p-line">
+            <label class="p-label">汇报周期</label>
+            <div class="datepicker-input fn-left">
+                <input type="text" class="modify-input" readonly datepicker-popup="{{format}}" ng-model="startDate" is-open="startPopupOpened" min-date="minDate" max-date="endDate" datepicker-options="startDateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="关闭" clear-text="清空" current-text="现在" show-button-bar='true'/>
+                <span class="icon-time">
+                    <button type="button" class="icon-btn" ng-click="startOpen()" stop-event="click"><i class="iconfont">&#xe676;</i></button>
+                </span>
+            </div>
+            <div class="datepicker-input fn-left">
+                <input type="text" class="modify-input" readonly datepicker-popup="{{format}}" ng-model="startDate" is-open="startPopupOpened" min-date="minDate" max-date="endDate" datepicker-options="startDateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="关闭" clear-text="清空" current-text="现在" show-button-bar='true'/>
+                <span class="icon-time">
+                    <button type="button" class="icon-btn" ng-click="startOpen()" stop-event="click"><i class="iconfont">&#xe676;</i></button>
+                </span>
+            </div>
+        </div>
+        <div class="p-line">
+            <label class="p-label">工作总结</label>
+            <div class="cnt-rgt">
+                <textarea></textarea>
+            </div>
+        </div>
+        <div class="p-line">
+            <label class="p-label">未完成工作</label>
+            <div class="cnt-rgt">
+                <textarea></textarea>
+            </div>
+        </div>
+        <div class="p-line">
+            <label class="p-label">需要的协助</label>
+            <div class="cnt-rgt">
+                <textarea></textarea>
+            </div>
+        </div>
+        <ul class="ul-line">
+            <li class="li-list">
+                <div class="first-line">
+                    <i class="line"></i>
+                    <span class="remind"><i class="iconfont">&#xe6a7;</i> 附件</span>
+                    <button class="do-btn"><i class="iconfont">&#xe631;</i></button>
+                </div>
+                <div class="show-img fn-clear">
+                    <span class="sp-img fn-left"><i class="iconfont">&#xe67b;</i>1111.JPG</span>
+                    <div class="show-rgt fn-right">
+                        <p class="view"><i class="iconfont">&#xe722;</i><a href="javascript:void(0)"> 预览</a></p>
+                        <p class="del"><i class="iconfont">&#xe6cf;</i><a href="javascript:void(0)"> 删除</a></p>
+                    </div>
+                </div>
+                <div class="show-img fn-clear">
+                    <span class="sp-img fn-left"><i class="iconfont">&#xe67b;</i>1111.JPG</span>
+                    <div class="show-rgt fn-right">
+                        <p class="view"><i class="iconfont">&#xe722;</i><a href="javascript:void(0)"> 预览</a></p>
+                        <p class="del"><i class="iconfont">&#xe6cf;</i><a href="javascript:void(0)"> 删除</a></p>
+                    </div>
+                </div>
+                <div class="method">
+                    <span class="wrds">发送方式</span>
+                    <label class="radioclass"><input type="radio" name="buinessradio" value="1" checked><span>短信</span></label>
+                    <label class="radioclass"><input type="radio" name="buinessradio" value="1" ><span>邮件</span></label>
+                </div>
+            </li>
+            <li class="li-list">
+                <div class="first-line">
+                    <i class="line"></i>
+                    <span class="remind"><i class="iconfont">&#xe7a1;</i> 发送给</span>
+                    <button class="do-btn"><i class="iconfont">&#xe607;</i></button>
+                </div>
+                <div class="show-img">
+                    <span class="info"><i class="iconfont">&#xe663;</i>李明亮</span>
+                    <span class="info"><i class="iconfont">&#xe61b;</i>limingliang3@163.com</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- 月报 -->
+    <div class="content">
+        <div class="p-line">
+            <label class="p-label">汇报周期</label>
+            <div ui-select search-enabled="false" ng-cloak class="gift-type" ng-model="adjustStatusFor.selected" theme="bootstrap">
+                <div ui-select-match allow-clear="true" placeholder="请选择..">{{$select.selected.adjustStatusName}}</div>
+                <div ui-select-choices repeat="adjustStatusFor in adjustStatusList | filter: $select.search">
+                    <span ng-bind-html="adjustStatusFor.adjustStatusName | highlight: $select.search"></span>
+                </div>
+            </div>
+        </div>
+        <div class="p-line">
+            <label class="p-label">工作总结</label>
+            <div class="cnt-rgt">
+                <textarea></textarea>
+            </div>
+        </div>
+        <div class="p-line">
+            <label class="p-label">未完成工作</label>
+            <div class="cnt-rgt">
+                <textarea></textarea>
+            </div>
+        </div>
+        <div class="p-line">
+            <label class="p-label">需要的协助</label>
+            <div class="cnt-rgt">
+                <textarea></textarea>
+            </div>
+        </div>
+        <ul class="ul-line">
+            <li class="li-list">
+                <div class="first-line">
+                    <i class="line"></i>
+                    <span class="remind"><i class="iconfont">&#xe6a7;</i> 附件</span>
+                    <button class="do-btn"><i class="iconfont">&#xe631;</i></button>
+                </div>
+                <div class="show-img fn-clear">
+                    <span class="sp-img fn-left"><i class="iconfont">&#xe67b;</i>1111.JPG</span>
+                    <div class="show-rgt fn-right">
+                        <p class="view"><i class="iconfont">&#xe722;</i><a href="javascript:void(0)"> 预览</a></p>
+                        <p class="del"><i class="iconfont">&#xe6cf;</i><a href="javascript:void(0)"> 删除</a></p>
+                    </div>
+                </div>
+                <div class="show-img fn-clear">
+                    <span class="sp-img fn-left"><i class="iconfont">&#xe67b;</i>1111.JPG</span>
+                    <div class="show-rgt fn-right">
+                        <p class="view"><i class="iconfont">&#xe722;</i><a href="javascript:void(0)"> 预览</a></p>
+                        <p class="del"><i class="iconfont">&#xe6cf;</i><a href="javascript:void(0)"> 删除</a></p>
+                    </div>
+                </div>
+                <div class="method">
+                    <span class="wrds">发送方式</span>
+                    <label class="radioclass"><input type="radio" name="buinessradio" value="1" checked><span>短信</span></label>
+                    <label class="radioclass"><input type="radio" name="buinessradio" value="1" ><span>邮件</span></label>
+                </div>
+            </li>
+            <li class="li-list">
+                <div class="first-line">
+                    <i class="line"></i>
+                    <span class="remind"><i class="iconfont">&#xe7a1;</i> 发送给</span>
+                    <button class="do-btn"><i class="iconfont">&#xe607;</i></button>
+                </div>
+                <div class="show-img">
+                    <span class="info"><i class="iconfont">&#xe663;</i>李明亮</span>
+                    <span class="info"><i class="iconfont">&#xe61b;</i>limingliang3@163.com</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- 底部提交按钮 -->
+    <div class="bottom">
+        <button class="submit-btn">提交</button>
+    </div>
+    <!-- 添加弹窗 -->
+    <div class="add-pop" style="display:none">
+        <div class="pop-title">选择接收人<a href="javascript:void(0)" class="iconfont">&#xe633;</a></div>
+        <ul class="iterms">
+            <li >接收人</li>
+            <li class="on">添加新成员</li>
+        </ul>
+        <!-- 接收人 -->
+        <div class="receive" style="display:none">
+            <input type="text" class="txt" placeholder="请输入姓名关键字">
+            <div class="choices">
+                <p class="one"><label class="checkbox-class"><input type="checkbox" name="checkbox" value="1" ><span>张三</span></label><span class="email">zhangsan@163.com</span></p>
+                <p class="one"><label class="checkbox-class"><input type="checkbox" name="checkbox" value="1" checked><span>张三张三</span></label><span class="email">zhangsan@163.com</span></p>
+                <p class="one"><label class="checkbox-class"><input type="checkbox" name="checkbox" value="1" checked><span>张三</span></label><span class="email">zhangsan@163.com</span></p>
+                <p class="one"><label class="checkbox-class"><input type="checkbox" name="checkbox" value="1" ><span>张三</span></label><span class="email">zhangsan@163.com</span></p>
+                <p class="one"><label class="checkbox-class"><input type="checkbox" name="checkbox" value="1" ><span>张三</span></label><span class="email">zhangsan@163.com</span></p>
+            </div>
+            <button class="confirm-btn">确定</button>
+        </div>
+        <!-- 添加新成员 -->
+        <div class="receive" >
+            <ul class="new-person">
+                <li class="person-info">
+                   <p class="title"><i class="iconfont">&#xe614;</i> 新人员信息</p>
+                   <div class="input-one">
+                       <input type="text" class="txt-one" placeholder="姓名"><input type="text" class="txt-one" placeholder="手机号">
+                   </div>
+                   <div class="input-one">
+                       <input type="text" class="txt-two" placeholder="邮箱">
+                   </div>
+                </li>
+                <button class="add-btn"><i class="iconfont">&#xe607;</i></button>
+            </ul>
+            <button class="confirm-btn">确定</button>
+        </div>   
+    </div>
+    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/workReport.js" target-module="workReportModule"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=1.0">
+    <title>工作汇报查询</title>
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="../../resources/css/select.css">
+    <link rel="stylesheet" href="../../resources/css/workReportQuery.css">
+</head>
+<body >
+    <div class="header">
+        <span>周报</span>
+        <span class="on">月报</span>
+    </div> 
+    <!-- 周报查询 -->
+    <div class="content" >
+        <input type="text" class="txt-two" placeholder="请输入姓名关键字">       
+        <ul class="report-list">
+            <li class="li-list">
+                <div class="info">
+                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">2018.03.01-2018.03.07</span></p></div>
+                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
+                </div>
+                <div class="content"></div>
+            </li>
+        </ul>
+    </div>
+    <!-- 月报查询 -->
+    <div class="content" style="display: none;">
+        
+    </div>
+ 
+    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/workReport.js" target-module="workReportModule"></script>
+</body>
+</html>
