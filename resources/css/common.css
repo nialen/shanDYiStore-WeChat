@@ -14,11 +14,11 @@
 
 @font-face {
   font-family: 'iconfont';  /* project id 432495 */
-  src: url('http://at.alicdn.com/t/font_432495_pxcx917hkd8cl3di.eot');
-  src: url('http://at.alicdn.com/t/font_432495_pxcx917hkd8cl3di.eot?#iefix') format('embedded-opentype'),
-  url('http://at.alicdn.com/t/font_432495_pxcx917hkd8cl3di.woff') format('woff'),
-  url('http://at.alicdn.com/t/font_432495_pxcx917hkd8cl3di.ttf') format('truetype'),
-  url('http://at.alicdn.com/t/font_432495_pxcx917hkd8cl3di.svg#iconfont') format('svg');
+  src: url('http://at.alicdn.com/t/font_432495_fvhe1jjil5e45cdi.eot');
+  src: url('http://at.alicdn.com/t/font_432495_fvhe1jjil5e45cdi.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_432495_fvhe1jjil5e45cdi.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_432495_fvhe1jjil5e45cdi.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_432495_fvhe1jjil5e45cdi.svg#iconfont') format('svg');
 }
 .iconfont {
     font-family: 'iconfont';
@@ -40,6 +40,11 @@ body {
 }
 textarea{
     resize: none;
+}
+input,
+textarea {
+    border: 0; /* 方法1 */
+    -webkit-appearance: none; /* 方法2 */
 }
 .fn-left {
     float: left;

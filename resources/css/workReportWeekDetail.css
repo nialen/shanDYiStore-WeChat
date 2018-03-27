@@ -1,0 +1,133 @@
+.header{
+	display: flex;
+	width:100%;
+	height: 40px;
+}
+.header span{
+	width: 100%;
+	background-color: #f5f5f5;
+	line-height: 40px;
+	color: #ffa666;
+	font-size: 14px;
+	text-align: center;
+}
+.header span.on{
+	position: relative;
+	color:#f45135;
+}
+.header span.on:after{
+	position: absolute;
+	content: '';
+	left:0;
+	bottom: 0;
+	width: 100%;
+	border-bottom: 3px solid #f45135;
+}
+.content{
+	position: absolute;
+	width:calc(100% - 24px);
+    top: 40px;
+    bottom: 0;
+	padding:4px 12px 40px;
+	overflow-y: auto;
+}
+.p-line{
+	display: flex;
+	margin-bottom: 10px;
+}
+.p-label{
+	display: block;
+	padding-right:4px;
+	width: 80px;
+	text-align: right;
+	line-height: 30px;
+	color: #f45135;
+	font-size: 14px;
+}
+.p-cnt{
+	position: relative;
+	width:calc(100% - 80px);
+	line-height: 30px;
+}
+.icon-time{
+	position: absolute;
+	top:0;
+	right:-4px;	
+}
+.icon-time i{
+	color:#fd8023;
+	font-size: 21px;
+	line-height: 30px;
+}
+.cnt-rgt{
+	width:calc(100% - 96px);
+	height: 72px;
+	padding: 4px 8px;
+	background-color: #faefed;
+	line-height: 20px;
+	font-size: 12px;
+	color: #333;
+	overflow-y: auto;
+}
+
+.ul-line{
+	margin: 14px 12px 0;
+}
+.li-list {
+	margin-bottom: 20px;
+}
+.li-list .first-line{
+	position: relative;
+	height: 28px;
+}
+.li-list .first-line .remind{
+	position: absolute;
+	top:3px;
+	left:0;
+	padding: 0 5px;
+	background-color: #f45135;
+	line-height: 20px;
+	color:#fff;
+	font-size: 12px;
+	text-align: center;
+	border-radius: 10px;
+}
+.li-list .first-line .line{
+	position: absolute;
+	top:13px;
+	left:0;
+	width: calc(100% + 24px);
+	height: 1px;
+	background-color: #f45135;
+}
+
+.show-img{
+	margin-top: 12px;
+}
+.sp-img {
+	margin-left: 8px;
+	color: #333;
+	font-size: 14px;
+}
+.sp-img .iconfont{	
+	margin-right: 3px;
+	color: #00c08e;
+	font-size: 15px;
+	vertical-align: top;
+}
+.wrds{
+	color:#f45135;
+	font-size: 14px;
+	margin-right:40px;
+}
+.show-img .info{
+	margin:0 2px 0 8px;
+	color: #333;
+	font-size: 14px;
+}
+.show-img .info .iconfont{
+	margin-right: 3px;
+	color: #00c08e;
+	font-size: 15px;
+	vertical-align: top;
+}

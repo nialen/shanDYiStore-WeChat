@@ -9,29 +9,120 @@
     <link rel="stylesheet" href="../../resources/css/select.css">
     <link rel="stylesheet" href="../../resources/css/workReportQuery.css">
 </head>
-<body >
+<body ng-controller="workReportQueryCtrl" ng-cloak>
     <div class="header">
-        <span>周报</span>
-        <span class="on">月报</span>
+        <span ng-click="changeReport(1)" ng-class="{'on': flag === 1}">周报</span>
+        <span ng-click="changeReport(2)" ng-class="{'on': flag === 2}">月报</span>
     </div> 
     <!-- 周报查询 -->
-    <div class="content" >
+    <div class="content" ng-show="flag === 1">
         <input type="text" class="txt-two" placeholder="请输入姓名关键字">       
         <ul class="report-list">
-            <li class="li-list">
+            <li class="li-list fn-clear">
                 <div class="info">
                     <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">2018.03.01-2018.03.07</span></p></div>
                     <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
                 </div>
-                <div class="content"></div>
+                <div class="cnt">
+                    <span class="title">工作总结</span>
+                    <div class="cnt-wrds">
+                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
+                    </div>
+                </div>
+                <div class="btns fn-right">
+                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
+                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
+                </div>
+            </li>
+            <li class="li-list fn-clear">
+                <div class="info">
+                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">2018.03.01-2018.03.07</span></p></div>
+                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
+                </div>
+                <div class="cnt">
+                    <span class="title">工作总结</span>
+                    <div class="cnt-wrds">
+                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
+                    </div>
+                </div>
+                <div class="btns fn-right">
+                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
+                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
+                </div>
+            </li>
+            <li class="li-list fn-clear">
+                <div class="info">
+                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">2018.03.01-2018.03.07</span></p></div>
+                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
+                </div>
+                <div class="cnt">
+                    <span class="title">工作总结</span>
+                    <div class="cnt-wrds">
+                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
+                    </div>
+                </div>
+                <div class="btns fn-right">
+                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
+                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
+                </div>
             </li>
         </ul>
     </div>
     <!-- 月报查询 -->
-    <div class="content" style="display: none;">
-        
+    <div class="content" ng-show="flag === 2">
+        <input type="text" class="txt-two" placeholder="请输入姓名关键字">       
+        <ul class="report-list">
+            <li class="li-list fn-clear">
+                <div class="info">
+                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">3月</span></p></div>
+                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
+                </div>
+                <div class="cnt">
+                    <span class="title">工作总结</span>
+                    <div class="cnt-wrds">
+                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
+                    </div>
+                </div>
+                <div class="btns fn-right">
+                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
+                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
+                </div>
+            </li>
+            <li class="li-list fn-clear">
+                <div class="info">
+                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">4月</span></p></div>
+                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
+                </div>
+                <div class="cnt">
+                    <span class="title">工作总结</span>
+                    <div class="cnt-wrds">
+                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
+                    </div>
+                </div>
+                <div class="btns fn-right">
+                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
+                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
+                </div>
+            </li>
+            <li class="li-list fn-clear">
+                <div class="info">
+                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">5月</span></p></div>
+                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
+                </div>
+                <div class="cnt">
+                    <span class="title">工作总结</span>
+                    <div class="cnt-wrds">
+                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
+                    </div>
+                </div>
+                <div class="btns fn-right">
+                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
+                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
+                </div>
+            </li>
+        </ul>
     </div>
  
-    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/workReport.js" target-module="workReportModule"></script>
+    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/workReportQuery.js" target-module="workReportQueryModule"></script>
 </body>
 </html>

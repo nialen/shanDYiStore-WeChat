@@ -11,7 +11,13 @@ require.config({
 		jquery: './jquery.min',
 		lodash: './lodash.min',
 		mock: './mock',
+		mockData: './mockData',
 		select: './select',
+		'iscroll': './iscroll',
+		'datepicker': './datepicker',
+		ngFileUploadShim: './ng-file-upload-shim.min',
+		ngFileUpload: './ng-file-upload.min',
+		touchSlide: './TouchSlide.1.1',
 		jqueryDialog: './jquery.dialog',
 		ngJqueryDialog: './ngJqueryDialog',
 		httpServer: './httpServer',
@@ -26,6 +32,12 @@ require.config({
 			exports: 'ngAnimate'
 		},		
 		select: {
+			deps: ['angular']
+		},
+		ngFileUploadShim: {
+			deps: ['angular']
+		},
+		ngFileUpload: {
 			deps: ['angular']
 		},
 		ngJqueryDialog: {
@@ -47,7 +59,7 @@ require(['jquery'], function($) {
 	var targetModule = $('#page').attr('target-module');
 
 	// mockData 加载与否决定是否启用模拟数据
-	require(['angular', currentPage], function(angular) {
+	require(['angular', 'mockData', currentPage], function(angular) {
 		angular.bootstrap(document, [targetModule]);
 	});
 });

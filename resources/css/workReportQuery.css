@@ -32,25 +32,69 @@ input[type=text]::input-placeholder{
 }
 .content{
 	margin: 14px 15px;
+	padding-bottom: 5px;
 }
 .content .txt-two{
 	display: block;
-	width: calc(100% - 18px);
+	width: calc(100% - 20px);
 	height: 28px;
 	padding: 0 9px;
 	line-height: 28px;
 	border: 1px solid #f45135;
 	margin-bottom: 10px;
 }
-.report-list .info{
-	padding: 7px 5px;
-	background-color: #faefed;
+.report-list .li-list{
+	margin-bottom: 15px;
 }
-
-
-
-
-
+.report-list .li-list .info{
+	padding: 7px 10px;
+	background-color: #faefed;
+	line-height: 20px;
+	font-size: 12px;
+}
+.red{
+	color:#f45135;
+}
+.report-list .li-list .cnt{
+	position: relative;
+	padding: 15px 10px 7px;
+	margin-top: 16px;
+	background-color: #faefed;
+	line-height: 18px;	
+}
+.report-list .li-list .cnt-wrds{
+	height: 54px;
+	overflow-y: auto;
+}
+.report-list .li-list .cnt .title{
+	position: absolute;
+	top: -14px;
+	left: calc((100% - 74px)/2);
+	width: 66px;
+	height: 20px;
+	border: 4px solid #fff;
+	line-height: 20px;
+	background-color: #f45135;
+	color:#fff;
+	text-align: center;
+	border-radius: 20px;
+}
+.report-list .li-list .btns{
+	margin-top: 5px;
+}
+.report-list .li-list .btns .more-btn{
+	height: 23px;
+	padding: 0 8px;
+	border: 1px solid #f45135;
+	background-color: #ffe9e5;
+	line-height: 21px;
+	color: #f45135;
+	font-size: 14px;
+	border-radius: 3px;
+}
+.report-list .btns .more-btn i{
+	font-size: 13px;
+}
 
 
 
