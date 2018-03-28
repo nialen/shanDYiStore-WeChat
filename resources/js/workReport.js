@@ -32,7 +32,8 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 	        //根据展示的数据显示已选择的对象
 	        ReceiveMethod.prototype.isSelected = function(item){ 
                 var _this = this; 
-                return JSON.stringify(_this.checkedOffersList).indexOf(JSON.stringify(item))!=-1; //存在返回true,否则返回false
+                var	checkedOffersListFor = _.cloneDeep(_this.checkedOffersList);
+                return JSON.stringify(checkedOffersListFor).indexOf(JSON.stringify(item))!=-1; //存在返回true,否则返回false
             };   
  
 	        //添加人员模式切换
@@ -43,6 +44,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 	        };
 	        //选择人员添加
 			ReceiveMethod.prototype.check = function(val, chk){
+				debugger
 	            var _this = this;
 	            var valueOfIndex = '';
 				_this.checkedOffersList.length && _.forEach(_this.checkedOffersList, function(item, index){
@@ -55,7 +57,8 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 			//确认添加
 			ReceiveMethod.prototype.addCheckedReceive = function(){
 				var _this = this;
-				var	checkedOffersListFor = _.clone(_this.checkedOffersList);
+				var	checkedOffersListFor = _.cloneDeep(_this.checkedOffersList);
+				debugger
 				_this.receiveMan = checkedOffersListFor;
 				_this.showing = false;
 	        };
@@ -91,13 +94,15 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 				$scope.flag = index;
 			}
 		}])
-		.controller('workReportWeekCtrl', ['$scope', '$rootScope', '$timeout', 'httpMethod', '$log', 'ReceiveMethod', function($scope, $rootScope, $timeout, httpMethod, $log, ReceiveMethod){
+		.controller('workReportWeekCtrl', ['$scope', '$rootScope', '$timeout', 'httpMethod', '$log', 'ReceiveMethod', '$http', function($scope, $rootScope, $timeout, httpMethod, $log, ReceiveMethod, $http){
 			$scope.reader = new FileReader();   //创建一个FileReader接口
 		    $scope.form = {     //用于绑定提交内容，图片或其他数据
 		        image:{},
 		    };
-		    $scope.thumb = [];      //用于存放图片的base64
+		    $scope.thumb = {};      //用于存放图片的base64
+		    $scope.files = []; 
 		    $scope.img_upload = function(files) {       //单次提交图片的函数
+		    	$scope.files.push(files[0].name);
 		        $scope.guid = (new Date()).valueOf();   //通过时间戳创建一个随机数，作为键名使用
 		        $scope.reader.readAsDataURL(files[0]);  //FileReader的方法，把图片转成base64
 		        $scope.reader.onload = function(ev) {
@@ -130,6 +135,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 	    	};
 
 		    $scope.img_del = function(key) {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
+		        debugger;
 		        var guidArr = [];
 		        for(var p in $scope.thumb){
 		            guidArr.push(p);
@@ -137,8 +143,6 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 		        delete $scope.thumb[guidArr[key]];
 		        delete $scope.form.image[guidArr[key]];
 		    };
-
-
 
 			$scope.beginDt = ''; //开始时间
         	$scope.endDt = ''; //结束时间
@@ -164,7 +168,9 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 	        	$scope.weekPopData.showing = true;
 	        	$scope.weekPopData.queryStaffMan();
 	        	//设置展示的在列表中被选中
-	        	$scope.weekPopData.checkedOffersList = $scope.weekPopData.receiveMan;
+	        	var receiveManFor = _.cloneDeep($scope.weekPopData.receiveMan);
+	        	// debugger
+	        	$scope.weekPopData.checkedOffersList = receiveManFor;
 	        }
 	        $scope.popClose = function(){
 	        	$scope.weekPopData.showing = false;
