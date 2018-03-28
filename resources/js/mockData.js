@@ -17,12 +17,30 @@
 		code: null,
 		msg: null, //失败信息
 		error: null,
-		'data|5': [{
-			'receiveName': '@cname', 
-		    'receiveCode': '@id', 
-		    'receiveStaffId': '@id', 
-		    'receiveMail': '@email', 
-		    'receiveNum|1-100': 100
+		'data': [{
+			'receiveName': '张三', 
+		    'receiveCode': '111', 
+		    'receiveStaffId': '111', 
+		    'receiveMail': '1234@qq.com', 
+		    'receiveNum': '1399999999'
+		},{
+			'receiveName': '李四', 
+		    'receiveCode': '222', 
+		    'receiveStaffId': '222', 
+		    'receiveMail': '1359@qq.com', 
+		    'receiveNum': '1399999999'
+		},{
+			'receiveName': '张飞', 
+		    'receiveCode': '333', 
+		    'receiveStaffId': '333', 
+		    'receiveMail': '1360@qq.com', 
+		    'receiveNum': '1399999999'
+		},{
+			'receiveName': '李白', 
+		    'receiveCode': '444', 
+		    'receiveStaffId': '444', 
+		    'receiveMail': '1360@qq.com', 
+		    'receiveNum': '1399999999'
 		}]
 	});
 

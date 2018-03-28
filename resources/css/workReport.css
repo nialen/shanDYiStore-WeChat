@@ -161,6 +161,7 @@ body{
 	font-size: 22px;
 }
 .show-img{
+	display: flex;
 	margin-top: 8px;
 	line-height: 26px;
 }
@@ -249,17 +250,21 @@ body{
 	background-size: 16px 16px;
 }
 .show-img .info{
+	width: 35%;
 	margin:0 2px 0 8px;
 	color: #333;
 	font-size: 14px;
 }
-.show-img .info .iconfont{
+.show-img .info .iconfont,.show-img .info-email .iconfont{
 	margin-right: 3px;
 	color: #00c08e;
 	font-size: 15px;
 	vertical-align: top;
 }
-
+.show-img .info-email{
+	color: #333;
+	font-size: 14px;
+}
 .bottom{
 	position: fixed;
 	left:0;

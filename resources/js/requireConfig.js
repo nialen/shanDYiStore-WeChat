@@ -15,8 +15,6 @@ require.config({
 		select: './select',
 		'iscroll': './iscroll',
 		'datepicker': './datepicker',
-		ngFileUploadShim: './ng-file-upload-shim.min',
-		ngFileUpload: './ng-file-upload.min',
 		touchSlide: './TouchSlide.1.1',
 		jqueryDialog: './jquery.dialog',
 		ngJqueryDialog: './ngJqueryDialog',
@@ -32,12 +30,6 @@ require.config({
 			exports: 'ngAnimate'
 		},		
 		select: {
-			deps: ['angular']
-		},
-		ngFileUploadShim: {
-			deps: ['angular']
-		},
-		ngFileUpload: {
 			deps: ['angular']
 		},
 		ngJqueryDialog: {

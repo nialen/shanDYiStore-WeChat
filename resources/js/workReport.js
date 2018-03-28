@@ -1,4 +1,4 @@
-define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker', 'ngFileUploadShim', 'ngFileUpload', 'touchSlide', 'httpMethod', 'angular-animate'], function(angular, $, _, Mock) {
+define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker', 'touchSlide', 'httpMethod', 'angular-animate'], function(angular, $, _, Mock) {
 	angular
 		.module('workReportModule', ['ui.select', 'httpMethod'])
 		.factory('ReceiveMethod', ['$filter', 'httpMethod', function($filter, httpMethod){
@@ -15,6 +15,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 				    'receiveNum': ''
 				}];
 	        };
+
 	        //人员搜索
 	        ReceiveMethod.prototype.queryStaffMan =  function(param){
 	        	var _this = this;
@@ -27,7 +28,13 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 					$log.log('调用接口失败.');
 				});
 	        };
-	        
+
+	        //根据展示的数据显示已选择的对象
+	        ReceiveMethod.prototype.isSelected = function(item){ 
+                var _this = this; 
+                return JSON.stringify(_this.checkedOffersList).indexOf(JSON.stringify(item))!=-1; //存在返回true,否则返回false
+            };   
+ 
 	        //添加人员模式切换
 	        ReceiveMethod.prototype.changReceive = function(index){
 	            var _this = this;
@@ -43,15 +50,13 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 						valueOfIndex = index;
 					}
 				}); 
-				chk ? valueOfIndex === '' && _this.checkedOffersList.push(val) : _this.checkedOffersList.splice(valueOfIndex, 1);
+				chk ? valueOfIndex === '' && _this.checkedOffersList.push(val) : _this.checkedOffersList.splice(valueOfIndex, 1);		
 	        };
 			//确认添加
 			ReceiveMethod.prototype.addCheckedReceive = function(){
 				var _this = this;
-	            _.forEach(_this.checkedOffersList, function(item){
-	            	
-					_this.receiveMan.push(item);
-				}); 
+				var	checkedOffersListFor = _.clone(_this.checkedOffersList);
+				_this.receiveMan = checkedOffersListFor;
 				_this.showing = false;
 	        };
 			//再加一行
@@ -65,8 +70,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 	        };
 			//添加新人员保存
 			ReceiveMethod.prototype.addNewReceive = function(){
-				var _this = this;
-	            
+				var _this = this; 
 				httpMethod.insertWorkReportLinkPeople(_this.newManList).then(function(rsp) {
 					if (rsp.success) {
 						_this.receiveManList = rsp.data;
@@ -88,6 +92,54 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 			}
 		}])
 		.controller('workReportWeekCtrl', ['$scope', '$rootScope', '$timeout', 'httpMethod', '$log', 'ReceiveMethod', function($scope, $rootScope, $timeout, httpMethod, $log, ReceiveMethod){
+			$scope.reader = new FileReader();   //创建一个FileReader接口
+		    $scope.form = {     //用于绑定提交内容，图片或其他数据
+		        image:{},
+		    };
+		    $scope.thumb = [];      //用于存放图片的base64
+		    $scope.img_upload = function(files) {       //单次提交图片的函数
+		        $scope.guid = (new Date()).valueOf();   //通过时间戳创建一个随机数，作为键名使用
+		        $scope.reader.readAsDataURL(files[0]);  //FileReader的方法，把图片转成base64
+		        $scope.reader.onload = function(ev) {
+		            $scope.$apply(function(){
+		                $scope.thumb[$scope.guid] = {
+		                    imgSrc : ev.target.result,  //接收base64
+		                }
+		            });
+		        };
+	        
+		        var data = new FormData();      //以下为像后台提交图片数据
+		        data.append('image', files[0]);
+		        data.append('guid',$scope.guid);
+		        $http({
+		            method: 'post',
+		            url: 'http://192.168.74.17:9082/point-manager-web/workReportQueryService/uploadImg',
+		            data:data,
+		            headers: {'Content-Type': undefined},
+		            transformRequest: angular.identity
+		        }).success(function(data) {
+		            if (data.result_code == 'SUCCESS') {
+		                $scope.form.image[data.guid] = data.result_value;
+		                $scope.thumb[data.guid].status = 'SUCCESS';
+		                console.log($scope.form)
+		            }
+		            if(data.result_code == 'FAIL'){
+		                console.log(data)
+		            }
+		        })
+	    	};
+
+		    $scope.img_del = function(key) {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
+		        var guidArr = [];
+		        for(var p in $scope.thumb){
+		            guidArr.push(p);
+		        }
+		        delete $scope.thumb[guidArr[key]];
+		        delete $scope.form.image[guidArr[key]];
+		    };
+
+
+
 			$scope.beginDt = ''; //开始时间
         	$scope.endDt = ''; //结束时间
         	$('#startDt1').date({}, function(datestr) {
@@ -98,18 +150,25 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 	            $scope.endDt = datestr;
 	            $scope.$apply();
         	});
-
 	        $scope.weekPopData = new ReceiveMethod();
+	        $scope.weekPopData.receiveMan = [{
+	        	'receiveName': '张三', 
+			    'receiveCode': '111', 
+			    'receiveStaffId': '111', 
+			    'receiveMail': '1234@qq.com', 
+			    'receiveNum': '1399999999'
+	        }];	       			
 	        //弹窗显示
 	        $scope.weekPopData.showing = false;
 	        $scope.addReceiveMan = function(){
 	        	$scope.weekPopData.showing = true;
+	        	$scope.weekPopData.queryStaffMan();
+	        	//设置展示的在列表中被选中
+	        	$scope.weekPopData.checkedOffersList = $scope.weekPopData.receiveMan;
 	        }
 	        $scope.popClose = function(){
 	        	$scope.weekPopData.showing = false;
 	        }
-	       
-	        $scope.weekPopData.queryStaffMan();
 
 	        //模糊查询
 	        $scope.$watch('staffName', function(newValue){
