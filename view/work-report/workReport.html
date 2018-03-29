@@ -103,23 +103,25 @@
                 <div class="choices">
                     <p class="one" ng-repeat="man in weekPopData.manListFor track by $index"><label class="checkbox-class"><input type="checkbox" name="checkbox" ng-change="weekPopData.check(man, man.isChecked)" ng-model="man.isChecked"><span ng-bind="man.receiveName"></span></label><span class="email overflow-handle" ng-bind="man.receiveMail"></span></p>
                 </div>
-                <button class="confirm-btn" ng-click="weekPopData.addCheckedReceive()">确定</button>
+                <button class="confirm-btn" ng-disabled="!weekPopData.checkedOffersList.length" ng-click="weekPopData.addCheckedReceive()">确定</button>
             </div>
             <!-- 添加新成员 -->
             <div class="receive" ng-show="weekPopData.receive === 2">
-                <ul class="new-person">
-                    <li class="person-info" ng-repeat="item in weekPopData.newManList">
-                       <p class="title"><i class="iconfont">&#xe614;</i> 新人员信息</p>
-                       <div class="input-one">
-                           <input type="text" class="txt-one" placeholder="姓名" ng-model="item.receiveName"><input type="text" class="txt-one" placeholder="手机号" ng-model="item.receiveNum">
-                       </div>
-                       <div class="input-one">
-                           <input type="text" class="txt-two" placeholder="邮箱" ng-model="item.receiveMail">
-                       </div>
-                    </li>
-                    <button class="add-btn" ng-click="weekPopData.addAnother()"><i class="iconfont">&#xe607;</i></button>
-                </ul>
-                <button class="confirm-btn" ng-click="weekPopData.addNewReceive()">确定</button>
+                <form name="weekForm" novalidate method="post">
+                    <ul class="new-person">
+                        <li class="person-info" ng-repeat="item in weekPopData.newManList">
+                           <p class="title"><i class="iconfont">&#xe614;</i> 新人员信息</p>
+                            <div class="input-one">
+                                <input type="text" class="txt-one" required="required" name="receiveName" placeholder="姓名" ng-model="item.receiveName"><input type="number" required="required" name="receiveNum" class="txt-one" placeholder="手机号" ng-model="item.receiveNum" ng-pattern="/^1[3|4|5|7|8]\d{9}$/">
+                            </div>
+                            <div class="input-one">
+                               <input type="email" required="required" name="receiveMail" class="txt-two" placeholder="邮箱" ng-model="item.receiveMail">
+                            </div>
+                        </li>
+                        <button class="add-btn" ng-click="weekPopData.addAnother()"><i class="iconfont">&#xe607;</i></button>
+                    </ul>
+                    <button class="confirm-btn" ng-disabled="!weekForm.$valid" ng-click="weekPopData.addNewReceive()">确定</button>
+                </form>
             </div>   
         </div>
         <div class="zhezhao" ng-show="weekPopData.showing"></div>  
@@ -130,9 +132,8 @@
             <div class="content" ng-show="flag === 2">
                 <div class="p-line">
                     <label class="p-label">汇报周期</label>
-                    <select class="gift-type" ng-model="monthReportForm.month">
-                        <option>3月</option>
-                        <option ng-repeat="item in monthList" value="{{item.month}}">{{item.month}}</option>
+                    <select class="gift-type" ng-model="month">
+                        <option ng-repeat="item in monthList" value="{{item.monthNub}}">{{item.monthNub}}月</option>
                     </select>
                 </div>
                 <div class="p-line">
@@ -190,7 +191,7 @@
                 </ul>
             </div>
             <!-- 底部提交按钮周 -->
-            <div class="bottom" ng-show="flag === 1">
+            <div class="bottom" ng-show="flag === 2">
                 <button class="submit-btn" ng-click="reportWeekSubmit()">提交</button>
             </div>
         </form>
@@ -215,7 +216,7 @@
             </div>
             <!-- 添加新成员 -->
             <div class="receive" ng-show="monthPopData.receive === 2">
-                <form name="angularForm" novalidate method="post">
+                <form name="monthForm" novalidate method="post">
                     <ul class="new-person">
                         <li class="person-info" ng-repeat="item in monthPopData.newManList">
                             <p class="title"><i class="iconfont">&#xe614;</i> 新人员信息</p>
@@ -225,15 +226,10 @@
                             <div class="input-one">
                                <input type="email" required="required" name="receiveMail" class="txt-two" placeholder="邮箱" ng-model="item.receiveMail">
                             </div>
-                            <!--  <span class="warning" ng-show="angularForm.receiveName.$error.required">姓名必填</span>
-                            <span class="warning" ng-show="angularForm.receiveNum.$error.required">手机号必填</span>
-                            <span class="warning" ng-show="angularForm.receiveNum.$error.pattern">手机格式不正确</span>
-                            <span class="warning" ng-show="angularForm.receiveMail.$error.required">邮箱必填</span>
-                            <span class="warning" ng-show="angularForm.receiveMail.$error.pattern">邮箱格式不正确</span> -->
                         </li>
                         <button class="add-btn" ng-click="monthPopData.addAnother()"><i class="iconfont">&#xe607;</i></button>
                     </ul>
-                    <button class="confirm-btn" ng-click="monthPopData.addNewReceive()" ng-disabled="!angularForm.$valid">确定</button>
+                    <button class="confirm-btn" ng-click="monthPopData.addNewReceive()" ng-disabled="!monthForm.$valid">确定</button>
                 </form>
             </div>   
         </div>

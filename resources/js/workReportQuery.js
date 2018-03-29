@@ -15,20 +15,33 @@ define(['angular', 'jquery', 'lodash', 'mock', 'httpMethod', 'ngStorage', 'angul
                 if (_this.weekBusy) return;
                 _this.weekBusy = true;
 
+                //创建现在的时间  
+                var data=new Date();  
+                //获取年  
+                var year=data.getFullYear();  
+                //获取月  
+                var mon =data.getMonth()+1;  
+                var arry=new Array();  
+                // for(var i=0;i<5;i++){  
+                    mon=mon-6;  
+                    if(mon<=0){  
+                        year=year-1;  
+                        mon=mon+12;  
+                    }  
+                    if(mon<10){  
+                        mon="0"+mon;  
+                    }  
+                    arry=year+"/"+mon;  
+                // }        
+                
                 var param = {
                     'workReportCycle': '1',
                     'staffName': arg,
 				    'commonRegionId': '',
-				    'beginDt': '',
-				    'endDt': ''
+				    'beginDt': $filter("date")(arry, "yyyy-MM"),
+				    'endDt': $filter("date")(data, "yyyy-MM")
                 }
                 httpMethod.queryWorkReportList(param).then(function(rsp) {
-                    var items = rsp.data.rows;
-                    // _.map(items, function(it) {
-                    //     var datetime = $filter("date")(it.answerDate, "yyyy-MM-dd HH:mm:ss")
-                    //     it.reckontime = TimeReckon(it.answerDate);
-                    //     _this.weekItems.push(it);
-                    // })
                     _this.weekItems = rsp.data.rows;
                     _this.weekBusy = false;
                     _this.weekPage += 1;
@@ -40,21 +53,30 @@ define(['angular', 'jquery', 'lodash', 'mock', 'httpMethod', 'ngStorage', 'angul
                 var _this = this;
                 if (_this.monthBusy) return;
                 _this.monthBusy = true;
-
+                //创建现在的时间  
+                var data=new Date();  
+                //获取年  
+                var year=data.getFullYear();  
+                //获取月  
+                var mon =data.getMonth()+1;  
+                var arry=new Array();  
+                mon=mon-6;  
+                if(mon<=0){  
+                    year=year-1;  
+                    mon=mon+12;  
+                }  
+                if(mon<10){  
+                    mon="0"+mon;  
+                }  
+                arry=year+"/"+mon;  
                 var param = {
                     'workReportCycle': '2',
                     'staffName': arg,
 				    'commonRegionId': '',
-				    'beginDt': '',
-				    'endDt': ''
+				    'beginDt': $filter("date")(arry, "yyyy-MM"),
+                    'endDt': $filter("date")(data, "yyyy-MM")
                 }
                 httpMethod.queryWorkReportList(param).then(function(rsp) {
-                    var items = rsp.data.rows;
-                    // _.map(items, function(it) {
-                    //     var datetime = $filter("date")(it.answerDate, "yyyy-MM-dd HH:mm:ss")
-                    //     it.reckontime = TimeReckon(it.answerDate);
-                    //     _this.items.push(it);
-                    // })
                     _this.monthItems = rsp.data.rows;
                     _this.monthBusy = false;
                     _this.monthPage += 1;

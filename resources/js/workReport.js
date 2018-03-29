@@ -95,6 +95,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 			}
 		}])
 		.controller('workReportWeekCtrl', ['$scope', '$rootScope', '$timeout', 'httpMethod', '$log', 'ReceiveMethod', '$http', function($scope, $rootScope, $timeout, httpMethod, $log, ReceiveMethod, $http){
+			$scope.weekReportForm = {};
 			$scope.reader = new FileReader();   //创建一个FileReader接口
 		    $rootScope.weekthumb = [];      //用于存放图片的base64
 		    $scope.files = []; 
@@ -141,14 +142,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	            $scope.endDt = datestr;
 	            $scope.$apply();
         	});
-	        $scope.weekPopData = new ReceiveMethod(); 
-	        $scope.weekPopData.receiveMan = [{
-	        	'receiveName': '张三', 
-			    'receiveCode': '111', 
-			    'receiveStaffId': '111', 
-			    'receiveMail': '1234@qq.com', 
-			    'receiveNum': '1399999999'
-	        }];	       			
+	        $scope.weekPopData = new ReceiveMethod();   			
 	        //弹窗显示
 	        $scope.weekPopData.showing = false;
 	        $scope.addReceiveMan = function(){
@@ -185,20 +179,19 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        $rootScope.monthviewClose = function(){
 	        	$rootScope.weekview = false;
 	        }
-	        
 	        //周报提交
 	        $scope.reportWeekSubmit = function(){
 	        	var param = {
 	        		'createStaff': '', 
-		    		'beginDt': $scope.startDt, 
-		    		'endDt': $scope.endDt, 
-		    		'completeContent': $scope.completeContent,
+		    		'beginDt': $scope.weekReportForm.startDt, 
+		    		'endDt': $scope.weekReportForm.endDt, 
+		    		'completeContent': $scope.weekReportForm.completeContent,
 		    		'reportType': 0,//0：周报，1：月报
-				    'needComplete': $scope.needComplete,
-				    'needHelp': $scope.needHelp, 
-				    'fileInfo': $scope.weekfiles, 
-				    'sendMethod': $scope.sendMethod,
-				    'sendPeople': $scope.receiveMan
+				    'needComplete': $scope.weekReportForm.needComplete,
+				    'needHelp': $scope.weekReportForm.needHelp, 
+				    'fileInfo': '', 
+				    'sendMethod': $scope.weekReportForm.sendMethod,
+				    'sendPeople': $scope.weekPopData.receiveMan
 	        	}
 	        	httpMethod.insertWorkReport(param).then(function(rsp) {
 					if (rsp.success) {
@@ -210,6 +203,43 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        }      
 		}])
 		.controller('workReportMonthCtrl', ['$scope', '$rootScope', '$timeout', 'httpMethod', '$log', 'ReceiveMethod', function($scope, $rootScope, $timeout, httpMethod, $log, ReceiveMethod){
+	        $scope.monthList = [{
+				monthNub: '1'
+			},
+			{
+				monthNub: '2'
+			},
+			{
+				monthNub: '3'
+			},
+			{
+				monthNub: '4'
+			},
+			{
+				monthNub: '5'
+			},
+			{
+				monthNub: '6'
+			},
+			{
+				monthNub: '7'
+			},
+			{
+				monthNub: '8'
+			},
+			{
+				monthNub: '9'
+			},
+			{
+				monthNub: '10'
+			},
+			{
+				monthNub: '11'
+			},
+			{
+				monthNub: '12'
+			}];
+
 	        $scope.reader = new FileReader();   //创建一个FileReader接口
 		    $rootScope.monththumb = [];      //用于存放图片的base64
 		    $scope.files = []; 
@@ -279,20 +309,23 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        $rootScope.weekviewClose = function(){
 	        	$rootScope.monthview = false;
 	        }
-	       
+
+	        $scope.month = '1';
+	        
 	        //月报提交
 	        $scope.reportMonthSubmit = function(){
 	        	var param = {
 	        		'createStaff': '', 
-		    		'beginDt': $scope.startDt, 
-		    		'endDt': $scope.endDt, 
-		    		'completeContent': $scope.completeContent,
-		    		'reportType': 0,//0：周报，1：月报
-				    'needComplete': $scope.needComplete,
-				    'needHelp': $scope.needHelp, 
-				    'fileInfo': $scope.files, 
-				    'sendMethod': $scope.sendMethod,
-				    'sendPeople': $scope.receiveMan
+		    		'beginDt': '', 
+		    		'endDt': '',
+		    		'month': $scope.month,
+		    		'completeContent': $scope.monthReportForm.completeContent,
+		    		'reportType': 1,//0：周报，1：月报
+				    'needComplete': $scope.monthReportForm.needComplete,
+				    'needHelp': $scope.monthReportForm.needHelp, 
+				    'fileInfo': '', 
+				    'sendMethod': $scope.monthReportForm.sendMethod,
+				    'sendPeople': $scope.monthPopData.receiveMan
 	        	}
 	        	httpMethod.insertWorkReport(param).then(function(rsp) {
 					if (rsp.success) {
