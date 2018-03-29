@@ -15,7 +15,6 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 				    'receiveNum': ''
 				}];
 	        };
-
 	        //人员搜索
 	        ReceiveMethod.prototype.queryStaffMan =  function(param){
 	        	var _this = this;
@@ -23,19 +22,22 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 					if (rsp.success) {
 						_this.manList = rsp.data;
 						_this.manListFor = _this.manList;
+
+						//根据展示的数据显示已选择的对象
+						var	receiveManFor = _.cloneDeep(_this.receiveMan);
+						_.map(receiveManFor, function(item){
+							_.map(_this.manList, function(val){
+								if(val.receiveStaffId === item.receiveStaffId){
+									val.isChecked = true;
+								}
+							})
+						})
 					}
 				},function() {
 					$log.log('调用接口失败.');
 				});
 	        };
 
-	        //根据展示的数据显示已选择的对象
-	        ReceiveMethod.prototype.isSelected = function(item){ 
-                var _this = this; 
-                var	checkedOffersListFor = _.cloneDeep(_this.checkedOffersList);
-                return JSON.stringify(checkedOffersListFor).indexOf(JSON.stringify(item))!=-1; //存在返回true,否则返回false
-            };   
- 
 	        //添加人员模式切换
 	        ReceiveMethod.prototype.changReceive = function(index){
 	            var _this = this;
@@ -44,7 +46,6 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 	        };
 	        //选择人员添加
 			ReceiveMethod.prototype.check = function(val, chk){
-				debugger
 	            var _this = this;
 	            var valueOfIndex = '';
 				_this.checkedOffersList.length && _.forEach(_this.checkedOffersList, function(item, index){
@@ -58,7 +59,6 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 			ReceiveMethod.prototype.addCheckedReceive = function(){
 				var _this = this;
 				var	checkedOffersListFor = _.cloneDeep(_this.checkedOffersList);
-				debugger
 				_this.receiveMan = checkedOffersListFor;
 				_this.showing = false;
 	        };
@@ -99,7 +99,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 		    $scope.form = {     //用于绑定提交内容，图片或其他数据
 		        image:{},
 		    };
-		    $scope.thumb = {};      //用于存放图片的base64
+		    $rootScope.thumb = [];      //用于存放图片的base64
 		    $scope.files = []; 
 		    $scope.img_upload = function(files) {       //单次提交图片的函数
 		    	$scope.files.push(files[0].name);
@@ -107,9 +107,10 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 		        $scope.reader.readAsDataURL(files[0]);  //FileReader的方法，把图片转成base64
 		        $scope.reader.onload = function(ev) {
 		            $scope.$apply(function(){
-		                $scope.thumb[$scope.guid] = {
-		                    imgSrc : ev.target.result,  //接收base64
-		                }
+		            	var img = {
+		            		imgSrc : ev.target.result,  //接收base64
+		            	}
+		                $rootScope.thumb.push(img);
 		            });
 		        };
 	        
@@ -125,7 +126,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 		        }).success(function(data) {
 		            if (data.result_code == 'SUCCESS') {
 		                $scope.form.image[data.guid] = data.result_value;
-		                $scope.thumb[data.guid].status = 'SUCCESS';
+		                $rootScope.thumb[data.guid].status = 'SUCCESS';
 		                console.log($scope.form)
 		            }
 		            if(data.result_code == 'FAIL'){
@@ -135,12 +136,12 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 	    	};
 
 		    $scope.img_del = function(key) {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
-		        debugger;
 		        var guidArr = [];
-		        for(var p in $scope.thumb){
+		        for(var p in $rootScope.thumb){
 		            guidArr.push(p);
 		        }
-		        delete $scope.thumb[guidArr[key]];
+		       	$scope.files.splice(key, 1);
+		       	$rootScope.thumb.splice(key, 1);
 		        delete $scope.form.image[guidArr[key]];
 		    };
 
@@ -169,7 +170,6 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 	        	$scope.weekPopData.queryStaffMan();
 	        	//设置展示的在列表中被选中
 	        	var receiveManFor = _.cloneDeep($scope.weekPopData.receiveMan);
-	        	// debugger
 	        	$scope.weekPopData.checkedOffersList = receiveManFor;
 	        }
 	        $scope.popClose = function(){
@@ -199,28 +199,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 	        $scope.viewClose = function(){
 	        	$scope.view = false;
 	        }
-	        $scope.weekfiles = [];
-	        $scope.uploadFiles = function(file, errFiles) {
-		        $scope.f = file;
-		        $scope.errFile = errFiles && errFiles[0];
-		        if (file) {
-		            file.upload = Upload.upload({
-		                url: 'http://192.168.74.17:9082/point-manager-web/workReportQueryService/uploadImg',
-		                data: {file: file}
-		            });
-			      	file.upload.then(function (response) {
-		                $timeout(function () {
-		                    file.result = response.data;
-		                });
-		            }, function (response) {
-		                if (response.status > 0)
-		                    $scope.errorMsg = response.status + ': ' + response.data;
-		            }, function (evt) {
-		                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-		            });
-				    $scope.weekfiles.push(file.result);
-		        }  
-		    } 
+	        
 	        //周报提交
 	        $scope.reportWeekSubmit = function(){
 	        	var param = {
@@ -308,11 +287,12 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 				restrict: 'EA',
 				link: function(scope, el, attrs){
 					var ulEle = angular.element(el.children()[0]).find('ul')[0];
-					$rootScope.$watch('weekfiles', function(newValue){
-						if(newValue){
+					$rootScope.$watch('thumb', function(newValue){
+						
+						if(newValue.length){
 							var len = newValue.length;
 		                    for(var i=0;i<len;i++){
-		                        angular.element(ulEle).append('<li><img _src="'+ newValue[i] +'" src=""/></li>');
+		                        angular.element(ulEle).append('<li><img _src="'+ newValue[i].imgSrc +'" src=""/></li>');
 		                    };
 	                    	TouchSlide({ 
 								slideCell: "#focus",
@@ -324,7 +304,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 								switchLoad:"_src" //切换加载，真实图片路径为"_src" 
 							});
 						}
-					})		
+					}, true)		
 				}
 			}
 		})
@@ -333,7 +313,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 				restrict: 'EA',
 				link: function(scope, el, attrs){
 					var ulEle = angular.element(el.children()[0]).find('ul')[0];
-					$rootScope.$watch('monthfiles', function(newValue){
+					$scope.$watch('thumb', function(newValue){
 						if(newValue){
 							var len = newValue.length;
 		                    for(var i=0;i<len;i++){

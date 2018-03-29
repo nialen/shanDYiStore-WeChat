@@ -56,9 +56,9 @@
                             <span class="fileinput-button">
                                 <i class="iconfont">&#xe631;</i>
                                 <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)">
-                            </span>            
+                            </span>   
                         </div>
-                        <div class="show-img fn-clear" ng-repeat="file in files track by $index">
+                        <div class="show-img fn-clear" ng-repeat="file in files track by $index" ng-show="files.length">
                             <p class="sp-img fn-left overflow-handle"><i class="iconfont">&#xe67b;</i><span ng-bind="file"></span></p>
                             <div class="show-rgt fn-right">
                                 <a href="javascript:void(0)" class="view" ng-click="viewImg()"><i class="iconfont">&#xe722;</i></a></p>
@@ -102,7 +102,7 @@
             </div>
         </form>
         <!-- 添加弹窗周 -->
-        <div class="add-pop" ng-show="weekPopData.showing">
+        <div class="add-pop" ng-show="weekPopData.showing" ng-cloak>
             <div class="pop-title">选择接收人<a href="javascript:void(0)" class="iconfont" ng-click="popClose()">&#xe633;</a></div>
             <ul class="iterms">
                 <li ng-click="weekPopData.changReceive(1)" ng-class="{'on': weekPopData.receive === 1}">接收人</li>
@@ -112,7 +112,7 @@
             <div class="receive" ng-show="weekPopData.receive === 1">
                 <input type="text" class="txt" placeholder="请输入姓名关键字" ng-model="staffName">
                 <div class="choices">
-                    <p class="one" ng-repeat="man in weekPopData.manListFor track by $index"><label class="checkbox-class"><input type="checkbox" name="checkbox" ng-checked="weekPopData.isSelected(man)" ng-change="weekPopData.check(man, isChecked)" ng-model="isChecked"><span ng-bind="man.receiveName"></span></label><span class="email overflow-handle" ng-bind="man.receiveMail"></span></p>
+                    <p class="one" ng-repeat="man in weekPopData.manListFor track by $index"><label class="checkbox-class"><input type="checkbox" name="checkbox" ng-change="weekPopData.check(man, man.isChecked)" ng-model="man.isChecked"><span ng-bind="man.receiveName"></span></label><span class="email overflow-handle" ng-bind="man.receiveMail"></span></p>
                 </div>
                 <button class="confirm-btn" ng-click="weekPopData.addCheckedReceive()">确定</button>
             </div>
