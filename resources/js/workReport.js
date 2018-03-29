@@ -1,4 +1,4 @@
-define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker', 'touchSlide', 'httpMethod', 'angular-animate'], function(angular, $, _, Mock) {
+define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'datepicker', 'httpMethod'], function(angular, $, _, Mock) {
 	angular
 		.module('workReportModule', ['ui.select', 'httpMethod'])
 		.factory('ReceiveMethod', ['$filter', 'httpMethod', function($filter, httpMethod){
@@ -99,7 +99,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 		    $scope.form = {     //用于绑定提交内容，图片或其他数据
 		        image:{},
 		    };
-		    $rootScope.thumb = [];      //用于存放图片的base64
+		    $scope.thumb = [];      //用于存放图片的base64
 		    $scope.files = []; 
 		    $scope.img_upload = function(files) {       //单次提交图片的函数
 		    	$scope.files.push(files[0].name);
@@ -110,7 +110,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 		            	var img = {
 		            		imgSrc : ev.target.result,  //接收base64
 		            	}
-		                $rootScope.thumb.push(img);
+		                $scope.thumb.push(img);
 		            });
 		        };
 	        
@@ -126,7 +126,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 		        }).success(function(data) {
 		            if (data.result_code == 'SUCCESS') {
 		                $scope.form.image[data.guid] = data.result_value;
-		                $rootScope.thumb[data.guid].status = 'SUCCESS';
+		                $scope.thumb[data.guid].status = 'SUCCESS';
 		                console.log($scope.form)
 		            }
 		            if(data.result_code == 'FAIL'){
@@ -137,13 +137,20 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 
 		    $scope.img_del = function(key) {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
 		        var guidArr = [];
-		        for(var p in $rootScope.thumb){
+		        for(var p in $scope.thumb){
 		            guidArr.push(p);
 		        }
 		       	$scope.files.splice(key, 1);
-		       	$rootScope.thumb.splice(key, 1);
+		       	$scope.thumb.splice(key, 1);
 		        delete $scope.form.image[guidArr[key]];
 		    };
+
+		    $scope.myInterval = 5000;
+			$scope.noWrapSlides = false;
+			$scope.active = 0;
+			var slides = $scope.slides = [];
+			var currIndex = 0;
+
 
 			$scope.beginDt = ''; //开始时间
         	$scope.endDt = ''; //结束时间
@@ -281,56 +288,85 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'iscroll', 'datepicker'
 				});
 	        }
 	        //月报提交
-		}])		
-		.directive('weekpicSlide', function($rootScope){
-			return {
-				restrict: 'EA',
-				link: function(scope, el, attrs){
-					var ulEle = angular.element(el.children()[0]).find('ul')[0];
-					$rootScope.$watch('thumb', function(newValue){
-						
-						if(newValue.length){
-							var len = newValue.length;
-		                    for(var i=0;i<len;i++){
-		                        angular.element(ulEle).append('<li><img _src="'+ newValue[i].imgSrc +'" src=""/></li>');
-		                    };
-	                    	TouchSlide({ 
-								slideCell: "#focus",
-								titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-								mainCell:".bd ul", 
-								effect:"left", 
-								autoPlay:false,//自动播放
-								autoPage:true, //自动分页
-								switchLoad:"_src" //切换加载，真实图片路径为"_src" 
-							});
-						}
-					}, true)		
-				}
-			}
-		})
-		.directive('monthpicSlide', function($rootScope){
-			return {
-				restrict: 'EA',
-				link: function(scope, el, attrs){
-					var ulEle = angular.element(el.children()[0]).find('ul')[0];
-					$scope.$watch('thumb', function(newValue){
-						if(newValue){
-							var len = newValue.length;
-		                    for(var i=0;i<len;i++){
-		                        angular.element(ulEle).append('<li><img _src="'+ newValue[i] +'" src=""/></li>');
-		                    };
-	                    	TouchSlide({ 
-								slideCell: "#focus",
-								titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-								mainCell:".bd ul", 
-								effect:"left", 
-								autoPlay:false,//自动播放
-								autoPage:true, //自动分页
-								switchLoad:"_src" //切换加载，真实图片路径为"_src" 
-							});
-						}
-					})		
-				}
-			}
-		})
+		}])	
+		.directive('swipers',swipers);
+        swipers.$inject = ['$timeout'];
+        function swipers($timeout) {
+            return {
+                restrict: "EA",
+                scope: {
+                    data:"="
+                },
+                template: '<div class="swiper-container silder">'+
+                                '<ul class="swiper-wrapper">'+
+                                '<li class="swiper-slide" ng-repeat="item in data">'+
+                                '<img ng-src="{{item.imgSrc}}" alt="" />'+
+                                '</li>'+
+                                '</ul>'+
+                                '<div class="swiper-pagination"></div>'+
+                                '</div>',
+                link: function(scope, element, attrs) {
+                          $timeout(function(){
+                                 var swiper = new Swiper('.swiper-container', {   //轮播图绑定样式名
+                                 		direction: 'vertical',
+                                      	pagination: {
+									  		el: '.swiper-pagination',
+									  	},     
+                                      	paginationClickable: true,                                                     	
+                                });  
+                         },100); 
+                }
+            };
+        }
+		// .directive('weekpicSlide', function($rootScope){
+		// 	return {
+		// 		restrict: 'EA',
+		// 		link: function(scope, el, attrs){
+		// 			var ulEle = angular.element(el.children()[0]).find('ul')[0];
+		// 			$rootScope.$watch('thumb', function(newValue){
+
+		// 				if(newValue.length){
+		// 					var len = newValue.length;
+		//                     for(var i=0;i<len;i++){
+		//                         angular.element(ulEle).append('<li><img _src="'+ newValue[i].imgSrc +'" src=""/></li>');
+		//                     };
+	 //                    	TouchSlide({ 
+		// 						slideCell: "#focus",
+		// 						titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+		// 						mainCell:".bd ul", 
+		// 						effect:"left", 
+		// 						autoPlay:false,//自动播放
+		// 						autoPage:true, //自动分页
+		// 						switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+		// 					});
+		// 				}
+		// 			}, true)		
+		// 		}
+		// 	}
+		// })
+		// .directive('monthpicSlide', function($rootScope){
+		// 	return {
+		// 		restrict: 'EA',
+		// 		link: function(scope, el, attrs){
+		// 			var ulEle = angular.element(el.children()[0]).find('ul')[0];
+		// 			$scope.$watch('thumb', function(newValue){
+		// 				if(newValue){
+		// 					var len = newValue.length;
+		//                     for(var i=0;i<len;i++){
+		//                         angular.element(ulEle).append('<li><img _src="'+ newValue[i] +'" src=""/></li>');
+		//                     };
+	 //                    	TouchSlide({ 
+		// 						slideCell: "#focus",
+		// 						titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+		// 						mainCell:".bd ul", 
+		// 						effect:"left", 
+		// 						autoPlay:false,//自动播放
+		// 						autoPage:true, //自动分页
+		// 						switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+		// 					});
+		// 				}
+		// 			})		
+		// 		}
+		// 	}
+		// })
 });

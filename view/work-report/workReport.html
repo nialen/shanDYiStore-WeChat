@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../../resources/css/reset.css">
     <link rel="stylesheet" href="../../resources/css/common.css">
     <link rel="stylesheet" href="../../resources/css/select.css">
+    <link rel="stylesheet" href="../../resources/css/swiper.min.css">   
     <link rel="stylesheet" href="../../resources/css/datepicker.css">
     <link rel="stylesheet" href="../../resources/css/workReport.css">
 </head>
@@ -66,15 +67,16 @@
                             </div>
                         </div>
                         <!-- 轮播图 -->
-                        <div id="focus" class="focus" weekpic-slide ng-show="view === true">
+                        <div id="focus" class="focus" ng-show="view === true">
                             <!-- mainCell -->
-                            <div class="bd">
+                           <!--  <div class="bd">
                                 <ul></ul>
-                            </div>
+                            </div> -->
                             <!-- titCell -->
-                            <div class="hd">
+                            <!-- <div class="hd">
                                 <ul></ul>
-                            </div>                   
+                            </div>    -->   
+                            <swipers data="thumb"></swipers>       
                             <a href="javascript:void(0)" class="close iconfont" ng-click="viewClose()">&#xe60d;</a>
                         </div>
                         <div class="method">
