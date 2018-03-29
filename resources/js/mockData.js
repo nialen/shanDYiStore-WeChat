@@ -72,4 +72,25 @@
 		    'url': '@url'
 		}
 	});
+
+	// 工作汇报列表查看页面（周报）、（月报）
+	Mock.mock(new RegExp('/workReportQueryService/queryWorkReportList'), {
+		rsphead: 's',
+		success: 'true', //是否成功true/失败false
+		code: null,
+		msg: null, //失败信息
+		error: null,
+		data: {
+			'total': 100, 
+			'rows|10': [{
+			    'createStaff': '@cname', 
+			    'beginDt': '@date', 
+			    'endDt': '@date', 
+			    'createDt': '@date',
+			    'completeContent': '@cword(10)',
+			    'reportId': '@id'
+			}]
+		}
+	});
+
 });

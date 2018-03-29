@@ -9,11 +9,12 @@ require.config({
 		'angular': './angular.min',
 		'angular-animate': './angular-animate.min',
 		'angular-sanitize': './angular-sanitize.min',
-		'ui-bootstrap-tpls': './ui-bootstrap-tpls-2.5.0.min',
 		'jquery': './jquery.min',
 		'lodash': './lodash.min',
 		'mock': './mock',
 		'mockData': './mockData',
+		'ngStorage': './ngStorage',
+		'ng-infinite-scroll': '../../resources/js/ng-infinite-scroll.min',
 		'select': './select',
 		'swiper': './swiper.min',
 		'iscroll': './iscroll',
@@ -34,10 +35,13 @@ require.config({
 		'angular-sanitize': {
 			deps: ['angular'],
 			exports: 'ngSanitize'
-		},	
-		'ui-bootstrap-tpls': {
+		},
+		'ngStorage': {
 			deps: ['angular']
-		},		
+		},
+		'ng-infinite-scroll': {
+			deps: ['angular']
+		},
 		'select': {
 			deps: ['angular']
 		},

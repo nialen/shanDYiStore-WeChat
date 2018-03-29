@@ -58,9 +58,9 @@ angular
 				);
 			};
 			//工作汇报详情页面
-			httpMethod.workReporDetail = function(params) {
+			httpMethod.workReportDetail = function(params) {
 				return httpServer(
-					httpConfig.siteUrl + '/workReportQueryService/workReporDetail',
+					httpConfig.siteUrl + '/workReportQueryService/workReportDetail',
 					params,
 					'POST'
 				);

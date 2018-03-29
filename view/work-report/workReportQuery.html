@@ -16,110 +16,44 @@
     </div> 
     <!-- 周报查询 -->
     <div class="content" ng-show="flag === 1">
-        <input type="text" class="txt-two" placeholder="请输入姓名关键字">       
-        <ul class="report-list">
-            <li class="li-list fn-clear">
+        <input type="text" class="txt-two" placeholder="请输入姓名关键字" ng-model="weekName">       
+        <ul class="report-list" infinite-scroll="reddit.weekNextPage(weekName)">
+            <li class="li-list fn-clear" ng-repeat="item in reddit.weekItems">
                 <div class="info">
-                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">2018.03.01-2018.03.07</span></p></div>
-                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
+                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">{{item.createStaff}}</span></p><p class="fn-right">周期：<span class="red">{{item.beginDt}}~{{item.endDt}}</span></p></div>
+                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">{{item.createDt}}</span></p></div>
                 </div>
                 <div class="cnt">
                     <span class="title">工作总结</span>
-                    <div class="cnt-wrds">
-                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
-                    </div>
+                    <div class="cnt-wrds" ng-bind="item.completeContent"></div>
                 </div>
                 <div class="btns fn-right">
-                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
-                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
+                    <button class="more-btn" ng-click="checkMoreWeek(item)">查看更多 <i class="iconfont">&#xe628;</i></button>
+                    <button class="more-btn" ng-click="delWorkReportWeek(item)"><i class="iconfont">&#xe6a3;</i> 删除</button>
                 </div>
             </li>
-            <li class="li-list fn-clear">
-                <div class="info">
-                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">2018.03.01-2018.03.07</span></p></div>
-                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
-                </div>
-                <div class="cnt">
-                    <span class="title">工作总结</span>
-                    <div class="cnt-wrds">
-                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
-                    </div>
-                </div>
-                <div class="btns fn-right">
-                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
-                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
-                </div>
-            </li>
-            <li class="li-list fn-clear">
-                <div class="info">
-                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">2018.03.01-2018.03.07</span></p></div>
-                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
-                </div>
-                <div class="cnt">
-                    <span class="title">工作总结</span>
-                    <div class="cnt-wrds">
-                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
-                    </div>
-                </div>
-                <div class="btns fn-right">
-                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
-                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
-                </div>
-            </li>
+            <p class="text-center" ng-if="reddit.weekBusy">加载中...</p>
         </ul>
     </div>
     <!-- 月报查询 -->
     <div class="content" ng-show="flag === 2">
-        <input type="text" class="txt-two" placeholder="请输入姓名关键字">       
-        <ul class="report-list">
-            <li class="li-list fn-clear">
+        <input type="text" class="txt-two" placeholder="请输入姓名关键字" ng-model="monthName">       
+        <ul class="report-list" infinite-scroll="reddit.monthNextPage(monthName)">
+            <li class="li-list fn-clear" ng-repeat="item in reddit.monthItems">
                 <div class="info">
-                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">3月</span></p></div>
-                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
+                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">{{item.createStaff}}</span></p><p class="fn-right">周期：<span class="red">{{item.beginDt}}~{{item.endDt}}</span></p></div>
+                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">{{item.createDt}}</span></p></div>
                 </div>
                 <div class="cnt">
                     <span class="title">工作总结</span>
-                    <div class="cnt-wrds">
-                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
-                    </div>
+                    <div class="cnt-wrds" ng-bind="item.completeContent"></div>
                 </div>
                 <div class="btns fn-right">
-                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
-                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
+                    <button class="more-btn" ng-click="checkMoreMonth(item)">查看更多 <i class="iconfont">&#xe628;</i></button>
+                    <button class="more-btn" ng-click="delWorkReportMonth(item)"><i class="iconfont">&#xe6a3;</i> 删除</button>
                 </div>
             </li>
-            <li class="li-list fn-clear">
-                <div class="info">
-                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">4月</span></p></div>
-                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
-                </div>
-                <div class="cnt">
-                    <span class="title">工作总结</span>
-                    <div class="cnt-wrds">
-                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
-                    </div>
-                </div>
-                <div class="btns fn-right">
-                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
-                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
-                </div>
-            </li>
-            <li class="li-list fn-clear">
-                <div class="info">
-                    <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">张三</span></p><p class="fn-right">周期：<span class="red">5月</span></p></div>
-                    <div class="fn-clear"><p class="fn-right">提交时间：<span class="red">2018.03.07</span></p></div>
-                </div>
-                <div class="cnt">
-                    <span class="title">工作总结</span>
-                    <div class="cnt-wrds">
-                        挖掘用户需求，撰写需求文档，跟进产品开发过程与项目组内各类角色成员合作以确保产品开发的顺利进跟进，产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进跟进产品开发过程与项目组内各类角色成员合作以确保，产品开发的顺利进，撰写需求文档
-                    </div>
-                </div>
-                <div class="btns fn-right">
-                    <button class="more-btn">查看更多 <i class="iconfont">&#xe628;</i></button>
-                    <button class="more-btn"><i class="iconfont">&#xe6a3;</i> 删除</button>
-                </div>
-            </li>
+            <p class="text-center" ng-if="reddit.monthBusy">加载中...</p>
         </ul>
     </div>
  
