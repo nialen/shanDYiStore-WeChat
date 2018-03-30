@@ -82,7 +82,7 @@
 		error: null,
 		data: {
 			'total': 100, 
-			'rows|10': [{
+			'rows|5': [{
 			    'createStaff': '@cname', 
 			    'beginDt': '@date', 
 			    'endDt': '@date', 

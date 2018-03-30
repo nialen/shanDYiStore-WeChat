@@ -15,9 +15,9 @@
         <span ng-click="changeReport(2)" ng-class="{'on': flag === 2}">月报</span>
     </div> 
     <!-- 周报查询 -->
-    <div class="content" ng-show="flag === 1">
+    <div class="content" ng-show="flag === 1" id='weekReport'>
         <input type="text" class="txt-two" placeholder="请输入姓名关键字" ng-model="weekName">       
-        <ul class="report-list" infinite-scroll="reddit.weekNextPage(weekName)">
+        <ul class="report-list" infinite-scroll="reddit.weekNextPage(weekName)" infinite-scroll-distance='3' infinite-scroll-container="'#weekReport'">
             <li class="li-list fn-clear" ng-repeat="item in reddit.weekItems">
                 <div class="info">
                     <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">{{item.createStaff}}</span></p><p class="fn-right">周期：<span class="red">{{item.beginDt}}~{{item.endDt}}</span></p></div>
@@ -36,9 +36,9 @@
         </ul>
     </div>
     <!-- 月报查询 -->
-    <div class="content" ng-show="flag === 2">
+    <div class="content" ng-show="flag === 2" id="monthReport">
         <input type="text" class="txt-two" placeholder="请输入姓名关键字" ng-model="monthName">       
-        <ul class="report-list" infinite-scroll="reddit.monthNextPage(monthName)">
+        <ul class="report-list" infinite-scroll="reddit.monthNextPage(monthName)" infinite-scroll-distance='3' infinite-scroll-container="'#monthReport'">
             <li class="li-list fn-clear" ng-repeat="item in reddit.monthItems">
                 <div class="info">
                     <div class="fn-clear"><p class="fn-left">汇报人：<span class="red">{{item.createStaff}}</span></p><p class="fn-right">周期：<span class="red">{{item.beginDt}}~{{item.endDt}}</span></p></div>

@@ -111,13 +111,14 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 		            });
 		        };
 	        
-		        var data = new FormData();      //以下为像后台提交图片数据 入参
+		        var data = new FormData();      //以下为像后台提交图片数据 通过FormData将文件转成二进制数据
 		        // data.append('image', files[0]);
 		        // data.append('guid',$scope.guid); 
+	
 		        $http({ 
 		            method: 'post',
 		            url: 'http://192.168.74.17:9082/point-manager-web/workReportQueryService/uploadImg',
-		            data:data,
+		            data:data, //仅仅存放的是文件流数据
 		            headers: {'Content-Type': undefined},
 		            transformRequest: angular.identity
 		        }).success(function(rsp) {

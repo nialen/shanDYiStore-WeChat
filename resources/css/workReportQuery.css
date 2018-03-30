@@ -33,6 +33,10 @@ input[type=text]::input-placeholder{
 .content{
 	margin: 14px 15px;
 	padding-bottom: 5px;
+    box-sizing: border-box;
+    height: calc(100% - 45px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .content .txt-two{
 	display: block;

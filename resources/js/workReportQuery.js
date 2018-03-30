@@ -36,10 +36,14 @@ define(['angular', 'jquery', 'lodash', 'mock', 'httpMethod', 'ngStorage', 'angul
                     'staffName': arg,
 				    'commonRegionId': '',
 				    'beginDt': $filter("date")(arry, "yyyy-MM"),
-				    'endDt': $filter("date")(data, "yyyy-MM")
+				    'endDt': $filter("date")(data, "yyyy-MM"),
+                    'curPage': _this.weekPage,
                 }
                 httpMethod.queryWorkReportList(param).then(function(rsp) {
-                    _this.weekItems = rsp.data.rows;
+                    var weekItems = rsp.data.rows;
+                    weekItems.forEach(function(item) {
+                        _this.weekItems.push(item);
+                    });
                     _this.weekBusy = false;
                     _this.weekPage += 1;
                 }, function() {
@@ -71,10 +75,14 @@ define(['angular', 'jquery', 'lodash', 'mock', 'httpMethod', 'ngStorage', 'angul
                     'staffName': arg,
 				    'commonRegionId': '',
 				    'beginDt': $filter("date")(arry, "yyyy-MM"),
-                    'endDt': $filter("date")(data, "yyyy-MM")
+                    'endDt': $filter("date")(data, "yyyy-MM"),
+                    'curPage': _this.monthPage
                 }
                 httpMethod.queryWorkReportList(param).then(function(rsp) {
-                    _this.monthItems = rsp.data.rows;
+                    var monthItems = rsp.data.rows;
+                    monthItems.forEach(function(item) {
+                        _this.monthItems.push(item);
+                    });
                     _this.monthBusy = false;
                     _this.monthPage += 1;
                 }, function() {
@@ -84,12 +92,14 @@ define(['angular', 'jquery', 'lodash', 'mock', 'httpMethod', 'ngStorage', 'angul
             return Reddit;
         }])
 		.controller('workReportQueryCtrl', ['$scope', '$localStorage', 'Reddit', function($scope, $localStorage, Reddit){
-			$scope.flag = 1;
+			$scope.reddit = new Reddit();
+            $scope.flag = 1;
 			$scope.changeReport = function(index){
 				$scope.flag = index;
-			}
-			$scope.reddit = new Reddit();
-			
+                $scope.reddit.weekPage = 1;
+                $scope.reddit.monthPage = 1;                              
+                $('.content').scrollTop(0);
+			}			
 			$scope.$watch('weekName', function(newValue){
 				if(newValue){
 	        		$scope.reddit.weekNextPage(newValue);
