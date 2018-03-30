@@ -1,7 +1,7 @@
 define(['angular', 'jquery', 'lodash', 'mock', 'httpMethod', 'ngStorage', 'angular-animate'], function(angular, $, _, Mock) {
 	angular
 		.module('workReportMonthDetailModule', ['httpMethod', 'ngStorage'])
-		.controller('workReportMonthDetailCtrl', ['$scope', '$sessionStorage', function($scope, $sessionStorage){
+		.controller('workReportMonthDetailCtrl', ['$scope', '$localStorage', 'httpMethod', '$log', function($scope, $localStorage, httpMethod, $log){
 			function GetQueryString(name) {
                 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
                 var r = window.location.search.substr(1).match(reg);

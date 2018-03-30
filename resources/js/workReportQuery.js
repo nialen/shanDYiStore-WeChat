@@ -22,18 +22,15 @@ define(['angular', 'jquery', 'lodash', 'mock', 'httpMethod', 'ngStorage', 'angul
                 //获取月  
                 var mon =data.getMonth()+1;  
                 var arry=new Array();  
-                // for(var i=0;i<5;i++){  
-                    mon=mon-6;  
-                    if(mon<=0){  
-                        year=year-1;  
-                        mon=mon+12;  
-                    }  
-                    if(mon<10){  
-                        mon="0"+mon;  
-                    }  
-                    arry=year+"/"+mon;  
-                // }        
-                
+                mon=mon-5;  
+                if(mon<=0){  
+                    year=year-1;  
+                    mon=mon+12;  
+                }  
+                if(mon<10){  
+                    mon="0"+mon;  
+                }  
+                arry=year+"-"+mon;                  
                 var param = {
                     'workReportCycle': '1',
                     'staffName': arg,
@@ -135,7 +132,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'httpMethod', 'ngStorage', 'angul
 			//查看更多
 			$scope.checkMoreMonth = function(item){
 				$localStorage[item.reportId] = JSON.stringify(item);
-				window.open('./workReportMonthDetail.html');
+				window.open('./workReportMonthDetail.html', '_self');
 			}
 		}])
 });

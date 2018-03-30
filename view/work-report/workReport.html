@@ -60,7 +60,7 @@
                             </span>   
                         </div>
                         <div class="show-img fn-clear" ng-repeat="file in files track by $index" ng-show="files.length">
-                            <p class="sp-img fn-left overflow-handle"><i class="iconfont">&#xe67b;</i><span ng-bind="file"></span></p>
+                            <p class="sp-img fn-left overflow-handle"><i class="iconfont">&#xe67b;</i><span ng-bind="file.name"></span></p>
                             <div class="show-rgt fn-right">
                                 <a href="javascript:void(0)" class="view" ng-click="viewImg()"><i class="iconfont">&#xe722;</i></a></p>
                                 <a href="javascript:void(0)" class="del" ng-click="img_del($index)"><i class="iconfont">&#xe6cf;</i></a></p>
@@ -161,14 +161,14 @@
                             <span class="remind"><i class="iconfont">&#xe6a7;</i> 附件</span>
                             <span class="fileinput-button">
                                 <i class="iconfont">&#xe631;</i>
-                                <input type="file" id="file" file-upload accept=".gif,.jpg,.jpeg,.png">
-                            </span>
+                                <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" multiple="3">
+                            </span>  
                         </div>
-                        <div class="show-img fn-clear" ng-repeat="file in files">
-                            <p class="sp-img fn-left overflow-handle"><i class="iconfont">&#xe67b;</i><span ng-bind="file.name" title="{{file.name}}"></span></p>
+                        <div class="show-img fn-clear" ng-repeat="file in fileser track by $index" ng-show="files.length">
+                            <p class="sp-img fn-left overflow-handle"><i class="iconfont">&#xe67b;</i><span ng-bind="file.name"></span></p>
                             <div class="show-rgt fn-right">
                                 <a href="javascript:void(0)" class="view" ng-click="viewImg()"><i class="iconfont">&#xe722;</i></a></p>
-                                <a href="javascript:void(0)" class="del" ng-click="removeFile(file)"><i class="iconfont">&#xe6cf;</i></a></p>
+                                <a href="javascript:void(0)" class="del" ng-click="img_del($index)"><i class="iconfont">&#xe6cf;</i></a></p>
                             </div>
                         </div>
                         <div class="method">
@@ -245,7 +245,8 @@
         <swipers data="monththumb"></swipers>       
         <a href="javascript:void(0)" class="close iconfont" ng-click="monthviewClose()">&#xe60d;</a>
     </div>
-    <div class="zhezhao" ng-show="view"></div>
+    <div class="zhezhao" ng-show="weekview"></div>
+    <div class="zhezhao" ng-show="monthview"></div>
     <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/workReport.js" target-module="workReportModule"></script>
 </body>
 </html>

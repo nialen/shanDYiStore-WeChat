@@ -100,7 +100,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 		    $rootScope.weekthumb = [];      //用于存放图片的base64
 		    $scope.files = []; 
 		    $scope.img_upload = function(files) {       //单次提交图片的函数
-		    	$scope.files.push(files[0].name);
+		    	$scope.files.push(files[0]);
 		        $scope.reader.readAsDataURL(files[0]);  //FileReader的方法，把图片转成base64
 		        $scope.reader.onload = function(ev) {
 		            $scope.$apply(function(){
@@ -129,7 +129,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 
 		    $scope.img_del = function(key) {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
 		       	$scope.files.splice(key, 1);
-		       	$rootScope.monththumb.splice(key, 1);
+		       	$rootScope.weekthumb.splice(key, 1);
 		    };
 
 			$scope.beginDt = ''; //开始时间
@@ -176,7 +176,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        $scope.viewImg = function(){
 	        	$rootScope.weekview = true;
 	        }
-	        $rootScope.monthviewClose = function(){
+	        $rootScope.weekviewClose = function(){
 	        	$rootScope.weekview = false;
 	        }
 	        //周报提交
@@ -244,7 +244,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 		    $rootScope.monththumb = [];      //用于存放图片的base64
 		    $scope.files = []; 
 		    $scope.img_upload = function(files) {       //单次提交图片的函数
-		    	$scope.files.push(files[0].name);
+		    	$scope.files.push(files[0]);
 		        $scope.reader.readAsDataURL(files[0]);  //FileReader的方法，把图片转成base64
 		        $scope.reader.onload = function(ev) {
 		            $scope.$apply(function(){
@@ -306,7 +306,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        $scope.viewImg = function(){
 	        	$rootScope.monthview = true;
 	        }
-	        $rootScope.weekviewClose = function(){
+	        $rootScope.monthviewClose = function(){
 	        	$rootScope.monthview = false;
 	        }
 
@@ -346,7 +346,9 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
                 template: '<div class="swiper-container silder">'+
                                 '<ul class="swiper-wrapper">'+
                                 '<li class="swiper-slide" ng-repeat="item in data">'+
+                                '<div class="swiper-zoom-container">'+
                                 '<img ng-src="{{item.imgSrc}}" alt="" />'+
+                                '</div>'+
                                 '</li>'+
                                 '</ul>'+
                                 '<div class="swiper-pagination"></div>'+
@@ -354,14 +356,34 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 				link: function(scope, el, attrs){
 					$timeout(function(){
 						var topSwiper = new Swiper('.swiper-container',{
-				            loop: false,
-				            autoplay:false,
-				            paginationClickable :false,
-				            autoplayDisableOnInteraction : false,
+							zoom:true,
+							virtual: true,
+							pagination : '.swiper-pagination',
+							paginationType : 'fraction',
 				            observer:true,//修改swiper自己或子元素时，自动初始化swiper
 				            observeParents:true,//修改swiper的父元素时，自动初始化swiper
 				        });
 					}, 100)
+					//切换图状态禁止页面缩放 
+				  	document.addEventListener('touchstart',function (event) {  
+			            if(event.touches.length>1 && swiperStatus){  
+			                event.preventDefault();  
+			            }  
+			        })  
+			        var lastTouchEnd=0;  
+				    document.addEventListener('touchend',function (event) {  
+			            var now=(new Date()).getTime();  
+			            if(now-lastTouchEnd<=300){  
+			                event.preventDefault();  
+			            }  
+			            lastTouchEnd=now;  
+			        },false)
+
+				    document.addEventListener('touchmove',function(e){
+				      if(swiperStatus){
+				            e.preventDefault();
+				        }
+				    })  
 				}
 			}
 		})		
