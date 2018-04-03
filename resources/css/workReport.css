@@ -346,10 +346,13 @@ body{
 input[type=text]::input-placeholder{
 	color: #ccc;
 }
-.add-pop .choices{
-	margin: 18px 15px 0;
+#receive{
 	height: 236px;
 	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+.add-pop .choices{
+	margin: 18px 15px 0;
 }
 .add-pop .choices .one{
 	display: flex;

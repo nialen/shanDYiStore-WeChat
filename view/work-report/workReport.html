@@ -79,8 +79,8 @@
                             <button class="do-btn" ng-click="addReceiveMan()"><i class="iconfont">&#xe607;</i></button>
                         </div>
                         <div class="show-img" ng-repeat="item in weekPopData.receiveMan track by $index">
-                            <div class="info overflow-handle"><i class="iconfont">&#xe663;</i>{{item.receiveName}}</div>
-                            <div class="info-email overflow-handle"><i class="iconfont">&#xe61b;</i>{{item.receiveMail}}</div>
+                            <div class="info overflow-handle"><i class="iconfont">&#xe663;</i><span ng-bind="item.receiveName"></span></div>
+                            <div class="info-email overflow-handle"><i class="iconfont">&#xe61b;</i><span ng-bind="item.receiveMail"></span></div>
                         </div>
                     </li>
                 </ul>
@@ -100,8 +100,11 @@
             <!-- 接收人 -->
             <div class="receive" ng-show="weekPopData.receive === 1">
                 <input type="text" class="txt" placeholder="请输入姓名关键字" ng-model="staffName">
-                <div class="choices">
-                    <p class="one" ng-repeat="man in weekPopData.manListFor track by $index"><label class="checkbox-class"><input type="checkbox" name="checkbox" ng-change="weekPopData.check(man, man.isChecked)" ng-model="man.isChecked"><span ng-bind="man.receiveName"></span></label><span class="email overflow-handle" ng-bind="man.receiveMail"></span></p>
+                <div id="receive">
+                    <div class="choices" infinite-scroll="weekPopData.queryStaffMan(staffName)" infinite-scroll-distance='3' infinite-scroll-container="'#receive'">
+                        <p class="one" ng-repeat="man in weekPopData.manList track by $index"><label class="checkbox-class"><input type="checkbox" name="checkbox" ng-change="weekPopData.check(man, man.isChecked)" ng-model="man.isChecked"><span ng-bind="man.receiveName"></span></label><span class="email overflow-handle" ng-bind="man.receiveMail"></span></p>
+                        <p class="text-center" ng-if="weekPopData.busy">加载中...</p>
+                    </div>
                 </div>
                 <button class="confirm-btn" ng-disabled="!weekPopData.checkedOffersList.length" ng-click="weekPopData.addCheckedReceive()">确定</button>
             </div>
@@ -184,8 +187,8 @@
                             <button class="do-btn" ng-click="addReceiveMan()"><i class="iconfont">&#xe607;</i></button>
                         </div>
                         <div class="show-img" ng-repeat="item in monthPopData.receiveMan">
-                            <span class="info"><i class="iconfont">&#xe663;</i>{{item.receiveName}}</span>
-                            <span class="info"><i class="iconfont">&#xe61b;</i>{{item.receiveMail}}</span>
+                            <div class="info overflow-handle"><i class="iconfont">&#xe663;</i><span ng-bind="item.receiveName"></div>
+                            <div class="info overflow-handle"><i class="iconfont">&#xe61b;</i><span ng-bind="item.receiveMail"></span></div>
                         </div>
                     </li>
                 </ul>

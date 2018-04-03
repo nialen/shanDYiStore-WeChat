@@ -1,6 +1,6 @@
-define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'datepicker', 'httpMethod'], function(angular, $, _, Mock) {
+define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'datepicker', 'httpMethod', 'ng-infinite-scroll'], function(angular, $, _, Mock) {
 	angular
-		.module('workReportModule', ['ui.select', 'httpMethod'])
+		.module('workReportModule', ['ui.select', 'httpMethod', 'infinite-scroll'])
 		.factory('ReceiveMethod', ['$filter', 'httpMethod', function($filter, httpMethod){
 	        var ReceiveMethod = function() {
 	            this.receive = 1;
@@ -14,14 +14,30 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 					'receiveMail': '', 
 				    'receiveNum': ''
 				}];
+				// this.items = [];
+                this.busy = false;
+                this.page = 1;
 	        };
 	        //人员搜索
 	        ReceiveMethod.prototype.queryStaffMan =  function(param){
-	        	var _this = this;
-	            httpMethod.queryLinkPeopleByStaffName(param).then(function(rsp) {
+	        	var _this = this,
+	        	params = {
+	        		'staffName': param,
+	        		'curPage': _this.page
+	        	};
+	            httpMethod.queryLinkPeopleByStaffName(params).then(function(rsp) {
 					if (rsp.success) {
-						_this.manList = rsp.data;
-						_this.manListFor = _this.manList;
+						// _this.manList = rsp.data;
+						// _this.manListFor = _this.manList;
+
+						var items = rsp.data;
+	                    items.forEach(function(item) {
+	                        _this.manList.push(item);
+	                    });
+	                    // _this.manListFor = _this.manList;
+
+	                    _this.busy = false;
+	                    _this.page += 1;
 
 						//根据展示的数据显示已选择的对象
 						var	receiveManFor = _.cloneDeep(_this.receiveMan);
@@ -42,7 +58,6 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        ReceiveMethod.prototype.changReceive = function(index){
 	            var _this = this;
 	            _this.receive = index;
-	        	_this.checkedOffersList = [];
 	        };
 	        //选择人员添加
 			ReceiveMethod.prototype.check = function(val, chk){
@@ -80,6 +95,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 						_.forEach(_this.receiveManList, function(item){
 							_this.receiveMan.push(item);
 						}); 
+						ReceiveMethod.prototype.queryStaffMan();
 						_this.showing = false;
 					}
 				},function() {
@@ -143,12 +159,12 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	            $scope.endDt = datestr;
 	            $scope.$apply();
         	});
-	        $scope.weekPopData = new ReceiveMethod();   			
+	        $scope.weekPopData = new ReceiveMethod();  
+	        $scope.weekPopData.queryStaffMan(); 			
 	        //弹窗显示
 	        $scope.weekPopData.showing = false;
 	        $scope.addReceiveMan = function(){
 	        	$scope.weekPopData.showing = true;
-	        	$scope.weekPopData.queryStaffMan();
 	        	//设置展示的在列表中被选中
 	        	var receiveManFor = _.cloneDeep($scope.weekPopData.receiveMan);
 	        	$scope.weekPopData.checkedOffersList = receiveManFor;
@@ -365,26 +381,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 				            observeParents:true,//修改swiper的父元素时，自动初始化swiper
 				        });
 					}, 100)
-					//切换图状态禁止页面缩放 
-				  	document.addEventListener('touchstart',function (event) {  
-			            if(event.touches.length>1 && swiperStatus){  
-			                event.preventDefault();  
-			            }  
-			        })  
-			        var lastTouchEnd=0;  
-				    document.addEventListener('touchend',function (event) {  
-			            var now=(new Date()).getTime();  
-			            if(now-lastTouchEnd<=300){  
-			                event.preventDefault();  
-			            }  
-			            lastTouchEnd=now;  
-			        },false)
-
-				    document.addEventListener('touchmove',function(e){
-				      if(swiperStatus){
-				            e.preventDefault();
-				        }
-				    })  
+					
 				}
 			}
 		})		
