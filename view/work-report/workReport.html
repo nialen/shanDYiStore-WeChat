@@ -18,35 +18,35 @@
     </div>  
     <!-- 周报 -->
     <div ng-controller="workReportWeekCtrl">
-        <form name="weekReportForm">
+        <form name="weekReportForm" novalidate method="post">
             <div class="content" ng-show="flag === 1">
                 <div class="p-line">
                     <label class="p-label">汇报周期</label>
                     <div class="date">
-                        <input ng-model="weekReportForm.beginDt" id="startDt1" class="date-input" type="text" readonly/>
+                        <input ng-model="weekReportForm.beginDt" id="startDt1" required="required" class="date-input" type="text" readonly/>
                         <i class="date-icon iconfont">&#xe676;</i>
                     </div>
                     <div class="date">
-                        <input ng-model="weekReportForm.endDt" id="endDt1" class="date-input" type="text" readonly/>
+                        <input ng-model="weekReportForm.endDt" id="endDt1" required="required" class="date-input" type="text" readonly/>
                         <i class="date-icon iconfont">&#xe676;</i>
                     </div>
                 </div>
                 <div class="p-line">
                     <label class="p-label">工作总结</label>
                     <div class="cnt-rgt">
-                        <textarea ng-model="weekReportForm.completeContent"></textarea>
+                        <textarea ng-model="weekReportForm.completeContent" required="required"></textarea>
                     </div>
                 </div>
                 <div class="p-line">
                     <label class="p-label">未完成工作</label>
                     <div class="cnt-rgt">
-                        <textarea ng-model="weekReportForm.needComplete"></textarea>
+                        <textarea ng-model="weekReportForm.needComplete" required="required"></textarea>
                     </div>
                 </div>
                 <div class="p-line">
                     <label class="p-label">需要的协助</label>
                     <div class="cnt-rgt">
-                        <textarea ng-model="weekReportForm.needHelp"></textarea>
+                        <textarea ng-model="weekReportForm.needHelp" required="required"></textarea>
                     </div>
                 </div>
                 <ul class="ul-line">
@@ -66,6 +66,9 @@
                                 <a href="javascript:void(0)" class="del" ng-click="img_del($index)"><i class="iconfont">&#xe6cf;</i></a></p>
                             </div>
                         </div>
+                        <!-- 新增 20180403 15:24 -->
+                        <p class="progress" id="progress" ng-show="imgFlag"><span></span></p>
+                        <!-- 新增 20180403 15:24 -->
                         <div class="method">
                             <span class="wrds">发送方式</span>
                             <label class="radioclass"><input type="radio" name="buinessradio" value="1" ng-checked="true" ng-model="weekReportForm.sendMethod"><span>短信</span></label>
@@ -87,7 +90,7 @@
             </div>
             <!-- 底部提交按钮周 -->
             <div class="bottom" ng-show="flag === 1">
-                <button class="submit-btn" ng-click="reportWeekSubmit()">提交</button>
+                <button class="submit-btn" ng-click="reportWeekSubmit()" ng-disabled="!weekReportForm.$valid || !files.length || !weekPopData.receiveMan.length">提交</button>
             </div>
         </form>
         <!-- 添加弹窗周 -->
@@ -131,30 +134,28 @@
     </div>
     <!-- 月报 -->
     <div ng-controller="workReportMonthCtrl">
-        <form name="monthReportForm">
+        <form name="monthReportForm" name="weekReportForm" novalidate method="post">
             <div class="content" ng-show="flag === 2">
                 <div class="p-line">
                     <label class="p-label">汇报周期</label>
-                    <select class="gift-type" ng-model="month">
-                        <option ng-repeat="item in monthList" value="{{item.monthNub}}">{{item.monthNub}}月</option>
-                    </select>
+                    <select class="gift-type" ng-model="month" ng-options="item.monthName for item in monthList" required="required"></select>
                 </div>
                 <div class="p-line">
                     <label class="p-label">工作总结</label>
                     <div class="cnt-rgt">
-                        <textarea ng-model="monthReportForm.completeContent"></textarea>
+                        <textarea ng-model="monthReportForm.completeContent" required="required"></textarea>
                     </div>
                 </div>
                 <div class="p-line">
                     <label class="p-label">未完成工作</label>
                     <div class="cnt-rgt">
-                        <textarea ng-model="monthReportForm.needComplete"></textarea>
+                        <textarea ng-model="monthReportForm.needComplete" required="required"></textarea>
                     </div>
                 </div>
                 <div class="p-line">
                     <label class="p-label">需要的协助</label>
                     <div class="cnt-rgt">
-                        <textarea ng-model="monthReportForm.needHelp"></textarea>
+                        <textarea ng-model="monthReportForm.needHelp" required="required"></textarea>
                     </div>
                 </div>
                 <ul class="ul-line">
@@ -167,7 +168,7 @@
                                 <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" multiple="3">
                             </span>  
                         </div>
-                        <div class="show-img fn-clear" ng-repeat="file in fileser track by $index" ng-show="files.length">
+                        <div class="show-img fn-clear" ng-repeat="file in files track by $index" ng-show="files.length">
                             <p class="sp-img fn-left overflow-handle"><i class="iconfont">&#xe67b;</i><span ng-bind="file.name"></span></p>
                             <div class="show-rgt fn-right">
                                 <a href="javascript:void(0)" class="view" ng-click="viewImg()"><i class="iconfont">&#xe722;</i></a></p>
@@ -193,15 +194,11 @@
                     </li>
                 </ul>
             </div>
-            <!-- 底部提交按钮周 -->
+            <!-- 底部提交按钮月 -->
             <div class="bottom" ng-show="flag === 2">
-                <button class="submit-btn" ng-click="reportWeekSubmit()">提交</button>
+                <button class="submit-btn" ng-click="reportMonthSubmit()" ng-disabled="!monthReportForm.$valid || !files.length || !monthPopData.receiveMan.length">提交</button>
             </div>
         </form>
-        <!-- 底部提交按钮月 -->
-        <div class="bottom" ng-show="flag === 2">
-            <button class="submit-btn" ng-click="reportMonthSubmit()">提交</button>
-        </div>
         <!-- 添加弹窗月 -->
         <div class="add-pop" ng-show="monthPopData.showing">
             <div class="pop-title">选择接收人<a href="javascript:void(0)" class="iconfont" ng-click="popClose()">&#xe633;</a></div>

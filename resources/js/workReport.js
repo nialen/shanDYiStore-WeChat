@@ -14,7 +14,6 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 					'receiveMail': '', 
 				    'receiveNum': ''
 				}];
-				// this.items = [];
                 this.busy = false;
                 this.page = 1;
 	        };
@@ -26,15 +25,11 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        		'curPage': _this.page
 	        	};
 	            httpMethod.queryLinkPeopleByStaffName(params).then(function(rsp) {
-					if (rsp.success) {
-						// _this.manList = rsp.data;
-						// _this.manListFor = _this.manList;
-
+					if (rsp.success) {						
 						var items = rsp.data;
 	                    items.forEach(function(item) {
 	                        _this.manList.push(item);
 	                    });
-	                    // _this.manListFor = _this.manList;
 
 	                    _this.busy = false;
 	                    _this.page += 1;
@@ -128,20 +123,31 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 		        };
 	        
 		        var data = new FormData();      //以下为像后台提交图片数据 通过FormData将文件转成二进制数据
-		        // data.append('image', files[0]);
-		        // data.append('guid',$scope.guid); 
-	
-		        $http({ 
-		            method: 'post',
-		            url: 'http://192.168.74.17:9082/point-manager-web/workReportQueryService/uploadImg',
-		            data:data, //仅仅存放的是文件流数据
-		            headers: {'Content-Type': undefined},
-		            transformRequest: angular.identity
-		        }).success(function(rsp) {
-		            if (rsp.success) {
-		                // 出参
-		            }
-		        })
+		        data.append('image', files[0]);		       
+		        
+ 				// 新增 20180403 15:24 
+		        $.ajax({
+			        url: 'URL',
+			        type: 'POST',
+			        data: data,
+			        processData: false, //用来回避jquery对formdata的默认序列化，XMLHttpRequest会对其进行正确处理  
+			        contentType: false, //设为false才会获得正确的conten-Type  
+			        xhr: function() { //用以显示上传进度  
+			        	$scope.imgFlag = true;
+			            var xhr = $.ajaxSettings.xhr();
+			            if (xhr.upload) {
+			                xhr.upload.addEventListener('progress', function(event) {
+			                    var percent = Math.floor(event.loaded / event.total * 100);
+			                    document.querySelector("#progress span").style.width = percent + "%";
+			                }, false);
+			            }
+			            return xhr
+			        },
+			        success: function(data) {
+			        	$scope.imgFlag = false;
+			        }
+			    })
+		     
 	    	};
 
 		    $scope.img_del = function(key) {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
@@ -176,16 +182,18 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        //模糊查询
 	        $scope.$watch('staffName', function(newValue){
 	        	if(newValue){
-	        		$scope.weekPopData.manListFor = [];
-	        		_.forEach($scope.weekPopData.manList, function(item){
-		        		var reg = new RegExp(newValue);
-						if (item.receiveName.match(reg)){
-							$scope.weekPopData.manListFor.push(item);
-						}
-					}); 
-	        	}else{
-	        		$scope.weekPopData.manListFor = $scope.weekPopData.manList;
+	    //     		$scope.weekPopData.manListFor = [];
+	    //     		_.forEach($scope.weekPopData.manList, function(item){
+		   //      		var reg = new RegExp(newValue);
+					// 	if (item.receiveName.match(reg)){
+					// 		$scope.weekPopData.manListFor.push(item);
+					// 	}
+					// }); 
+					$scope.weekPopData.queryStaffMan();
 	        	}
+	        	// else{
+	        	// 	$scope.weekPopData.manListFor = $scope.weekPopData.manList;
+	        	// }
 	        })
 
 	        //图片预览
@@ -221,13 +229,16 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 		}])
 		.controller('workReportMonthCtrl', ['$scope', '$rootScope', '$timeout', 'httpMethod', '$log', 'ReceiveMethod', function($scope, $rootScope, $timeout, httpMethod, $log, ReceiveMethod){
 	        $scope.monthList = [{
-				monthNub: '1'
+				monthNub: '1',
+				monthName: '一月'
 			},
 			{
-				monthNub: '2'
+				monthNub: '2',
+				monthName: '二月'
 			},
 			{
-				monthNub: '3'
+				monthNub: '3',
+				monthName: '三月'
 			},
 			{
 				monthNub: '4'
@@ -327,7 +338,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        	$rootScope.monthview = false;
 	        }
 
-	        $scope.month = '1';
+	        $scope.month = $scope.monthList[0];
 	        
 	        //月报提交
 	        $scope.reportMonthSubmit = function(){
