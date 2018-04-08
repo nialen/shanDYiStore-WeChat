@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <!-- 新增 20180403 15:24 -->
-                        <p class="progress" id="progress" ng-show="imgFlag"><span></span></p>
+                        <p class="progress" id="progress" ng-show="imgFlag"></p>
                         <!-- 新增 20180403 15:24 -->
                         <div class="method">
                             <span class="wrds">发送方式</span>
@@ -103,9 +103,9 @@
             <!-- 接收人 -->
             <div class="receive" ng-show="weekPopData.receive === 1">
                 <input type="text" class="txt" placeholder="请输入姓名关键字" ng-model="staffName">
-                <div id="receive">
-                    <div class="choices" infinite-scroll="weekPopData.queryStaffMan(staffName)" infinite-scroll-distance='3' infinite-scroll-container="'#receive'">
-                        <p class="one" ng-repeat="man in weekPopData.manList track by $index"><label class="checkbox-class"><input type="checkbox" name="checkbox" ng-change="weekPopData.check(man, man.isChecked)" ng-model="man.isChecked"><span ng-bind="man.receiveName"></span></label><span class="email overflow-handle" ng-bind="man.receiveMail"></span></p>
+                <div id="receive" class="week-receive">
+                    <div class="choices" infinite-scroll="weekPopData.queryStaffMan(staffName)" infinite-scroll-distance='1' infinite-scroll-disabled="weekPopData.busy" infinite-scroll-container="'#receive'">
+                        <p class="one" ng-repeat="man in weekPopData.manList track by $index"><label class="checkbox-class"><input type="checkbox" name="checkbox" ng-change="weekPopData.check(man, man.isChecked)" ng-model="man.isChecked"><span ng-bind="man.receiveName" class="overflow-handle"></span></label><span class="email overflow-handle" ng-bind="man.receiveMail"></span></p>
                         <p class="text-center" ng-if="weekPopData.busy">加载中...</p>
                     </div>
                 </div>
@@ -209,8 +209,11 @@
             <!-- 接收人 -->
             <div class="receive" ng-show="monthPopData.receive === 1">
                 <input type="text" class="txt" placeholder="请输入姓名关键字" ng-model="staffName">
-                <div class="choices">
-                    <p class="one" ng-repeat="man in monthPopData.manListFor"><label class="checkbox-class"><input type="checkbox" name="checkbox" ng-change="monthPopData.check(man, isChecked)" ng-model="isChecked" ng-checked="checkStatus.isCheckedAll"><span ng-bind="man.receiveName"></span></label><span class="email overflow-handle" ng-bind="man.receiveMail"></span></p>
+                <div id="monthReceive" class="week-receive">
+                    <div class="choices" infinite-scroll="monthPopData.queryStaffMan(staffName)" infinite-scroll-distance='1' infinite-scroll-container="'#monthReceive'">
+                        <p class="one" ng-repeat="man in monthPopData.manListFor"><label class="checkbox-class"><input type="checkbox" name="checkbox" ng-change="monthPopData.check(man, isChecked)" ng-model="isChecked" ng-checked="checkStatus.isCheckedAll"><span ng-bind="man.receiveName"></span></label><span class="email overflow-handle" ng-bind="man.receiveMail"></span></p>
+                        <p class="text-center" ng-if="monthPopData.busy">加载中...</p>
+                    </div>
                 </div>
                 <button class="confirm-btn" ng-disabled="!monthPopData.checkedOffersList.length" ng-click="monthPopData.addCheckedReceive()">确定</button>
             </div>
@@ -240,7 +243,7 @@
         <swipers data="weekthumb"></swipers>       
         <a href="javascript:void(0)" class="close iconfont" ng-click="weekviewClose()">&#xe60d;</a>
     </div>
-    <!-- 周报轮播图 -->
+    <!-- 月报轮播图 -->
     <div id="focus" class="focus" ng-show="monthview === true">
         <swipers data="monththumb"></swipers>       
         <a href="javascript:void(0)" class="close iconfont" ng-click="monthviewClose()">&#xe60d;</a>

@@ -1,7 +1,7 @@
 define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'datepicker', 'httpMethod', 'ng-infinite-scroll'], function(angular, $, _, Mock) {
 	angular
 		.module('workReportModule', ['ui.select', 'httpMethod', 'infinite-scroll'])
-		.factory('ReceiveMethod', ['$filter', 'httpMethod', function($filter, httpMethod){
+		.factory('ReceiveMethod', ['$filter', 'httpMethod', '$log', function($filter, httpMethod, $log){
 	        var ReceiveMethod = function() {
 	            this.receive = 1;
 	            this.checkedOffersList = [];
@@ -24,15 +24,27 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        		'staffName': param,
 	        		'curPage': _this.page
 	        	};
+	       
+	            if(_this.busy){
+					return;
+				}//判断当前数据是否请求完成
+	            _this.busy = true;
 	            httpMethod.queryLinkPeopleByStaffName(params).then(function(rsp) {
-					if (rsp.success) {						
-						var items = rsp.data;
-	                    items.forEach(function(item) {
-	                        _this.manList.push(item);
-	                    });
-
-	                    _this.busy = false;
-	                    _this.page += 1;
+					if (rsp.success) {	
+						if(rsp.data.length > 0){
+							var items = rsp.data;
+		                    items.forEach(function(item) {
+		                        _this.manList.push(item);
+		                    });
+		                    _this.busy = false;
+		                    _this.page += 1;
+		                    if(_this.page > rsp.data.total){
+								this.busy = true;
+							}
+						}else{
+							_this.busy = true;
+						}
+						
 
 						//根据展示的数据显示已选择的对象
 						var	receiveManFor = _.cloneDeep(_this.receiveMan);
@@ -43,10 +55,15 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 								}
 							})
 						})
+
+						$log.log('调用接口成功.');
+					}else{
+						_this.busy = true;
 					}
 				},function() {
 					$log.log('调用接口失败.');
 				});
+			
 	        };
 
 	        //添加人员模式切换
@@ -165,11 +182,13 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	            $scope.endDt = datestr;
 	            $scope.$apply();
         	});
-	        $scope.weekPopData = new ReceiveMethod();  
+	        $scope.weekPopData = new ReceiveMethod();
+	        $scope.weekPopData.busy = true;
 	        $scope.weekPopData.queryStaffMan(); 			
 	        //弹窗显示
 	        $scope.weekPopData.showing = false;
 	        $scope.addReceiveMan = function(){
+	        	$scope.weekPopData.busy = false;
 	        	$scope.weekPopData.showing = true;
 	        	//设置展示的在列表中被选中
 	        	var receiveManFor = _.cloneDeep($scope.weekPopData.receiveMan);
@@ -305,15 +324,21 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 		    };
 
 	        $scope.monthPopData = new ReceiveMethod();
+	        $scope.monthPopData.queryStaffMan();
+	        $scope.monthPopData.busy = true;
 	        //弹窗显示
 	        $scope.monthPopData.showing = false;
 	        $scope.addReceiveMan = function(){
+	        	$scope.monthPopData.busy = false;
 	        	$scope.monthPopData.showing = true;
+	        	//设置展示的在列表中被选中
+	        	var receiveManFor = _.cloneDeep($scope.monthPopData.receiveMan);
+	        	$scope.monthPopData.checkedOffersList = receiveManFor;
 	        }
 	        $scope.popClose = function(){
 	        	$scope.monthPopData.showing = false;
 	        }
-	        $scope.monthPopData.queryStaffMan();
+
 	        //模糊查询
 	        $scope.$watch('staffName', function(newValue){
 	        	if(newValue){

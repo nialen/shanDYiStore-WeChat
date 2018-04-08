@@ -102,6 +102,7 @@
 }
 
 .show-img{
+	display: flex;
 	margin-top: 12px;
 }
 .sp-img {

@@ -47,8 +47,8 @@
                     <span class="remind"><i class="iconfont">&#xe7a1;</i> 发送给</span>
                 </div>
                 <div class="show-img" ng-repeat="item in workReportList.sendPeople">
-                    <div class="info overflow-handle"><i class="iconfont">&#xe663;</i>{{item.receiveName}}</div>
-                    <div class="info-email overflow-handle"><i class="iconfont">&#xe61b;</i>{{item.receiveMail}}</div>
+                    <div class="info overflow-handle"><i class="iconfont">&#xe663;</i><span ng-bind="item.receiveName"></span></div>
+                    <div class="info-email overflow-handle"><i class="iconfont">&#xe61b;</i><span ng-bind="item.receiveMail"></span></div>
                 </div>
             </li>
         </ul>
