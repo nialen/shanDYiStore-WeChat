@@ -104,9 +104,10 @@
             <div class="receive" ng-show="weekPopData.receive === 1">
                 <input type="text" class="txt" placeholder="请输入姓名关键字" ng-model="staffName">
                 <div id="receive" class="week-receive">
-                    <div class="choices" infinite-scroll="weekPopData.queryStaffMan(staffName)" infinite-scroll-distance='1' infinite-scroll-disabled="weekPopData.busy" infinite-scroll-container="'#receive'">
+                    <div class="choices" infinite-scroll="weekPopData.queryStaffMan(staffName)" infinite-scroll-distance='0' infinite-scroll-disabled="weekPopData.busy" infinite-scroll-container="'#receive'">
                         <p class="one" ng-repeat="man in weekPopData.manList track by $index"><label class="checkbox-class"><input type="checkbox" name="checkbox" ng-change="weekPopData.check(man, man.isChecked)" ng-model="man.isChecked"><span ng-bind="man.receiveName" class="overflow-handle"></span></label><span class="email overflow-handle" ng-bind="man.receiveMail"></span></p>
-                        <p class="text-center" ng-if="weekPopData.busy">加载中...</p>
+                        <p class="text-center" ng-if="weekPopData.bottom">数据已加载完</p>
+                        <p class="text-center" ng-if="weekPopData.busy && !weekPopData.bottom">加载中...</p>
                     </div>
                 </div>
                 <button class="confirm-btn" ng-disabled="!weekPopData.checkedOffersList.length" ng-click="weekPopData.addCheckedReceive()">确定</button>

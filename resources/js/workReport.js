@@ -16,6 +16,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 				}];
                 this.busy = false;
                 this.page = 1;
+                this.bottom = false;
 	        };
 	        //人员搜索
 	        ReceiveMethod.prototype.queryStaffMan =  function(param){
@@ -37,15 +38,17 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 		                        _this.manList.push(item);
 		                    });
 		                    _this.busy = false;
+		                    _this.bottom = false;
 		                    _this.page += 1;
 		                    if(_this.page > rsp.data.total){
-								this.busy = true;
+								_this.busy = true;
+								_this.bottom = true;
 							}
 						}else{
 							_this.busy = true;
+							_this.bottom = true;
 						}
 						
-
 						//根据展示的数据显示已选择的对象
 						var	receiveManFor = _.cloneDeep(_this.receiveMan);
 						_.map(receiveManFor, function(item){
@@ -128,6 +131,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 		    $rootScope.weekthumb = [];      //用于存放图片的base64
 		    $scope.files = []; 
 		    $scope.img_upload = function(files) {       //单次提交图片的函数
+		    	// $scope.imgFlag = true;
 		    	$scope.files.push(files[0]);
 		        $scope.reader.readAsDataURL(files[0]);  //FileReader的方法，把图片转成base64
 		        $scope.reader.onload = function(ev) {
@@ -150,7 +154,7 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 			        processData: false, //用来回避jquery对formdata的默认序列化，XMLHttpRequest会对其进行正确处理  
 			        contentType: false, //设为false才会获得正确的conten-Type  
 			        xhr: function() { //用以显示上传进度  
-			        	$scope.imgFlag = true;
+			        	
 			            var xhr = $.ajaxSettings.xhr();
 			            if (xhr.upload) {
 			                xhr.upload.addEventListener('progress', function(event) {
@@ -184,7 +188,6 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
         	});
 	        $scope.weekPopData = new ReceiveMethod();
 	        $scope.weekPopData.busy = true;
-	        $scope.weekPopData.queryStaffMan(); 			
 	        //弹窗显示
 	        $scope.weekPopData.showing = false;
 	        $scope.addReceiveMan = function(){
@@ -201,18 +204,11 @@ define(['angular', 'jquery', 'lodash', 'mock', 'select', 'swiper', 'iscroll', 'd
 	        //模糊查询
 	        $scope.$watch('staffName', function(newValue){
 	        	if(newValue){
-	    //     		$scope.weekPopData.manListFor = [];
-	    //     		_.forEach($scope.weekPopData.manList, function(item){
-		   //      		var reg = new RegExp(newValue);
-					// 	if (item.receiveName.match(reg)){
-					// 		$scope.weekPopData.manListFor.push(item);
-					// 	}
-					// }); 
+					$scope.weekPopData.busy = false;
+		        	$scope.weekPopData.manList = [];
+		        	$scope.weekPopData.page = 1 ; 	 
 					$scope.weekPopData.queryStaffMan();
 	        	}
-	        	// else{
-	        	// 	$scope.weekPopData.manListFor = $scope.weekPopData.manList;
-	        	// }
 	        })
 
 	        //图片预览
