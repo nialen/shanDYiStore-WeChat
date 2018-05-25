@@ -1,0 +1,86 @@
+body{
+	background-color: #f3f3f3;
+}
+/* 通用头部 */
+.header {
+	position: relative;
+	width: 100%;
+	height: 40px;
+	background-color: #ff8c19;
+	line-height: 40px;
+	color: #fff;
+	font-size: 15px;
+	text-align: center;
+	overflow: hidden;
+}
+
+.header .back {
+	position: absolute;
+	top: 0;
+	left: 15px;
+	color: #fff;
+	text-decoration: none;
+}
+
+.header .back:before {
+	content: '\e622';
+	margin-right: 5px;
+	font-family: 'iconfont';
+}
+
+.header .title {
+	margin: 0 80px;
+	font-size: 17px;
+}
+
+.header .title .iconfont {
+	font-size: 17px;
+}
+
+.header .city {
+	position: absolute;
+	top: 0;
+	right: 15px;
+}
+
+.header .city:after {
+	content: '\e600';
+	margin-left: 5px;
+	font-family: 'iconfont';
+}
+/*通用头部*/
+.top-header{
+	height: 45px;
+	line-height: 45px;
+	background: #fff;
+	color: #000;
+	font-size: 15px;
+	border-bottom: 1px solid #e4e4e4;
+	text-indent: 18px;
+}
+.time{
+	margin: 12px 0 6px;
+	font-size: 11px;
+	color: #8f8f8f;
+	text-align: center;
+}
+.cnt-detail{
+	margin: 0 16px;	
+	padding-bottom: 12px;
+	line-height: 22px;
+	border-bottom: 1px solid #d2d2d2;
+	color: #626262;
+	font-size: 14px;
+	text-indent: 10px;
+}
+.update-img{
+	margin: 15px 16px;	
+	text-align: center;
+}
+.update-img li{
+	margin: 0 auto 15px;
+	text-align: center;
+}
+.update-img li img{
+	max-width: 100%;
+}

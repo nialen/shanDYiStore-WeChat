@@ -1,0 +1,38 @@
+.my-customer{
+    background-color: #fff;
+}
+.my-customer li{
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    background-size: 20px 20px;
+    overflow: hidden;
+}
+.my-customer li img{
+    display: block;
+    width: 55px;
+    height: 55px;
+    margin: 20px 8px 20px 19px;
+}
+.my-customer li .info .p1{
+    width: 94%;
+    margin: 20px 0 4px 0;
+    font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.my-customer li .info .p1 span{
+    display:inline-block;
+    padding:2px 4px;
+    background-color: #ff8c1a;
+    color: #fff;
+    font-size: 10px;
+    margin-right: 5px;
+    border-radius: 2px;
+}
+.my-customer li .info .p2{
+    width: 94%;
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 9px;
+}

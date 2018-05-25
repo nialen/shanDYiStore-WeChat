@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=1.0">
+    <title>客户详情</title>
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="../../resources/css/select.css">
+    <link rel="stylesheet" href="../../resources/css/myCustomerDetail.css">
+</head>
+<body >
+<div class="header">
+    <img src="../../resources/images/icon-house.png" class="house">
+    <div class="wrds fn-clear">
+        <p class="p1">山东广电网络有限公司昌邑分公司</p>
+        <p class="p2">李明</p>
+    </div>
+</div>
+<div class="info-title">客户信息详情：</div>
+<ul class="info">
+    <li><div class="wrds"><span>老板联系电话：</span>{{}}</div><a class="iconfont" href="javascript:phone('18362969372')">&#xe609;</a></li>
+    <li><div class="wrds"><span>终端业务负责人姓名：</span>王磊</div></li>
+    <li><div class="wrds"><span>终端业务负责人电话：</span>15261807555</div><a class="iconfont" href="javascript:phone('18362969372')">&#xe609;</a></li>
+    <li><div class="wrds"><span>客商分级：</span>XXX</div></li>
+    <li><div class="wrds"><span>客户地址：</span>江苏省南京市鼓楼区虎踞北路22号</div></li>
+    <li><div class="wrds"><span>关联渠道：</span>xxx渠道、xx渠道、xxxx渠道江苏新奇特XXX经营XXX</div><i class="iconfont">&#xe628;</i></li>
+</ul>
+<ul class="goods-num">
+    <li>天翼购提货量</li>
+    <li class="on">客户提货积分</li>
+</ul>
+<div class="num-detail ty" style="display: none">
+    <div class="num-info day">
+        <span class="circle">2</span>
+        <p>日</p>
+    </div>
+    <div class="num-info week">
+        <span class="circle">0</span>
+        <p>周</p>
+    </div>
+    <div class="num-info month">
+        <span class="circle">0</span>
+        <p>月</p>
+    </div>
+</div>
+<div class="num-detail cus">
+    <div class="num-info day">
+        <span class="circle">2</span>
+        <p>日</p>
+    </div>
+    <div class="num-info week">
+        <span class="circle">0</span>
+        <p>周</p>
+    </div>
+    <div class="num-info month">
+        <span class="circle">0</span>
+        <p>月</p>
+    </div>
+</div>
+<script>
+    function phone(date) {
+        window.location.href = 'tel://' + date;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=1.0">
+    <title>版本更新详情</title>
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="../../resources/css/updateInstruction/updateDetail.css">
+</head>
+
+<body ng-controller="homeCtrl" ng-cloak>
+    <div class="header">
+        <a href="javascript:history.go(-1)" class="back">返回</a>
+        <p class="title">版本更新详情</p>
+    </div>
+    <div class="top-header" ng-bind="updateSysVerDetail.versionTitle"></div>
+    <p class="time" ng-bind="updateSysVerDetail.versionDate"></p>
+    <div class="cnt-detail" ng-bind="updateSysVerDetail.versionContent"></div>
+    <ul class="update-img">
+        <li ng-repeat="item in updateSysVerDetail.picInfo">
+            <img ng-src="{{item.fileDir}}/{{item.fileName}}">
+        </li>
+    </ul>
+    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/updateInstruction/updateDetail.js" target-module="updateDetailModule"></script>
+</body>
+
+</html>

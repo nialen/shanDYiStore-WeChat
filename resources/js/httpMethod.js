@@ -65,6 +65,32 @@ angular
 					'POST'
 				);
 			};
+            //版本说明列表查询客户端
+            httpMethod.versionQueryListByClient = function(params) {
+                return httpServer(httpConfig.siteUrl + '/channel-mobile-web/versionService/versionQueryListByClient', params, 'POST');
+            };
+            //版本说明详情查询客户端
+            httpMethod.versionQueryClientById = function(params) {
+                return httpServer(httpConfig.siteUrl + '/channel-mobile-web/versionService/versionQueryClientById', params, 'POST');
+            };
+
+            //我的客户部分
+            //客户列表查询接口
+            httpMethod.queryMyCustListByClient = function(params) {
+                return httpServer(httpConfig.siteUrl + '/channel-mobile-web/myCustomerService/queryMyCustListByClient', params, 'POST');
+            };
+            //客户详情接口
+            httpMethod.custDetail = function(params) {
+                return httpServer(httpConfig.siteUrl + '/channel-mobile-web/myCustomerService/custDetail', params, 'POST');
+            };
+            //关联渠道列表接口
+            httpMethod.quertChannelListByCustId = function(params) {
+                return httpServer(httpConfig.siteUrl + '/channel-mobile-web/myCustomerService/quertChannelListByCustId', params, 'POST');
+            };
+            //通讯录接口
+            httpMethod.phoneList = function(params) {
+                return httpServer(httpConfig.siteUrl + '/channel-mobile-web/phoneService/phoneList', params, 'POST');
+            };
 			return httpMethod;
 		}
 	]);

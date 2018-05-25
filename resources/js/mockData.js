@@ -93,4 +93,144 @@
 		}
 	});
 
+    //版本说明列表查询客户端
+    Mock.mock(new RegExp('\/channel-mobile-web/versionService/versionQueryListByClient'), {
+        'rsphead': 's',
+        'success': 'true', //是否成功true/失败false
+        'code': null,
+        'msg': null, //失败信息
+        'error': null,
+        'data': {
+            'total': 100,
+            'rows|12': [{
+                'versionId': '@id',
+                'versionTitle': '@cword(5)',
+                'versionDate': '@date',
+                'versionNum|1-5': 1,
+                'versionSys|+1': [1, 2],
+                'versionTerminal|+1': [1, 2, 3],
+                'versionContent': '@cword(20)'
+            }]
+        }
+    });
+    //版本说明详情查询客户端
+    Mock.mock(new RegExp('\/channel-mobile-web/versionService/versionQueryClientById'), {
+        'rsphead': 's',
+        'success': 'true', //是否成功true/失败false
+        'code': null,
+        'msg': null, //失败信息
+        'error': null,
+        'data': {
+            'versionId': '@id',
+            'versionTitle': '@cword(5)',
+            'versionDate': '@date',
+            'versionNum|1-5': 5,
+            'versionSys|+1': [1, 2],
+            'versionTerminal|+1': [1, 2, 3],
+            'versionContent': '@cword(100)',
+            'picInfo|3': [{
+                'fileId': '@id',
+                'objCd': '@id',
+                'objId': '@id',
+                'fileType|+1': [1, 2],//picInfo照片信息固定传1,fileInfo附件信息固定传2
+                'fileDir':'../../resources/images',
+                'fileName|+1':['img1.jpg', 'img2.jpg', 'img3.jpg'],
+                'fileUuid': '',//文件UUID
+                'filePostfix': ''//文件后缀
+            }]
+        }
+    });
+
+    //客户列表查询
+    Mock.mock(new RegExp('\/channel-mobile-web/myCustomerService/queryMyCustListByClient'), {
+        'rsphead': 's',
+        'success': 'true', //是否成功true/失败false
+        'code': null,
+        'msg': null, //失败信息
+        'error': null,
+        'data': {
+            'total': 100,
+            'rows|12': [{
+                'custId': '@id',
+				'custName': '@cname',
+				'custStatus': '',
+				'bossName': '@cname',
+				'bossPhone': '13378828222',
+				'terminalPersonName': '@cname',
+				'terminalPersonPhone': '13378828999',
+				'custLevel': '',
+				'custAddr': '@cword(8)',
+				'custChannelNum': '',
+				'tygGoodsByDay|1-10': 5,//天翼购提货量，当日
+				'tygGoodsByWeek|1-50': 20,//天翼购提货量，当周
+				'tygGoodsByMonth|1-100': 30,//天翼购提货量，当月
+				'pointByDay|1-10': 5,//提货积分，当日
+				'pointByWeek|1-50': 20,//提货积分，当周
+				'pointByMonth|1-100': 30,//提货积分，当月
+			}]
+        }
+    });
+
+    //客户详情
+    Mock.mock(new RegExp('\/channel-mobile-web/myCustomerService/custDetail'), {
+        'rsphead': 's',
+        'success': 'true', //是否成功true/失败false
+        'code': null,
+        'msg': null, //失败信息
+        'error': null,
+        'data': {
+                'custId': '@id',
+                'custName': '@cname',
+                'custStatus': '',
+                'bossName': '@cname',
+                'bossPhone': '13378828222',
+                'terminalPersonName': '@cname',
+                'terminalPersonPhone': '13378828999',
+                'custLevel': '',
+                'custAddr': '@cword(8)',
+                'custChannelNum': '',
+                'tygGoodsByDay|1-10': 5,//天翼购提货量，当日
+                'tygGoodsByWeek|1-50': 20,//天翼购提货量，当周
+                'tygGoodsByMonth|1-100': 30,//天翼购提货量，当月
+                'pointByDay|1-10': 5,//提货积分，当日
+                'pointByWeek|1-50': 20,//提货积分，当周
+                'pointByMonth|1-100': 30,//提货积分，当月
+        }
+    });
+
+    //关联渠道列表
+    Mock.mock(new RegExp('\/channel-mobile-web/myCustomerService/quertChannelListByCustId'), {
+        'rsphead': 's',
+        'success': 'true', //是否成功true/失败false
+        'code': null,
+        'msg': null, //失败信息
+        'error': null,
+        'data': {
+            'total': 100,
+            'rows|12': [{
+                'channelId': '@id',
+				'channelName': '@cword(5)',
+				'channelAddr': '@cword(5)',
+				'channelStatus': ''
+			}]
+        }
+    });
+
+    //通讯录
+    Mock.mock(new RegExp('\/channel-mobile-web/phoneService/phoneList'), {
+        'rsphead': 's',
+        'success': 'true', //是否成功true/失败false
+        'code': null,
+        'msg': null, //失败信息
+        'error': null,
+        'data': {
+            'total': 100,
+            'rows|12': [{
+                'staffId': '@id',
+				'staffName': '@cname',
+				'staffPhone': '13382928321',
+				'staffRole': '@cword(5)'
+            }]
+        }
+    });
 });

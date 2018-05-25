@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=1.0">
+    <title>功能介绍</title>
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="../../resources/css/updateInstruction/updateList.css">
+</head>
+
+<body ng-controller="homeCtrl" ng-cloak>
+    <div class="header">
+        <a href="javascript:history.go(-1)" class="back">返回</a>
+        <p class="title">功能介绍</p>
+    </div>
+    <ul class="update-list" infinite-scroll="updateQuery.querySysVer()" infinite-scroll-distance='3'>
+        <li ng-repeat="item in updateQuery.updateSysVerList" ng-click="goToUpdateDetail(item)">
+            <p class="p1" ng-bind="item.versionTitle"></p>
+            <p class="p2" ng-bind="item.versionDate"></p>
+        </li>
+    </ul>
+    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/updateInstruction/updateList.js" target-module="updateListModule"></script>
+</body>
+
+</html>

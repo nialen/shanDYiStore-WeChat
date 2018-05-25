@@ -1,0 +1,54 @@
+body{
+    background-color: #ebebeb;
+}
+.search{
+    width: calc(92% - 36px);
+    margin: 11px auto;
+    height: 36px;
+    padding: 0 18px;
+    border: 1px solid #dadada;
+    border-radius: 36px;
+    background: #fff url(../images/search-bg.png) no-repeat calc(100% - 18px) center;
+    background-size: 22px 20px;
+}
+.search input{
+    width: calc(100% - 26px);
+    height: 34px;
+    font-size: 14px;
+}
+.search input::placeholder{
+    color: #b6b6b6;
+}
+.tel-list{
+    width: 100%;
+    background-color: #fff;
+}
+.tel-list li{
+    display: flex;
+    justify-content: space-between;
+    height: 53px;
+    line-height: 53px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 14px;
+}
+.tel-list li .name{
+    display:block;
+    width: 95px;
+    text-indent: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.tel-list li .tel{
+    display:block;
+    width: calc(100% - 95px - 56px);
+    text-align: center;
+}
+.tel-list li a{
+    display:block;
+    width: 56px;
+    text-align: center;
+    color: #ffb31a;
+    font-size: 20px;
+    text-decoration: none;
+}
