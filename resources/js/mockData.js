@@ -153,12 +153,13 @@
             'rows|12': [{
                 'custId': '@id',
 				'custName': '@cname',
-				'custStatus': '',
+                'custPhone': '13378828222',
+				'custStatus|+1': [1000, 1001, 1002, 1100],
 				'bossName': '@cname',
 				'bossPhone': '13378828222',
 				'terminalPersonName': '@cname',
 				'terminalPersonPhone': '13378828999',
-				'custLevel': '',
+				'custLevel|+1': [1000, 1100, 1200, 1300],
 				'custAddr': '@cword(8)',
 				'custChannelNum': '',
 				'tygGoodsByDay|1-10': 5,//天翼购提货量，当日
@@ -181,14 +182,14 @@
         'data': {
                 'custId': '@id',
                 'custName': '@cname',
-                'custStatus': '',
+                'custStatus|+1':  [1000, 1001, 1002, 1100],//渠道状态：1000有效,1001主动暂停,1002异常暂停,1100失效
                 'bossName': '@cname',
                 'bossPhone': '13378828222',
                 'terminalPersonName': '@cname',
-                'terminalPersonPhone': '13378828999',
-                'custLevel': '',
+                'terminalPersonPhone': '18978828999',
+                'custLevel|+1': [1000, 1100, 1200, 1300],//1000集团级,1100省级,1200本地网级,1300本地网以下级
                 'custAddr': '@cword(8)',
-                'custChannelNum': '',
+                'custChannelNum|1-10': 10,
                 'tygGoodsByDay|1-10': 5,//天翼购提货量，当日
                 'tygGoodsByWeek|1-50': 20,//天翼购提货量，当周
                 'tygGoodsByMonth|1-100': 30,//天翼购提货量，当月
@@ -211,7 +212,7 @@
                 'channelId': '@id',
 				'channelName': '@cword(5)',
 				'channelAddr': '@cword(5)',
-				'channelStatus': ''
+				'channelStatus|+1': [1000, 1001, 1002, 1100]//渠道状态：1000有效,1001主动暂停,1002异常暂停,1100失效
 			}]
         }
     });

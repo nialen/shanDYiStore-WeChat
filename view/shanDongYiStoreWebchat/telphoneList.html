@@ -9,31 +9,17 @@
     <link rel="stylesheet" href="../../resources/css/select.css">
     <link rel="stylesheet" href="../../resources/css/telphoneList.css">
 </head>
-<body >
+<body ng-controller="homeCtrl" ng-cloak>
 <div class="search">
-    <input type="text" placeholder="输入姓名或手机号码搜索">
+    <input type="text" placeholder="输入姓名或手机号码搜索" ng-model="str">
 </div>
-<ul class="tel-list">
-    <li>
-        <span class="name">李明</span>
-        <span class="tel">15651806999</span>
-        <a class="iconfont" href="javascript:">&#xe6d6;</a>
-    </li>
-    <li>
-        <span class="name">古力娜扎</span>
-        <span class="tel">15651806999</span>
-        <a class="iconfont" href="javascript:">&#xe6d6;</a>
-    </li>
-    <li>
-        <span class="name">李明</span>
-        <span class="tel">15651806999</span>
-        <a class="iconfont" href="javascript:">&#xe6d6;</a>
-    </li>
-    <li>
-        <span class="name">李明</span>
-        <span class="tel">15651806999</span>
-        <a class="iconfont" href="javascript:">&#xe6d6;</a>
+<ul class="tel-list" infinite-scroll="customerQuery.queryMyCustomer(str)" infinite-scroll-distance='3'>
+    <li ng-repeat="item in customerQuery.phoneList">
+        <span class="name">{{item.staffName}}</span>
+        <span class="tel">{{item.staffPhone}}</span>
+        <a class="iconfont call-tel" href="#" ng-click="phone(item.staffPhone)">&#xe6d6;</a>
     </li>
 </ul>
 </body>
+<script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/telphoneList.js" target-module="telphoneListModule"></script>
 </html>

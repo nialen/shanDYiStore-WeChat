@@ -9,29 +9,16 @@
     <link rel="stylesheet" href="../../resources/css/select.css">
     <link rel="stylesheet" href="../../resources/css/relationStore.css">
 </head>
-<body >
-<ul class="my-customer">
-    <li>
-        <img src="../../resources/images/icon-yel-store.png">
-        <div class="info">
-            <p class="p1"><span>有效</span>江苏新奇特XXX经营XXX</p>
-            <p class="p2">江苏省南京市玄武区中央路2号鼓楼天翼广场1楼电信营业厅广场1楼电信营业厅广场1楼电信营业厅</p>
-        </div>
-    </li>
-    <li>
-        <img src="../../resources/images/icon-yel-store.png">
-        <div class="info">
-            <p class="p1"><span>有效</span>江苏新奇特XXX经营XXX</p>
-            <p class="p2">江苏省南京市浦口区江北高新路12号</p>
-        </div>
-    </li>
-    <li>
-        <img src="../../resources/images/icon-yel-store.png">
-        <div class="info">
-            <p class="p1"><span>有效</span>江苏新奇特XXX经营XXX</p>
-            <p class="p2">江苏省南京市浦口区江北高新路12号</p>
-        </div>
-    </li>
-</ul>
+<body ng-controller="homeCtrl" ng-cloak>
+    <ul class="my-customer" infinite-scroll="relationStore.queryRelationStore(myCustomerList.custId)" infinite-scroll-distance='3'>
+        <li ng-repeat="item in relationStore.relationStoreList">
+            <img src="../../resources/images/icon-yel-store.png">
+            <div class="info">
+                <p class="p1"><span ng-bind="item.channelStatus | channelStatusName" ng-class="{'org': item.channelStatus == 1000, 'grey': item.channelStatus == 1100, 'red': item.channelStatus == 1002, 'blue': item.channelStatus == 1001}"></span>{{item.channelName}}</p>
+                <p class="p2" ng-bind="item.channelAddr"></p>
+            </div>
+        </li>
+    </ul>
+    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/relationStore.js" target-module="relationStoreModule"></script>
 </body>
 </html>

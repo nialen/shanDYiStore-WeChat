@@ -13,6 +13,9 @@
     height: 55px;
     margin: 20px 8px 20px 19px;
 }
+.my-customer li .info{
+    width:calc(100% - 55px - 19px);
+}
 .my-customer li .info .p1{
     width: 94%;
     margin: 20px 0 4px 0;
@@ -24,11 +27,22 @@
 .my-customer li .info .p1 span{
     display:inline-block;
     padding:2px 4px;
-    background-color: #ff8c1a;
     color: #fff;
     font-size: 10px;
     margin-right: 5px;
     border-radius: 2px;
+}
+.my-customer li .info .p1 span.org{
+    background-color: #ff8c1a;
+}
+.my-customer li .info .p1 span.grey{
+    background-color: #999999;
+}
+.my-customer li .info .p1 span.blue{
+    background-color: #239efd;
+}
+.my-customer li .info .p1 span.red{
+    background-color: #f4503f;
 }
 .my-customer li .info .p2{
     width: 94%;

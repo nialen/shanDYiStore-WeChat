@@ -6,12 +6,15 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
                 this.busy = false;
                 this.page = 1;
                 this.pageSize = 10;
-                this.updateSysVerList = [];
+                this.myCustomerList = [];
             };
             //版本更新查询
-            CustomerQuery.prototype.querySysVer =  function(){
+            CustomerQuery.prototype.queryMyCustomer =  function(type, regionId, name){
                 var _this = this,
                     params = {
+                        'customerType': type,
+                        'commonRegionId': regionId,
+                        'custName': name,
                         'curPage': _this.page,
                         'pageSize': _this.pageSize
                     };
@@ -19,12 +22,12 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
                     return;
                 }//判断当前数据是否请求完成
                 _this.busy = true;
-                httpMethod.versionQueryListByClient(params).then(function(rsp) {
+                httpMethod.queryMyCustListByClient(params).then(function(rsp) {
                     if (rsp.success) {
                         if(rsp.data.rows.length > 0){
                             var items = rsp.data.rows;
                             items.forEach(function(item) {
-                                _this.updateSysVerList.push(item);
+                                _this.myCustomerList.push(item);
                             });
                             _this.busy = false;
                             _this.page += 1;
@@ -44,29 +47,44 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
             };
             return CustomerQuery;
         }])
-        .filter('typeName', function(){
+        .filter('custStatusName', function(){
             return function(value){
                 switch(value){
-                    case 'L':
-                        return '直播中';
+                    case 1000:
+                        return '有效';
                         break;
-                    case 'N':
-                        return '未开播';
+                    case 1001:
+                        return '主动暂停';
                         break;
-                    case 'R':
-                        return '录播';
+                    case 1002:
+                        return '异常暂停';
+                        break;
+                    case 1100:
+                        return '失效';
                         break;
                 }
             }
         })
-        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', 'UpdateQuery', function($scope, $rootScope, $log, httpMethod, $sessionStorage, UpdateQuery) {
+        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', 'CustomerQuery', function($scope, $rootScope, $log, httpMethod, $sessionStorage, CustomerQuery) {
 
             $scope.customerQuery = new CustomerQuery();
-
+            $scope.customerTypeList = [{
+                customerType:1000,
+                customerTypeName:'集团级'
+            },{
+                customerType:1100,
+                customerTypeName:'省级'
+            },{
+                customerType:1200,
+                customerTypeName:'本地网级'
+            },{
+                customerType:1300,
+                customerTypeName:'本地网以下级'
+            }];
             //跳转至详情页
-            $scope.goToUpdateDetail = function(updateSysVerList){
-                $sessionStorage[updateSysVerList.versionId] = JSON.stringify(updateSysVerList);
-                window.open('../../view/updateInstruction/updateDetail.html?versionId=' + updateSysVerList.versionId, '_self');
+            $scope.goToDetail = function(myCustomerList){
+                $sessionStorage[myCustomerList.custId] = JSON.stringify(myCustomerList);
+                window.open('../../view/shanDongYiStoreWebchat/myCustomerDetail.html?versionId=' + myCustomerList.custId, '_self');
             }
 
         }])

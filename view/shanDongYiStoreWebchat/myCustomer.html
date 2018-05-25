@@ -12,38 +12,26 @@
 <body ng-controller="homeCtrl" ng-cloak>
     <div class="header">
         <div class="selection">
-            <select class="gift-type" ng-model="month" ng-options="item.monthName for item in monthList" required="required"></select>
+            <select class="gift-type" ng-model="customerTypeFor" ng-options="item.customerTypeName for item in customerTypeList" required="required">
+                <option value="">客户筛选</option>
+            </select>
         </div>
         <div class="selection">
-            <select class="gift-type" ng-model="month" ng-options="item.monthName for item in monthList" required="required"></select>
+            <select class="gift-type" ng-model="city" ng-options="item.cityName for item in cityList" required="required">
+                <option value="">全部地区</option>
+            </select>
         </div>
     </div>
     <div class="search">
-        <input type="text" placeholder="输入客户名称关键字查询">
+        <input type="text" placeholder="输入客户名称关键字查询" ng-model="custName">
     </div>
-    <ul class="my-customer">
-        <li>
+    <ul class="my-customer" infinite-scroll="customerQuery.queryMyCustomer(customerTypeFor.customerType, city.cityId, custName)" infinite-scroll-distance='3'>
+        <li ng-repeat="item in customerQuery.myCustomerList" ng-click="goToDetail(item)">
             <img src="../../resources/images/icon-yel-tel.png">
             <div class="info">
-                <p class="p1"><span>有效</span>江苏新奇特XXX经营XXX</p>
-                <p class="p2">李明</p>
-                <p class="p2">15651806999</p>
-            </div>
-        </li>
-        <li>
-            <img src="../../resources/images/icon-yel-tel.png">
-            <div class="info">
-                <p class="p1"><span>有效</span>江苏新奇特XXX经营XXX</p>
-                <p class="p2">李明</p>
-                <p class="p2">15651806999</p>
-            </div>
-        </li>
-        <li>
-            <img src="../../resources/images/icon-yel-tel.png">
-            <div class="info">
-                <p class="p1"><span>有效</span>江苏新奇特XXX经营XXX</p>
-                <p class="p2">李明</p>
-                <p class="p2">15651806999</p>
+                <p class="p1"><span ng-bind="item.custStatus | custStatusName" ng-class="{'org': item.custStatus == 1000, 'grey': item.custStatus == 1100, 'red': item.custStatus == 1002, 'blue': item.custStatus == 1001}"></span>{{item.custAddr}}</p>
+                <p class="p2">{{item.custName}}</p>
+                <p class="p2">{{item.custPhone}}</p>
             </div>
         </li>
     </ul>

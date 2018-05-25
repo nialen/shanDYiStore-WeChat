@@ -1,21 +1,6 @@
 define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStorage'], function(angular, $, httpMethod, _) {
     angular
         .module('updateDetailModule', ['httpMethod', 'ngStorage'])
-        .filter('typeName', function(){
-            return function(value){
-                switch(value){
-                    case 'L':
-                        return '直播中';
-                        break;
-                    case 'N':
-                        return '未开播';
-                        break;
-                    case 'R':
-                        return '录播';
-                        break;
-                }
-            }
-        })
         .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', function($scope, $rootScope, $log, httpMethod, $sessionStorage) {
             function GetQueryString(name) {
                 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");

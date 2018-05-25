@@ -68,9 +68,13 @@
 	background-size: 10px 17px;
 }
 .update-list li .p1{
+	width: calc(100% - 45px);
 	margin: 11px 0 6px;
 	font-size: 15px;
 	color: #000;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 .update-list li .p2{
 	color: #8f8f8f;
