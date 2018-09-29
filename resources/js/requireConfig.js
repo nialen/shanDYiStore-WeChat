@@ -23,6 +23,7 @@ require.config({
 		'ngJqueryDialog': './ngJqueryDialog',
 		'httpServer': './httpServer',
 		'httpMethod': './httpMethod',
+		'ajaxfileupload': './ajaxfileupload'
 	},
 	shim: {
 		'angular': {
