@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=1.0">
+    <title>请假</title>
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="../../resources/css/select.css">
+    <link rel="stylesheet" href="../../resources/css/datepicker.css">
+    <link rel="stylesheet" href="../../resources/css/askForLeave.css">
+</head>
+<body ng-controller="homeCtrl" ng-cloak>
+    <div class="cont">
+        <ul class="selections">
+            <li ng-click="openLeaveType()">
+                <label class="wrds"><i class="red-star">*</i>请假类型</label>
+                <input type="text" placeholder="请选择" class="txt-iput" ng-model="choosedType.typeName">
+                <i class="iconfont">&#xe628;</i>
+            </li>
+            <li>
+                <label class="wrds"><i class="red-star">*</i>开始时间</label>
+                <input ng-model="beginDt" id="startDt" required="required" class="txt-iput" type="text" readonly/>
+                <i class="iconfont">&#xe628;</i>
+            </li>
+            <li>
+                <label class="wrds"><i class="red-star">*</i>结束时间</label>
+                <input ng-model="endDt" id="endDt" required="required" class="txt-iput" type="text" readonly/>
+                <i class="iconfont">&#xe628;</i>
+            </li>
+            <li>
+                <label class="wrds"><i class="red-star">*</i>时长</label>
+                <input type="text" placeholder="请输入时长" class="txt-iput">
+                <i class="iconfont"></i>
+            </li>
+            <li style="border-bottom: 0;">
+                <label class="wrds"><i class="red-star">*</i>请假事由</label>
+            </li>
+            <div class="textarea-iput">
+                <textarea placeholder="请输入请假事由，30字以内"></textarea>
+            </div>
+        </ul>
+    </div>
+    <div class="picture">
+        <p class="p-line">图片<span>(只可上传一张)</span></p>
+        <div class="fileinput-button">
+            <span class="delPic" ng-click="img_del()" ng-show="pics.length"></span>
+            <img ng-src="{{pics[0].imgSrc}}" alt="" ng-show="pics.length" ng-click="viewImg()">
+            <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" ng-show="!pics.length">
+        </div>   
+    </div>
+    <button class="submit" ng-click="submit()">提交</button>
+
+    <!-- 请假类型 -->
+    <div class="leaveType-popup" ng-show="showLeave">
+        <p class="p-titl">请假类型<button class="close iconfont" ng-click="cancel()">&#xe633;</button></p>
+        <ul class="types">
+            <li ng-class="{'on': checked.typeCd === '1'}" ng-click="chooseType('1', '事假')">事假</li>
+            <li ng-class="{'on': checked.typeCd === '2'}" ng-click="chooseType('2', '年休假')">年休假</li>
+            <li ng-class="{'on': checked.typeCd === '3'}" ng-click="chooseType('3', '病假')">病假</li>
+        </ul>
+        <div class="buttons">
+            <button class="confirm-btn" ng-click="confirm()">确定</button>
+            <button class="cancel-btn" ng-click="cancel()">取消</button>
+        </div>
+    </div>
+    <!-- 周报轮播图 -->
+    <div id="focus" class="focus" ng-show="picview">
+        <swipers data="pics"></swipers>       
+        <a href="javascript:void(0)" class="close iconfont" ng-click="viewClose()">&#xe60d;</a>
+    </div>
+    <div class="zhezhao" ng-show="showLeave"></div>
+    <div class="zhezhao" ng-show="picview"></div>
+    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/askForLeave.js" target-module="askForLeaveModule"></script>
+</body>
+</html>

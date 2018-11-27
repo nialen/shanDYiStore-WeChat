@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=1.0">
+    <title>补打卡申请</title>
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="../../resources/css/select.css">
+    <link rel="stylesheet" href="../../resources/css/datepicker.css">
+    <link rel="stylesheet" href="../../resources/css/applyForAddPunchCard.css">
+</head>
+<body ng-controller="homeCtrl" ng-cloak>
+    <div class="cont">
+        <p class="top-line"><i class="iconfont">&#xe683;</i>补卡时间2018-10-17 星期三 白班 上班时间08:45</p>
+        <ul class="selections">
+            <li>
+                <label class="wrds">补卡时间点</label>
+                <input ng-model="beginDt" id="startDt" required="required" class="txt-iput" type="text" readonly/>
+                <i class="iconfont">&#xe628;</i>
+            </li>
+            <li style="border-bottom: 0;">
+                <label class="wrds"><i class="red-star">*</i>缺卡原因</label>
+            </li>
+            <div class="textarea-iput">
+                <textarea placeholder="请输入原因，30字以内"></textarea>
+            </div>
+        </ul>
+    </div>
+    <div class="picture">
+        <p class="p-line">图片<span>(只可上传一张)</span></p>
+        <div class="fileinput-button">
+            <span class="delPic" ng-click="img_del()" ng-show="!!imgSrc"></span>
+            <img ng-src="{{imgSrc}}" alt="" ng-show="!!imgSrc">
+            <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" ng-show="!imgSrc">
+        </div>   
+    </div>
+    <div class="picture">
+        <p class="p-line">审批人<span>(只可上传一张)</span></p>
+        <div class="fileinput-button">
+            <span class="delPic" ng-click="img_del()" ng-show="!!imgSrc"></span>
+            <img ng-src="{{imgSrc}}" alt="" ng-show="!!imgSrc">
+            <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" ng-show="!imgSrc">
+        </div>   
+    </div>
+    <button class="submit" ng-click="submit()">提交</button>
+    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/applyForAddPunchCard.js" target-module="applyForAddPunchCardModule"></script>
+</body>
+</html>

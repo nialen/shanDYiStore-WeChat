@@ -23,7 +23,9 @@ require.config({
 		'ngJqueryDialog': './ngJqueryDialog',
 		'httpServer': './httpServer',
 		'httpMethod': './httpMethod',
-		'ajaxfileupload': './ajaxfileupload'
+		'ajaxfileupload': './ajaxfileupload',
+		'moment': '../../resources/js/moment',
+		'calendar': './jquery.calendar',
 	},
 	shim: {
 		'angular': {
@@ -56,7 +58,12 @@ require.config({
 		'httpMethod': {
 			deps: ['angular', 'httpServer'],
 			exports: 'httpMethod'
-		}
+		},
+		'moment': {
+            init: function(moment) {
+                return moment;
+            }
+        }
 	}
 });
 

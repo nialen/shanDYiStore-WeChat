@@ -3,3 +3,7 @@
 - 工作汇报查询 **workReprtQuery**
 - 周报详情 **workReportWeekDetail**
 - 月报详情 **workReportMonthDetail**
+
+
+
+- 请假 **askForLeave**

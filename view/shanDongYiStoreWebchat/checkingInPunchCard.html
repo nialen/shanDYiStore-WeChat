@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=1.0">
+    <title>考勤打卡</title>
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="../../resources/css/select.css">
+    <link rel="stylesheet" href="../../resources/css/datepicker.css">
+    <link rel="stylesheet" href="../../resources/css/checkingInPunchCard.css">
+</head>
+<body ng-controller="homeCtrl" ng-cloak>
+    <p class="top-line"><i class="iconfont">&#xe683;</i>补卡时间2018-10-17 星期三 白班 上班时间08:45</p>
+    <div class="cal">
+        <div calendar daily-staff-result="{{dailyStaffResult}}"></div>
+    </div>
+    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/checkingInPunchCard.js" target-module="checkingInPunchCardModule"></script>
+</body>
+
+</html>

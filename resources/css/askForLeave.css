@@ -1,0 +1,242 @@
+body{
+    background: #f5f5f5;
+}
+.red-star{
+    color: #ff0000;
+    font-style: normal;
+    margin-right: 2px;
+}
+.cont{
+    background: #fff;
+    margin-bottom: 10px;
+}
+.selections{
+    margin-left: 20px;
+    font-size: 14px;
+}
+.selections li{
+    display: flex;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.selections li label{
+    width: 75px;
+}
+.selections li .txt-iput{
+    flex: 1;
+    width: 193px;
+    height: 43px;
+    text-align: right;
+    border: 0;
+    font-size: 14px;
+}
+.selections li .txt-iput::placeholder{
+    color: #cccccc;
+}
+.selections li i.iconfont{
+    width: 30px;
+    text-align: center;
+    color: #fe940f;
+    line-height: 47px;
+}
+.textarea-iput{
+    height: 135px;
+    margin: -8px 0 0 0;   
+}
+.textarea-iput textarea{
+    width: 96%;
+    height: 135px;
+    padding: 0 10px 0 6px;
+    font-size: 14px;
+    outline: none;
+}
+.textarea-iput textarea::placeholder{
+    color: #cccccc;
+}
+.picture{
+    padding: 15px 20px;
+    background: #fff;
+}
+.picture .p-line{
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+.picture .p-line span{
+    color: #cccccc;
+}
+.fileinput-button{
+    position: relative;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #ddd;
+    background: #f2f2f2 url('../../resources/images/upload-img.png') no-repeat center center; 
+    background-size: 20px 20px;  
+}
+.fileinput-button input{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    opacity: 0;
+}
+.fileinput-button img{
+    width: 45px;
+    height: 45px;
+}
+.delPic{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 16px;
+    height: 16px;
+    background: url('../../resources/images/del-img.png') no-repeat;
+    background-size: 16px 16px;
+    cursor: pointer;
+}
+.submit{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 45px;
+    font-size: 17px;
+    background: #ff7800;
+    color: #fff;
+    border:0;
+}
+.leaveType-popup{
+    position: fixed;
+    top: 30%;
+    left: 9%;
+    width: 82%;
+    height: 225px;
+    border-radius: 5px;
+    background: #fff;
+    z-index: 100;
+}
+.p-titl{
+    position: relative;
+    width: 100%;
+    height: 43px;
+    line-height: 43px;
+    border-bottom: 1px solid #dddddd;
+    text-align: center;
+    font-size: 17px;
+}
+.p-titl .close{
+    position: absolute;
+    right: 4px;
+    line-height: 43px;
+    color: #cccccc;
+    font-weight: bold;
+    font-size: 20px;
+}
+.zhezhao{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #000;
+    filter: alpha(Opacity=60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+    z-index: 99;
+}
+.types{
+    display: flex;
+    width: 210px;
+    margin: 40px auto 50px;
+}
+.types li{
+    width: 60px;
+    height: 30px;
+    margin-right: 15px;
+    line-height: 30px;
+    background: #ffeacb;
+    color: #ff7800;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 30px;
+}
+.types li.on{
+    background: #ff7800;
+    color: #fff;
+}
+.types li:last-child{
+    margin-right: 0;
+}
+.buttons{
+    display: flex;
+    width: 176px;
+    margin: 0 auto;
+}
+.buttons button{
+    width: 80px;
+    height: 35px;
+    border: 0;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 3px;
+}
+.buttons .confirm-btn{
+    background: #ff9a00;
+    margin-right: 15px;
+}
+.buttons .cancel-btn{
+    background: #d1d1d1;
+}
+.date-page{
+    top: 30%;
+}
+/* 图片轮播图 */
+.focus{ 
+    position: fixed;
+    top: 8%;
+    bottom: 0;
+    left: 0;
+    padding: 0 10px;
+    width: calc(100% - 20px);
+    height: 515px;
+    overflow-y: auto;
+    z-index: 100;
+}
+.focus .close{
+	position: absolute;
+	top:5px;
+	right: 5px;
+	width: 30px;
+	line-height: 24px;
+	color: #fff;
+	font-size: 21px;
+	text-align: center;
+	text-decoration: none;
+	opacity: 0.5; 
+}
+.focus .swiper-container{ 
+	position:relative; 
+	height: 100%;
+	z-index:0;
+}
+/* .swiper-zoom-container{
+    overflow-y: auto;
+} */
+.focus .swiper-container .swiper-wrapper{
+	margin-top: 30px;
+	text-align: center;
+}
+.focus .swiper-container .swiper-slide img{ 
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+    vertical-align: middle;
+}
+.swiper-pagination{
+	top:10px;
+	bottom:auto;
+    color:#fff;
+    text-align: center;
+}	
+/* 图片轮播图 */

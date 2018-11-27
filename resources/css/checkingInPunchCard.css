@@ -1,0 +1,152 @@
+.top-line{
+    height: 35px;
+    line-height: 35px;
+    padding: 0 12px;
+    color: #ff8107;
+    background: #fde7d6;
+}
+.top-line i{
+    margin-right: 5px;
+    font-size: 14px;
+}
+.cal{
+    margin-top: 45px;
+}
+.calendar {
+    width: 100%;
+    margin: -38px auto 0;
+    color: #333;
+}
+.calendar table {
+    width: 95%;
+    margin: 0 auto;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    /* border-top: 1px solid #cfdee2;
+    border-left: 1px solid #cfdee2; */
+    text-align: center;
+}
+.calendar caption {
+    line-height: 36px;
+    text-align: center;
+}
+
+.calendar caption span {
+    font-size: 16px;
+}
+
+.calendar caption a {
+    position: absolute;
+    color: #666;
+    text-decoration: none;
+}
+
+.calendar td,
+.calendar th {
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    vertical-align: middle;
+    text-align: center;
+    color: #ccc;
+}
+.calendar td {
+    position: relative;
+    background: #fff;
+}
+
+.calendar td span {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    line-height: 34px;
+    font-size: 14px;
+    color: #00a0e9;
+}
+
+.calendar .widget-back {
+    float: right;
+}
+
+.calendar td.widget-disabled {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.calendar .widget-today span {
+    top: 5px;
+    left: calc((100% - 24px)/2);
+    width: 24px;
+    height: 24px;
+    /* line-height: 24px;
+    background: #00a0e9;
+    color: #fff; */
+    border-radius: 23px;
+    /* text-align: center; */
+}
+.calendar .widget-today span::after{
+    position: absolute;
+    content: "今";
+    top:0;
+    left:0;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    background: #00a0e9;
+    color: #fff;
+    border-radius: 23px;
+    text-align: center;
+}
+
+.calendar .widget-disabled span {
+    color: #ccc;
+}
+
+.calendar .widget-highlight {
+    position: relative;
+    background: #fc7f1f;
+}
+
+.calendar .widget-highlight span {
+    color: #fff;
+}
+
+.widget-prevMonth {
+    left: 23%;
+}
+
+.widget-nextMonth {
+    right: 26%;
+}
+
+.widget-prevMonth i {
+    font-size: 21px;
+    vertical-align: middle;
+}
+
+.widget-nextMonth i {
+    font-size: 19px;
+    vertical-align: middle;
+}
+
+.calendar label {
+    display: none;
+    position: absolute;
+    padding: 0 4px;
+    background: #fff;
+    color: #333;
+    top: 15px;
+    left: 15px;
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 14px;
+    transform: scale(0.85);
+    -webkit-transform: scale(0.85);
+    -ms-transform: scale(0.85);
+    -moz-transform: scale(0.85);
+}
+
+.calendar .widget-highlight label {
+    display: block;
+}
