@@ -193,12 +193,12 @@ body{
 /* 图片轮播图 */
 .focus{ 
     position: fixed;
-    top: 8%;
+    top: 5%;
     bottom: 0;
     left: 0;
     padding: 0 10px;
     width: calc(100% - 20px);
-    height: 515px;
+    height: 500px;
     overflow-y: auto;
     z-index: 100;
 }

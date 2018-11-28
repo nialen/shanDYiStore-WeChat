@@ -283,6 +283,14 @@ body{
     color: #fff;
     font-size: 14px;
     font-weight: bold;
+    outline: none;
+}
+.wrds{
+    margin-top: 20px;
+    line-height: 24px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
 }
 .zhezhao{
     position: fixed;

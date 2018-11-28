@@ -28,10 +28,14 @@
         </ul>
     </div>
     <div class="picture">
-        <p class="p-line">图片<span>(只可上传一张)</span></p>
+        <p class="p-line">图片<span>(最多上传3张)</span></p>
         <div class="fileinput-button">
             <span class="delPic" ng-click="img_del()" ng-show="!!imgSrc"></span>
-            <img ng-src="{{imgSrc}}" alt="" ng-show="!!imgSrc">
+            <ul>
+                <li ng-repeat="item in files">
+                    <img ng-src="{{item.imgSrc}}" alt="" ng-show="!!imgSrc">
+                </li>
+            </ul>
             <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" ng-show="!imgSrc">
         </div>   
     </div>

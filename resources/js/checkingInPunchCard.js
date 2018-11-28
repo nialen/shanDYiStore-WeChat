@@ -1,7 +1,7 @@
 define(['angular', 'jquery', 'httpMethod', 'lodash', 'moment', 'angular-animate', 'ngStorage', 'iscroll', 'datepicker', 'calendar'], function(angular, $, httpMethod, _, moment) {
     angular
         .module('checkingInPunchCardModule', ['httpMethod', 'ngStorage'])    
-        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', function($scope, $rootScope, $log, httpMethod) {           
+        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$filter', function($scope, $rootScope, $log, httpMethod, $filter) {           
             $scope.dailyStaffResult = [];
             $scope.queryDaily = function(firstTime, endTime) {
                 var firstDate, endDate, firstDatefor, endDatefor;
@@ -44,8 +44,9 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'moment', 'angular-animate'
                     'day': '2018-11-13'.replace(/\-| |:/g, '')
                 },{
                     'day': '2018-11-14'.replace(/\-| |:/g, '')
-                }]
+                }]             
             };
+           
             $scope.showCard = false;
             $scope.checkingCard = function(){
                 $scope.showCard = true;
@@ -76,8 +77,7 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'moment', 'angular-animate'
                 return format;
             }
             $scope.nowTime = newDate.format('h:m');
-            $scope.nowDate = newDate.format('yyyy-MM-dd h:m');
-            // alert(newDate.format('yyyy-MM-dd h:m:s'));           
+            $scope.nowDate = newDate.format('yyyy-MM-dd hh:mm');
         }])
         .directive('calendar', function() {
             return {
@@ -88,20 +88,23 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'moment', 'angular-animate'
                     leaveDate: '@leaveDate'
                 },
                 template: '<div class="calendar"></div>',
-                link: function($scope, iElm, iAttrs) {
+                link: function(scope, iElm, iAttrs, $filter) {
                     $this = $(iElm);
-                    $scope.$watch('absenteeismDate', function(newObj) {
+                    scope.$watch('absenteeismDate', function(newObj) {
+                       
                         var arr = JSON.parse(newObj);
                         if (arr.length) {
                             _.map(arr, function(item) {
                                 $this.find('#' + item.day).addClass('widget-highlight');
-                                $this.find('#' + item.day).click(function(){
-                                    alert(item.day, '时间');                       
+                                $this.find('#' + item.day).click(function(){                                    
+                                    var day = item.day.replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3");                                   
+                                    sessionStorage.setItem(item.day, day);
+                                    window.open('../../view/shanDongYiStoreWebchat/applyForAddPunchCard.html', '_self');                                 
                                 })
                             });
                         };
                     });
-                    $scope.$watch('dailyCardDate', function(newObj) {
+                    scope.$watch('dailyCardDate', function(newObj) {
                         var arr = JSON.parse(newObj);
                         if (arr.length) {
                             _.map(arr, function(item) {
@@ -109,7 +112,7 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'moment', 'angular-animate'
                             });
                         };
                     });
-                    $scope.$watch('leaveDate', function(newObj) {
+                    scope.$watch('leaveDate', function(newObj) {
                         var arr = JSON.parse(newObj);
                         if (arr.length) {
                             _.map(arr, function(item) {

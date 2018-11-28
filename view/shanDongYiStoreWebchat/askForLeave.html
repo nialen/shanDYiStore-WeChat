@@ -53,7 +53,7 @@
 
     <!-- 请假类型 -->
     <div class="leaveType-popup" ng-show="showLeave">
-        <p class="p-titl">请假类型<button class="close iconfont" ng-click="cancel()">&#xe633;</button></p>
+        <p class="p-titl">请假类型<span class="close iconfont" ng-click="cancel()">&#xe633;</span></p>
         <ul class="types">
             <li ng-class="{'on': checked.typeCd === '1'}" ng-click="chooseType('1', '事假')">事假</li>
             <li ng-class="{'on': checked.typeCd === '2'}" ng-click="chooseType('2', '年休假')">年休假</li>

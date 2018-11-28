@@ -35,9 +35,11 @@
             <p class="p-one"><i class="iconfont">&#xe683;</i>打卡成功</p>
             <!-- <p class="p-one"><i class="iconfont">&#xe683;</i>打卡迟到</p>   -->
             <p class="now-time" ng-bind="nowTime"></p>
-            <div class="wrds"></div>
+            <div class="wrds">
+                坚持是世界上最难的事<br/>也是最容易的事
+            </div>
             <!-- <textarea class="reason" placeholder="请填写迟到原因，20字以内"></textarea> -->            
-            <button class="submit-btn">我知道了</button>
+            <button class="submit-btn" ng-click="close()">我知道了</button>
             <!-- <button class="submit-btn">提交</button> -->
         </div>
         <div class="zhezhao" ng-show="showCard"></div>
