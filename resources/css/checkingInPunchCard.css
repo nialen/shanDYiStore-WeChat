@@ -1,49 +1,51 @@
-.top-line{
+body{
+    background: #f5f5f5;
+}
+.checking-card .top-line{
     height: 35px;
     line-height: 35px;
     padding: 0 12px;
     color: #ff8107;
     background: #fde7d6;
 }
-.top-line i{
+.checking-card .top-line i{
     margin-right: 5px;
     font-size: 14px;
 }
-.cal{
-    margin-top: 45px;
+.checking-card .cal{
+    padding: 45px 0 15px;
+    background: #fff;
 }
-.calendar {
+/* 日历 */
+.checking-card .calendar {
     width: 100%;
     margin: -38px auto 0;
     color: #333;
 }
-.calendar table {
+.checking-card .calendar table {
     width: 95%;
     margin: 0 auto;
     table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0;
-    /* border-top: 1px solid #cfdee2;
-    border-left: 1px solid #cfdee2; */
     text-align: center;
 }
-.calendar caption {
+.checking-card .calendar caption {
     line-height: 36px;
     text-align: center;
 }
 
-.calendar caption span {
+.checking-card .calendar caption span {
     font-size: 16px;
 }
 
-.calendar caption a {
+.checking-card .calendar caption a {
     position: absolute;
     color: #666;
     text-decoration: none;
 }
-
-.calendar td,
-.calendar th {
+.checking-card .calendar td,
+.checking-card .calendar th {
     height: 34px;
     line-height: 34px;
     font-size: 14px;
@@ -51,12 +53,11 @@
     text-align: center;
     color: #ccc;
 }
-.calendar td {
+.checking-card .calendar td {
     position: relative;
     background: #fff;
 }
-
-.calendar td span {
+.checking-card .calendar td span {
     position: absolute;
     width: 100%;
     top: 0;
@@ -65,27 +66,22 @@
     font-size: 14px;
     color: #00a0e9;
 }
-
-.calendar .widget-back {
+.checking-card .calendar .widget-back {
     float: right;
 }
 
-.calendar td.widget-disabled {
+.checking-card .calendar td.widget-disabled {
     background-color: rgba(255, 255, 255, 0);
 }
 
-.calendar .widget-today span {
+.checking-card .calendar .widget-today span {
     top: 5px;
     left: calc((100% - 24px)/2);
     width: 24px;
     height: 24px;
-    /* line-height: 24px;
-    background: #00a0e9;
-    color: #fff; */
     border-radius: 23px;
-    /* text-align: center; */
 }
-.calendar .widget-today span::after{
+.checking-card .calendar .widget-today span::after{
     position: absolute;
     content: "今";
     top:0;
@@ -99,54 +95,204 @@
     text-align: center;
 }
 
-.calendar .widget-disabled span {
+.checking-card .calendar .widget-disabled span {
     color: #ccc;
 }
-
-.calendar .widget-highlight {
+/* 正常打卡 */
+.checking-card .calendar .widget-card {
     position: relative;
-    background: #fc7f1f;
+}
+.checking-card .calendar .widget-card span {
+    top: 5px;
+    left: calc((100% - 24px)/2);
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #00a0e9;
+    border-radius: 24px;
 }
 
-.calendar .widget-highlight span {
+/* 缺勤 */
+.checking-card .calendar .widget-highlight {
+    position: relative;
+}
+
+.checking-card .calendar .widget-highlight span {
+    top: 5px;
+    left: calc((100% - 24px)/2);
+    width: 24px;
+    height: 24px;
+    border-radius: 24px;
+}
+.checking-card .calendar .widget-highlight span::after{
+    position: absolute;
+    content: "缺";
+    top:0;
+    left:0;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    background: #fff;
+    border: 1px solid #ff5858;
+    color: #ff5858;
+    border-radius: 23px;
+    text-align: center;
+}
+/* 请假 */
+.checking-card .calendar .widget-leave {
+    position: relative;
+}
+.checking-card .calendar .widget-leave span {
+    top: 5px;
+    left: calc((100% - 24px)/2);
+    width: 24px;
+    height: 24px;
+    border-radius: 24px;
+}
+.checking-card .calendar .widget-leave span::after{
+    position: absolute;
+    content: "假";
+    top:0;
+    left:0;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    background: #fff;
+    border: 1px solid #ff7800;
+    color: #ff7800;
+    border-radius: 23px;
+    text-align: center;
+}
+/* 日历 */
+.checking-card .intrd{
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 10px 10px 0 0;
+}
+.checking-card .intrd li{
+    display: flex;
+    margin-right: 15px;
+}
+.checking-card .intrd li i{
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    border-radius: 12px;
+}
+.checking-card .org{
+    background: #ff7800;
+}
+.checking-card .blue{
+    background: #00a0e9;
+}
+.checking-card .red{
+    background: #ff5858;
+}
+.checking-card .card-box{
+    height: 50px;
+    padding: 0 15px 0 18px;
+    margin-top: 10px;
+    background: #fff;
+    font-size: 14px;
+}
+.checking-card .card-box .p-card{ 
+    line-height: 50px;
+    font-size: 14pxl
+}
+.checking-card .card-box .p-card img{
+    width: 18px;
+    margin-right: 6px;
+    vertical-align: text-top;
+}
+
+.checking-card .card-start-btn{
+    width: 65px;
+    height: 27px;
+    margin-top:12px;
+    border:0;
+    background: #ff7800;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 27px; 
+}
+.checking-card .card-start-btn:disabled{
+    background: #d1d1d1;
+}
+/* 弹窗 */
+.checking-card-popup{
+    position: fixed;
+    top: 30%;
+    left: 9%;
+    width: 82%;
+    height: 225px;
+    border-radius: 10px;
+    background: #ff9a00;
+    z-index: 100;
+}
+.checking-card-popup .close{
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    color: #fff;
+    font-size: 20px;
+}
+.checking-card-popup .p-one{
+    margin: 16px 0 14px;
+    text-align: center;
+    font-size: 24px;
     color: #fff;
 }
-
-.widget-prevMonth {
-    left: 23%;
+.checking-card-popup .p-one i{
+    font-size: 24px;
+    margin-right: 5px;
 }
-
-.widget-nextMonth {
-    right: 26%;
-}
-
-.widget-prevMonth i {
-    font-size: 21px;
-    vertical-align: middle;
-}
-
-.widget-nextMonth i {
-    font-size: 19px;
-    vertical-align: middle;
-}
-
-.calendar label {
-    display: none;
-    position: absolute;
-    padding: 0 4px;
+.checking-card .now-time{
+    width: 130px;
+    height: 35px;
+    line-height: 35px;
     background: #fff;
-    color: #333;
-    top: 15px;
-    left: 15px;
-    border-radius: 10px;
-    font-size: 12px;
-    line-height: 14px;
-    transform: scale(0.85);
-    -webkit-transform: scale(0.85);
-    -ms-transform: scale(0.85);
-    -moz-transform: scale(0.85);
+    margin: 0 auto 14px;
+    color: #ff9a00;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 5px;
 }
-
-.calendar .widget-highlight label {
+.checking-card .reason{
     display: block;
+    width: 80%;
+    height: 42px;
+    margin: 0 auto;
+    padding: 8px;
+    border: 1px solid #fff;
+    background: #ffe7c2;
+    color: #ff9a00;
+    font-size: 12px;
+    outline: none;
+}
+.checking-card .reason::placeholder{
+    color: #ff9a00;
+}
+.checking-card .submit-btn{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 44px;
+    border: none;
+    border-top: 1px solid #fff;
+    background: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+.zhezhao{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #000;
+    filter: alpha(Opacity=60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+    z-index: 99;
 }

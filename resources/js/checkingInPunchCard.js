@@ -1,7 +1,7 @@
-define(['angular', 'jquery', 'httpMethod', 'lodash', 'moment', 'angular-animate', 'ngStorage', 'calendar'], function(angular, $, httpMethod, _, moment) {
+define(['angular', 'jquery', 'httpMethod', 'lodash', 'moment', 'angular-animate', 'ngStorage', 'iscroll', 'datepicker', 'calendar'], function(angular, $, httpMethod, _, moment) {
     angular
         .module('checkingInPunchCardModule', ['httpMethod', 'ngStorage'])    
-        .controller('homeCtrl', ['$scope', '$log', 'httpMethod', function($scope, $log, httpMethod) {
+        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', function($scope, $rootScope, $log, httpMethod) {           
             $scope.dailyStaffResult = [];
             $scope.queryDaily = function(firstTime, endTime) {
                 var firstDate, endDate, firstDatefor, endDatefor;
@@ -30,30 +30,90 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'moment', 'angular-animate'
                 //     $scope.dailyStaffResult = arr;
                 // })
 
-                // $scope.dailyStaffResult = ['2018-11-23', '2018-11-22']
-                $scope.dailyStaffResult = [{
-                    'day': '2018-11-23'.replace(/\-| |:/g, ''),
-                    'times': 3
+                $scope.absenteeismDate = [{
+                    'day': '2018-11-23'.replace(/\-| |:/g, '')
                 },{
-                    'day': '2018-11-22'.replace(/\-| |:/g, ''),
-                    'times': 3
+                    'day': '2018-11-22'.replace(/\-| |:/g, '')
+                }]
+                $scope.dailyCardDate = [{
+                    'day': '2018-11-10'.replace(/\-| |:/g, '')
+                },{
+                    'day': '2018-11-11'.replace(/\-| |:/g, '')
+                }]
+                $scope.leaveDate = [{
+                    'day': '2018-11-13'.replace(/\-| |:/g, '')
+                },{
+                    'day': '2018-11-14'.replace(/\-| |:/g, '')
                 }]
             };
+            $scope.showCard = false;
+            $scope.checkingCard = function(){
+                $scope.showCard = true;
+            }
+            $scope.close = function(){
+                $scope.showCard = false;
+            }
+            var newDate = new Date();
+            Date.prototype.format = function(format) {
+                var date = {
+                       "M+": this.getMonth() + 1,
+                       "d+": this.getDate(),
+                       "h+": this.getHours(),
+                       "m+": this.getMinutes(),
+                       "s+": this.getSeconds(),
+                       "q+": Math.floor((this.getMonth() + 3) / 3),
+                       "S+": this.getMilliseconds()
+                };
+                if (/(y+)/i.test(format)) {
+                       format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+                }
+                for (var k in date) {
+                       if (new RegExp("(" + k + ")").test(format)) {
+                              format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                                     ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+                       }
+                }
+                return format;
+            }
+            $scope.nowTime = newDate.format('h:m');
+            $scope.nowDate = newDate.format('yyyy-MM-dd h:m');
+            // alert(newDate.format('yyyy-MM-dd h:m:s'));           
         }])
         .directive('calendar', function() {
             return {
                 restrict: 'EA',
                 scope: {
-                    dailyStaffResult: '@dailyStaffResult'
+                    absenteeismDate: '@absenteeismDate',
+                    dailyCardDate: '@dailyCardDate',
+                    leaveDate: '@leaveDate'
                 },
                 template: '<div class="calendar"></div>',
                 link: function($scope, iElm, iAttrs) {
                     $this = $(iElm);
-                    $scope.$watch('dailyStaffResult', function(newObj) {
+                    $scope.$watch('absenteeismDate', function(newObj) {
                         var arr = JSON.parse(newObj);
                         if (arr.length) {
                             _.map(arr, function(item) {
-                                $this.find('#' + item.day).addClass('widget-highlight').append('<label>巡捡' + item['times'] + '次</label>');
+                                $this.find('#' + item.day).addClass('widget-highlight');
+                                $this.find('#' + item.day).click(function(){
+                                    alert(item.day, '时间');                       
+                                })
+                            });
+                        };
+                    });
+                    $scope.$watch('dailyCardDate', function(newObj) {
+                        var arr = JSON.parse(newObj);
+                        if (arr.length) {
+                            _.map(arr, function(item) {
+                                $this.find('#' + item.day).addClass('widget-card');                             
+                            });
+                        };
+                    });
+                    $scope.$watch('leaveDate', function(newObj) {
+                        var arr = JSON.parse(newObj);
+                        if (arr.length) {
+                            _.map(arr, function(item) {
+                                $this.find('#' + item.day).addClass('widget-leave');                             
                             });
                         };
                     });
@@ -74,6 +134,5 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'moment', 'angular-animate'
                     });
                 }
             };
-        });
-        
+        });    
 });
