@@ -1,7 +1,7 @@
-define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStorage', 'swiper', 'ajaxfileupload', 'iscroll', 'datepicker'], function(angular, $, httpMethod, _) {
+define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStorage', 'pinch-zoom', 'swiper', 'ajaxfileupload', 'iscroll', 'datepicker'], function(angular, $, httpMethod, _) {
     angular
         .module('askForLeaveModule', ['httpMethod', 'ngStorage'])
-        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', function($scope, $rootScope, $log, httpMethod, $sessionStorage) {
+        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', '$timeout', function($scope, $rootScope, $log, httpMethod, $sessionStorage, $timeout) {
             $scope.showLeave = false;
             $scope.choosedType = '';
             $scope.openLeaveType = function(){
@@ -70,13 +70,17 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
             };
 
             $scope.img_del = function () {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
-                // $scope.imgSrc = null;
                 $scope.pics = [];
             };
 
             $scope.picview = false;
             $scope.viewImg = function () {
                 $scope.picview = true;
+                $timeout(function () {
+                    var el = document.querySelector('.focus');
+                    new PinchZoom.default(el, {});    
+                    $scope.$apply(); 
+                }, 101);                  
             }
             $scope.viewClose = function () {
                 $scope.picview = false;
@@ -99,6 +103,7 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
                 '<div class="swiper-pagination"></div>' +
                 '</div>',
                 link: function (scope, el, attrs) {
+                    $this = $(el);
                     $timeout(function () {
                         var topSwiper = new Swiper('.swiper-container', {
                             zoom: true,
@@ -107,9 +112,8 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
                             paginationType: 'fraction',
                             observer: true,//修改swiper自己或子元素时，自动初始化swiper
                             observeParents: true,//修改swiper的父元素时，自动初始化swiper
-                        });
-                    }, 100)
-
+                        });                             
+                    }, 100)                  
                 }
             }
         })

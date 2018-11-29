@@ -1,24 +1,6 @@
-define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStorage', 'ajaxfileupload', 'iscroll', 'datepicker', 'calendar'], function(angular, $, httpMethod, _) {
+define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStorage', 'swiper', 'ajaxfileupload'], function(angular, $, httpMethod, _) {
     angular
         .module('applyForAddPunchCardModule', ['httpMethod', 'ngStorage'])
-        .filter('channelStatusName', function(){
-            return function(value){
-                switch(value){
-                    case 1000:
-                        return '有效';
-                        break;
-                    case 1001:
-                        return '主动暂停';
-                        break;
-                    case 1002:
-                        return '异常暂停';
-                        break;
-                    case 1100:
-                        return '失效';
-                        break;
-                }
-            }
-        })
         .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', function($scope, $rootScope, $log, httpMethod, $sessionStorage) {
             // 图片上传
             $scope.picsthumb = [];      //用于存放图片的base64       
@@ -72,4 +54,35 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
                 $scope.picview = false;
             }
         }])
+        .directive('swipers', function ($timeout) {
+            return {
+                restrict: 'EA',
+                scope: {
+                    data: "="
+                },
+                template: '<div class="swiper-container silder">' +
+                '<ul class="swiper-wrapper">' +
+                '<li class="swiper-slide" ng-repeat="item in data">' +
+                '<div class="swiper-zoom-container">' +
+                '<img ng-src="{{item.imgSrc}}" alt="" />' +
+                '</div>' +
+                '</li>' +
+                '</ul>' +
+                '<div class="swiper-pagination"></div>' +
+                '</div>',
+                link: function (scope, el, attrs) {
+                    $timeout(function () {
+                        var topSwiper = new Swiper('.swiper-container', {
+                            zoom: true,
+                            virtual: true,
+                            pagination: '.swiper-pagination',
+                            paginationType: 'fraction',
+                            observer: true,//修改swiper自己或子元素时，自动初始化swiper
+                            observeParents: true,//修改swiper的父元素时，自动初始化swiper
+                        });
+                    }, 100)
+
+                }
+            }
+        })
 });

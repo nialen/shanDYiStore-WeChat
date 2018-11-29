@@ -16,6 +16,7 @@ require.config({
 		'ngStorage': './ngStorage',
 		'ng-infinite-scroll': '../../resources/js/ng-infinite-scroll.min',
 		'select': './select',
+		'pinch-zoom': './pinch-zoom.umd',
 		'swiper': './swiper.min',
 		'iscroll': './iscroll',
 		'datepicker': './datepicker',		
@@ -25,7 +26,7 @@ require.config({
 		'httpMethod': './httpMethod',
 		'ajaxfileupload': './ajaxfileupload',
 		'moment': '../../resources/js/moment',
-		'calendar': './jquery.calendar',
+		'calendar': './jquery.calendar',	
 	},
 	shim: {
 		'angular': {
@@ -48,6 +49,9 @@ require.config({
 		'select': {
 			deps: ['angular']
 		},
+		'pinch-zoom': {
+			deps: ['jquery']
+		},
 		'ngJqueryDialog': {
 			deps: ['angular', 'jquery', 'jqueryDialog']
 		},		
@@ -63,7 +67,7 @@ require.config({
             init: function(moment) {
                 return moment;
             }
-        }
+		},
 	}
 });
 

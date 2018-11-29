@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=1.0">
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>请假</title>
     <link rel="stylesheet" href="../../resources/css/reset.css">
     <link rel="stylesheet" href="../../resources/css/common.css">
@@ -10,6 +12,7 @@
     <link rel="stylesheet" href="../../resources/css/swiper.min.css">   
     <link rel="stylesheet" href="../../resources/css/datepicker.css">
     <link rel="stylesheet" href="../../resources/css/askForLeave.css">
+    <script type="text/javascript" src="../../resources/JS/pinch-zoom.umd.js"></script>
 </head>
 <body ng-controller="homeCtrl" ng-cloak>
     <div class="cont">
@@ -66,9 +69,11 @@
         </div>
     </div>
     <!-- 周报轮播图 -->
-    <div id="focus" class="focus" ng-show="picview">
-        <swipers data="pics"></swipers>       
-        <a href="javascript:void(0)" class="close iconfont" ng-click="viewClose()">&#xe60d;</a>
+    <div class="pinch-zoom-parent" style="width: 100%; height: 500px;" ng-show="picview">
+        <div id="focus" class="focus">
+            <swipers data="pics"></swipers>       
+            <a href="javascript:void(0)" class="close iconfont" ng-click="viewClose()">&#xe60d;</a>
+        </div>
     </div>
     <div class="zhezhao" ng-show="showLeave"></div>
     <div class="zhezhao" ng-show="picview"></div>

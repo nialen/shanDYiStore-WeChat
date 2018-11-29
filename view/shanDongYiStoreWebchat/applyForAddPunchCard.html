@@ -33,7 +33,7 @@
         <ul class="pics">
             <li ng-repeat="item in picsthumb">
                 <span class="delPic" ng-click="img_del($index)"></span>
-                <img ng-src="{{item.imgSrc}}" alt="" >
+                <img ng-src="{{item.imgSrc}}" alt="" ng-click="viewImg()">
             </li> 
             <li class="fileinput-button" ng-show="!(picsthumb.length>2)">
                 <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" multiple="3">
@@ -54,6 +54,7 @@
         <swipers data="picsthumb"></swipers>       
         <a href="javascript:void(0)" class="close iconfont" ng-click="viewClose()">&#xe60d;</a>
     </div>
+    <div class="zhezhao" ng-show="picview"></div>
     <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/applyForAddPunchCard.js" target-module="applyForAddPunchCardModule"></script>
 </body>
 </html>
