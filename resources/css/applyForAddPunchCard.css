@@ -129,6 +129,28 @@ body{
     top: 0px;
     opacity: 0;
 }
+.approver{
+    /* position: relative; */
+    /* margin-left: 25px; */
+}
+.show-man{
+    position: relative;   
+    height: 20px;   
+    margin-right: 16px;
+    line-height: 20px;
+    font-size: 14px;
+}
+.show-man .delPic{
+    top: -5px;
+    right: -16px;
+}
+.add-man{
+    width: 20px;
+    height: 20px;
+    background: url('../../resources/images/icon-add-man.png') no-repeat;
+    background-size: 100% 100%;
+    border:0;
+}
 /* 图片轮播图 */
 .focus{ 
     position: fixed;
