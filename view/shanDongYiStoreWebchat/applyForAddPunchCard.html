@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../../resources/css/reset.css">
     <link rel="stylesheet" href="../../resources/css/common.css">
     <link rel="stylesheet" href="../../resources/css/select.css">
+    <link rel="stylesheet" href="../../resources/css/swiper.min.css">   
     <link rel="stylesheet" href="../../resources/css/datepicker.css">
     <link rel="stylesheet" href="../../resources/css/applyForAddPunchCard.css">
 </head>
@@ -27,27 +28,32 @@
             </div>
         </ul>
     </div>
-    <div class="picture">
+    <div class="picture fn-clear">
         <p class="p-line">图片<span>(最多上传3张)</span></p>
-        <div class="fileinput-button">
-            <span class="delPic" ng-click="img_del()" ng-show="!!imgSrc"></span>
-            <ul>
-                <li ng-repeat="item in files">
-                    <img ng-src="{{item.imgSrc}}" alt="" ng-show="!!imgSrc">
-                </li>
-            </ul>
-            <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" ng-show="!imgSrc">
-        </div>   
+        <ul class="pics">
+            <li ng-repeat="item in picsthumb">
+                <span class="delPic" ng-click="img_del($index)"></span>
+                <img ng-src="{{item.imgSrc}}" alt="" >
+            </li> 
+            <li class="fileinput-button" ng-show="!(picsthumb.length>2)">
+                <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" multiple="3">
+            </li>  
+        </ul>        
     </div>
     <div class="picture">
-        <p class="p-line">审批人<span>(只可上传一张)</span></p>
+        <p class="p-line">审批人</p>
         <div class="fileinput-button">
             <span class="delPic" ng-click="img_del()" ng-show="!!imgSrc"></span>
             <img ng-src="{{imgSrc}}" alt="" ng-show="!!imgSrc">
-            <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" ng-show="!imgSrc">
+            <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" ng-show="!imgSrc" >
         </div>   
     </div>
     <button class="submit" ng-click="submit()">提交</button>
+    <!-- 周报轮播图 -->
+    <div id="focus" class="focus" ng-show="picview">
+        <swipers data="picsthumb"></swipers>       
+        <a href="javascript:void(0)" class="close iconfont" ng-click="viewClose()">&#xe60d;</a>
+    </div>
     <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/applyForAddPunchCard.js" target-module="applyForAddPunchCardModule"></script>
 </body>
 </html>

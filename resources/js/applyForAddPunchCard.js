@@ -20,50 +20,29 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
             }
         })
         .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', function($scope, $rootScope, $log, httpMethod, $sessionStorage) {
-            $scope.showLeave = false;
-            $scope.choosedType = '';
-            $scope.openLeaveType = function(){
-                $scope.showLeave = true;
-            }
-            $scope.cancel = function(){
-                $scope.showLeave = false;
-            }
-            $scope.chooseType = function(val, name){
-                var obj = {
-                    typeCd: val,
-                    typeName: name
-                }
-                $scope.checked = obj;
-            }
-            $scope.confirm = function(){
-                $scope.choosedType = $scope.checked;
-                $scope.showLeave = false;
-            }
-            // 时间
-            $scope.beginDt = ''; //开始时间
-            $scope.endDt = ''; //结束时间
-            $('#startDt').date({}, function (datestr) {
-                $scope.beginDt = datestr;
-                $scope.$apply();
-            });
-            $('#endDt').date({}, function (datestr) {
-                $scope.endDt = datestr;
-                $scope.$apply();
-            });
-
-            $scope.imgSrc = null;
-            $scope.reader = new FileReader(); 
+            // 图片上传
+            $scope.picsthumb = [];      //用于存放图片的base64       
             $scope.img_upload = function (files) {       //单次提交图片的函数
-                $scope.reader.readAsDataURL(files[0]);  //FileReader的方法，把图片转成base64
-                $scope.reader.onload = function (ev) {
-                    $scope.$apply(function () {
-                        $scope.imgSrc = ev.target.result; //接收base64
-                        document.querySelector('#one-input').value = null
-                    });
-                };
-                var data = new FormData();      //以下为像后台提交图片数据 通过FormData将文件转成二进制数据
-                data.append('image', files[0]);
-                $scope.ajaxFileUpload(files[0]);
+                if(($scope.picsthumb.length + files.length) > 3 ){
+                    alert("图片最多只能上传3张!");
+                    return false;
+                }     
+                _.map(files, function(item){                   
+                    $scope.reader = new FileReader();                   
+                    $scope.reader.readAsDataURL(item);  //FileReader的方法，把图片转成base64
+                    $scope.reader.onload = function (ev) {
+                        $scope.$apply(function () {
+                            var img = {
+                                imgSrc: ev.target.result,  //接收base64
+                            }
+                            $scope.picsthumb.push(img);                                  
+                            document.querySelector('#one-input').value = null
+                        });
+                    };
+                    var data = new FormData();      //以下为像后台提交图片数据 通过FormData将文件转成二进制数据
+                    data.append('image', item);
+                    $scope.ajaxFileUpload(item);
+                })                             
             };
 
             $scope.ajaxFileUpload = function(obj) {
@@ -82,9 +61,15 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
                 return false;
             };
 
-            $scope.img_del = function () {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
-                $scope.imgSrc = null;
+            $scope.img_del = function (key) {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
+                $scope.picsthumb.splice(key, 1);
             };
-
+            $scope.picview = false;
+            $scope.viewImg = function () {
+                $scope.picview = true;
+            }
+            $scope.viewClose = function () {
+                $scope.picview = false;
+            }
         }])
 });
