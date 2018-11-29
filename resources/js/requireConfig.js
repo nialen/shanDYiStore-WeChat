@@ -10,13 +10,13 @@ require.config({
 		'angular-animate': './angular-animate.min',
 		'angular-sanitize': './angular-sanitize.min',
 		'jquery': './jquery.min',
+		'pinch-zoom': './pinch-zoom.umd',
 		'lodash': './lodash.min',
 		'mock': './mock',
 		'mockData': './mockData',
 		'ngStorage': './ngStorage',
 		'ng-infinite-scroll': '../../resources/js/ng-infinite-scroll.min',
 		'select': './select',
-		'pinch-zoom': './pinch-zoom.umd',
 		'swiper': './swiper.min',
 		'iscroll': './iscroll',
 		'datepicker': './datepicker',		
@@ -46,12 +46,12 @@ require.config({
 		'ng-infinite-scroll': {
 			deps: ['angular']
 		},
-		'select': {
-			deps: ['angular']
-		},
 		'pinch-zoom': {
 			deps: ['jquery']
 		},
+		'select': {
+			deps: ['angular']
+		},	
 		'ngJqueryDialog': {
 			deps: ['angular', 'jquery', 'jqueryDialog']
 		},		

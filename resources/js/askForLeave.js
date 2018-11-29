@@ -1,4 +1,4 @@
-define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStorage', 'pinch-zoom', 'swiper', 'ajaxfileupload', 'iscroll', 'datepicker'], function(angular, $, httpMethod, _) {
+define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStorage',  'swiper', 'ajaxfileupload', 'iscroll', 'datepicker'], function(angular, $, httpMethod, _) {
     angular
         .module('askForLeaveModule', ['httpMethod', 'ngStorage'])
         .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', '$timeout', function($scope, $rootScope, $log, httpMethod, $sessionStorage, $timeout) {

@@ -1,7 +1,7 @@
 define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStorage', 'swiper', 'ajaxfileupload'], function(angular, $, httpMethod, _) {
     angular
         .module('applyForAddPunchCardModule', ['httpMethod', 'ngStorage'])
-        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', function($scope, $rootScope, $log, httpMethod, $sessionStorage) {
+        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', '$timeout', function($scope, $rootScope, $log, httpMethod, $sessionStorage, $timeout) {
             // 图片上传
             $scope.picsthumb = [];      //用于存放图片的base64       
             $scope.img_upload = function (files) {       //单次提交图片的函数
@@ -49,6 +49,11 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
             $scope.picview = false;
             $scope.viewImg = function () {
                 $scope.picview = true;
+                $timeout(function () {
+                    var el = document.querySelector('.focus');
+                    new PinchZoom.default(el, {});    
+                    $scope.$apply(); 
+                }, 101);   
             }
             $scope.viewClose = function () {
                 $scope.picview = false;
