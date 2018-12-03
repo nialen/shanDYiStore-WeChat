@@ -12,6 +12,7 @@ $(document).ready(function(){
     // 正常
     if (dailyCardDate.length) {
         _.map(dailyCardDate, function(item) {
+            // 将'yyyy-MM-dd'转换成'yyyyMMdd'
             var date = item.signDate.replace(/\-| |:/g, '');
             $('.calendar').find('#' + date).addClass('widget-card');                             
         });
@@ -22,7 +23,8 @@ $(document).ready(function(){
             var date = item.signDate.replace(/\-| |:/g, '');
             $('.calendar').find('#' + date).addClass('widget-highlight');
             //跳转至缺勤补卡页面
-            $('.calendar').find('#' + date).click(function(){                                    
+            $('.calendar').find('#' + date).click(function(){   
+                // 将'yyyyMMdd'转换成'yyyy-MM-dd'                                 
                 var day = item.signDate.replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3");                                   
                 // sessionStorage.setItem(item.signDate, day);
                 window.open('../../view/shanDongYiStoreWebchat/applyForAddPunchCard.html', '_self');                                 
