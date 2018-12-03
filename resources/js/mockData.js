@@ -234,4 +234,57 @@
             }]
         }
     });
+
+    //员工签到日历查询接口
+    Mock.mock(new RegExp('\/channel-manager-web/newSignService/queryStaffSignMonth'), {
+        'rsphead': 's',
+        'success': 'true', //是否成功true/失败false
+        'code': null,
+        'msg': null, //失败信息
+        'error': null,
+        'signArray': [{
+            'signDate': ['2018-12-01'],
+            'signType|1': [1, 2, 3, 4, 5]
+        },{
+            'signDate': ['2018-12-02'],
+            'signType|1': [1, 2, 3, 4, 5]
+        }]
+    });
+    //员工请假接口
+    Mock.mock(new RegExp('\/channel-manager-web/newSignService/staffAskForLeave'), {
+        'rsphead': 's',
+        'success': 'true', //是否成功true/失败false
+        'code': null,
+        "message":  "请假信息提交成功，正在审批中！"
+    });
+    //员工查询请假状态接口
+    Mock.mock(new RegExp('\/channel-manager-web/newSignService/queryStaffVacationApproval'), {
+        'rsphead': 's',
+        'success': 'true', //是否成功true/失败false
+        'code': null,
+        'msg': null, //失败信息
+        'error': null,
+        "vacationList ":[{
+            "vacationId":"@id",//请假编号
+            "vacationType":"",//请假类型
+            "staffId": "@id",
+            "insertDate": "@date",//记录生成时间
+            "beginDate": "@date",
+            "endDate": "@date",
+            "vacationReason":"@cword(3,6)",
+            "vacationUrl": "",
+            "duration": "", //请假时长
+            "approvalStaffId":"@id",
+            "approvalState|1": [1, 2, 3],//1、待审批 2、同意 3、驳回
+            "approvalRemark":"@cword(3,6)",
+            "approvalDate":"@date" 
+        }]           
+    });
+    //员工补卡接口
+    Mock.mock(new RegExp('\/channel-manager-web/newSignService/patchStaffSign'), {
+        'rsphead': 's',
+        'success': 'true', //是否成功true/失败false
+        'code': null,
+        "message":  "打卡成功"
+    });
 });

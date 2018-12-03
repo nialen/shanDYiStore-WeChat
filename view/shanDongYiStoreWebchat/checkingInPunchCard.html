@@ -6,15 +6,13 @@
     <title>考勤打卡</title>
     <link rel="stylesheet" href="../../resources/css/reset.css">
     <link rel="stylesheet" href="../../resources/css/common.css">
-    <link rel="stylesheet" href="../../resources/css/select.css">
-    <link rel="stylesheet" href="../../resources/css/datepicker.css">
     <link rel="stylesheet" href="../../resources/css/checkingInPunchCard.css">
 </head>
-<body ng-cloak ng-controller="homeCtrl" >
+<body>
     <div class="checking-card">
         <p class="top-line"><i class="iconfont">&#xe683;</i>点击“缺勤”日期可以补打卡</p>
         <div class="cal">
-            <div calendar daily-card-date="{{dailyCardDate}}" absenteeism-date="{{absenteeismDate}}" leave-date="{{leaveDate}}"></div>
+            <div class="calendar"></div>
             <ul class="intrd">            
                 <li><i class="red"></i>缺勤</li>  
                 <li><i class="blue"></i>签到</li>
@@ -23,28 +21,37 @@
         </div>
         <div class="card-box fn-clear">
             <p class="p-card fn-left"><img src="../../resources/images/icon-card-start.png">上班</p>
-            <button class="card-start-btn fn-right" ng-click="checkingCard()">打卡</button>
+            <button class="card-start-btn fn-right">打卡</button>
         </div>
         <div class="card-box">
             <p class="p-card fn-left"><img src="../../resources/images/icon-card-end.png">下班</p>
-            <button class="card-start-btn fn-right" ng-click="checkingCard()">打卡</button>
+            <button class="card-start-btn fn-right">打卡</button>
         </div>
-        <!-- 打卡成功/迟到-->
-        <div class="checking-card-popup" ng-show="showCard">
-            <span class="close iconfont" ng-click="close()">&#xe633;</span> 
+        <!-- 打卡成功-->
+        <!-- <div class="checking-card-popup">
+            <span class="close iconfont">&#xe633;</span> 
             <p class="p-one"><i class="iconfont">&#xe683;</i>打卡成功</p>
-            <!-- <p class="p-one"><i class="iconfont">&#xe683;</i>打卡迟到</p>   -->
-            <p class="now-time" ng-bind="nowTime"></p>
+            <p class="now-time"></p>
             <div class="wrds">
                 坚持是世界上最难的事<br/>也是最容易的事
             </div>
-            <!-- <textarea class="reason" placeholder="请填写迟到原因，20字以内"></textarea> -->            
-            <button class="submit-btn" ng-click="close()">我知道了</button>
-            <!-- <button class="submit-btn">提交</button> -->
+            <button class="submit-btn" click="close()">我知道了</button>
         </div>
-        <div class="zhezhao" ng-show="showCard"></div>
-    </div>
-    <script src="../../resources/js/require.js" data-main="../../resources/js/requireConfig.js" id="page" current-page="../../resources/js/checkingInPunchCard.js" target-module="checkingInPunchCardModule"></script>
+        <div class="zhezhao"></div> -->
+        <!-- 打卡迟到-->
+        <!-- <div class="checking-card-popup">
+            <span class="close iconfont">&#xe633;</span> 
+            <p class="p-one"><i class="iconfont">&#xe683;</i>打卡迟到</p>  
+            <p class="now-time"></p>           
+            <textarea class="reason" placeholder="请填写迟到原因，20字以内"></textarea>            
+            <button class="submit-btn">提交</button>
+        </div>
+        <div class="zhezhao"></div> -->
+    </div> 
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/lodash.min.js"></script>
+    <script src="../../resources/js/jquery.calendar.js"></script>
+    <script src="../../resources/js/checkingInPunchCard.js"></script>
 </body>
 
 </html>

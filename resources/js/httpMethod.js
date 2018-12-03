@@ -90,7 +90,23 @@ angular
             //通讯录接口
             httpMethod.phoneList = function(params) {
                 return httpServer(httpConfig.siteUrl + '/channel-mobile-web/phoneService/phoneList', params, 'POST');
-            };
+			};
+			//员工签到日历查询接口
+			httpMethod.queryStaffSignMonth = function(params) {
+                return httpServer(httpConfig.siteUrl + '/channel-manager-web/newSignService/queryStaffSignMonth', params, 'POST');
+			};
+			//员工请假接口
+			httpMethod.staffAskForLeave = function(params) {
+                return httpServer(httpConfig.siteUrl + '/channel-manager-web/newSignService/staffAskForLeave', params, 'POST');
+			};
+			//员工查询请假状态接口
+			httpMethod.queryStaffVacationApproval = function(params) {
+                return httpServer(httpConfig.siteUrl + '/channel-manager-web/newSignService/queryStaffVacationApproval', params, 'POST');
+			};
+			//员工补卡接口
+			httpMethod.patchStaffSign = function(params) {
+                return httpServer(httpConfig.siteUrl + '/channel-manager-web/newSignService/patchStaffSign', params, 'POST');
+			};
 			return httpMethod;
 		}
 	]);
