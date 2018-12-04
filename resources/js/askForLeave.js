@@ -1,7 +1,7 @@
-define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStorage',  'swiper', 'ajaxfileupload', 'iscroll', 'datepicker'], function(angular, $, httpMethod, _) {
+define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'swiper', 'ajaxfileupload', 'iscroll', 'datepicker'], function(angular, $, httpMethod, _) {
     angular
-        .module('askForLeaveModule', ['httpMethod', 'ngStorage'])
-        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$sessionStorage', '$timeout', function($scope, $rootScope, $log, httpMethod, $sessionStorage, $timeout) {
+        .module('askForLeaveModule', ['httpMethod'])
+        .controller('homeCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$timeout', function($scope, $rootScope, $log, httpMethod, $timeout) {
             $scope.showLeave = false;
             $scope.choosedType = '';
             $scope.openLeaveType = function(){
@@ -22,25 +22,25 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
                 $scope.showLeave = false;
             }
             // 时间
-            $scope.beginDt = ''; //开始时间
-            $scope.endDt = ''; //结束时间
+            $scope.askForLeaveForm = {
+                beginDate: '',
+                endDate: ''
+            };    
             $('#startDt').date({}, function (datestr) {
-                $scope.beginDt = datestr;
+                $scope.askForLeaveForm.beginDate = datestr;
                 $scope.$apply();
             });
             $('#endDt').date({}, function (datestr) {
-                $scope.endDt = datestr;
+                $scope.askForLeaveForm.endDate = datestr;
                 $scope.$apply();
             });
 
-            // $scope.imgSrc = null;
             $scope.reader = new FileReader(); 
             $scope.pics = [];    
             $scope.img_upload = function (files) {       //单次提交图片的函数
                 $scope.reader.readAsDataURL(files[0]);  //FileReader的方法，把图片转成base64
                 $scope.reader.onload = function (ev) {
                     $scope.$apply(function () {
-                        // $scope.imgSrc = ev.target.result; //接收base64
                         var img = {
                             imgSrc: ev.target.result,  //接收base64
                         }
@@ -84,6 +84,24 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'ngStora
             }
             $scope.viewClose = function () {
                 $scope.picview = false;
+            }
+            $scope.submit = function(){
+                var param = {
+                    'vacationType': _.get($scope, 'choosedType.typeCd'),
+                    'beginDate': _.get($scope, 'askForLeaveForm.beginDate'),
+                    'endDate': _.get($scope, 'askForLeaveForm.endDate'),
+                    'duration': $scope.askForLeaveForm.duration,
+                    'vacationReason': $scope.askForLeaveForm.vacationReason,
+                    'vacationPicUrl': '',
+                    'approvalStaff': $scope.askForLeaveForm.approvalStaff
+                }
+                httpMethod.queryMyCustListByClient(param).then(function(rsp) {
+                    if (rsp.success) {
+                        
+                    }
+                },function() {
+                    $log.log('调用接口失败.');
+                });
             }
         }])
         .directive('swipers', function ($timeout) {

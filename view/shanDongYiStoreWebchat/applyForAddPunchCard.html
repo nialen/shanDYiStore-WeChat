@@ -14,43 +14,45 @@
     <script type="text/javascript" src="../../resources/JS/pinch-zoom.umd.js"></script>
 </head>
 <body ng-controller="homeCtrl" ng-cloak>
-    <div class="cont">
-        <p class="top-line"><i class="iconfont">&#xe683;</i>补卡时间2018-10-17 星期三 白班 上班时间08:45</p>
-        <ul class="selections">
-            <li>
-                <label class="wrds">补卡时间点</label>
-                <input ng-model="beginDt" id="startDt" required="required" class="txt-iput" type="text" readonly/>
-                <i class="iconfont">&#xe628;</i>
-            </li>
-            <li style="border-bottom: 0;">
-                <label class="wrds"><i class="red-star">*</i>缺卡原因</label>
-            </li>
-            <div class="textarea-iput">
-                <textarea placeholder="请输入原因，30字以内"></textarea>
-            </div>
-        </ul>
-    </div>
-    <div class="picture fn-clear">
-        <p class="p-line">图片<span>(最多上传3张)</span></p>
-        <ul class="pics">
-            <li ng-repeat="item in picsthumb">
-                <span class="delPic" ng-click="img_del($index)"></span>
-                <img ng-src="{{item.imgSrc}}" alt="" ng-click="viewImg()">
-            </li> 
-            <li class="fileinput-button" ng-show="!(picsthumb.length>2)">
-                <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" multiple="3">
-            </li>  
-        </ul>        
-    </div>
-    <div class="picture">
-        <p class="p-line">审批人</p>
-        <div class="approver">    
-            <!-- 选中后展示的样式 -->
-            <label class="show-man">景工<span class="delPic" ng-click="man_del()"></span></label>
-            <button class="add-man"></button>
-        </div>   
-    </div>
-    <button class="submit" ng-click="submit()">提交</button>
+    <form name="askForLeaveForm" novalidate method="post">
+        <div class="cont">
+            <p class="top-line"><i class="iconfont">&#xe683;</i>补卡时间2018-10-17 星期三 白班 上班时间08:45</p>
+            <ul class="selections">
+                <li>
+                    <label class="wrds">补卡时间</label>
+                    <input ng-model="beginDt" id="startDt" required="required" class="txt-iput" type="text" readonly/>
+                    <i class="iconfont">&#xe628;</i>
+                </li>
+                <li style="border-bottom: 0;">
+                    <label class="wrds"><i class="red-star">*</i>缺卡原因</label>
+                </li>
+                <div class="textarea-iput">
+                    <textarea placeholder="请输入原因，30字以内"></textarea>
+                </div>
+            </ul>
+        </div>
+        <div class="picture fn-clear">
+            <p class="p-line">图片<span>(最多上传3张)</span></p>
+            <ul class="pics">
+                <li ng-repeat="item in picsthumb">
+                    <span class="delPic" ng-click="img_del($index)"></span>
+                    <img ng-src="{{item.imgSrc}}" alt="" ng-click="viewImg()">
+                </li> 
+                <li class="fileinput-button" ng-show="!(picsthumb.length>2)">
+                    <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)" multiple="3">
+                </li>  
+            </ul>        
+        </div>
+        <div class="picture">
+            <p class="p-line">审批人</p>
+            <div class="approver">    
+                <!-- 选中后展示的样式 -->
+                <label class="show-man">景工<span class="delPic" ng-click="man_del()"></span></label>
+                <button class="add-man"></button>
+            </div>   
+        </div>
+        <button class="submit" ng-click="submit()">提交</button>
+    </form>
     <!-- 周报轮播图 -->
     <div class="pinch-zoom-parent" ng-show="picview">
         <div id="focus" class="focus">

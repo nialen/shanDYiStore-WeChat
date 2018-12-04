@@ -1,22 +1,12 @@
 $(document).ready(function(){
-
     $('.calendar').calendar({
         highlightRange: [],
         isRange: true,
         onChange: function() {}           
     });
-
-    var absenteeismDate = [{'signDate': '2018-12-01'}],
-    dailyCardDate = [{'signDate': '2018-12-02'}],
-    leaveDate = [{'signDate': '2018-12-04'}];
-    // 正常
-    if (dailyCardDate.length) {
-        _.map(dailyCardDate, function(item) {
-            // 将'yyyy-MM-dd'转换成'yyyyMMdd'
-            var date = item.signDate.replace(/\-| |:/g, '');
-            $('.calendar').find('#' + date).addClass('widget-card');                             
-        });
-    };
+    var absenteeismDate = [{'signDate': '2018-12-01'}],// 缺勤
+    dailyCardDate = [{'signDate': '2018-12-02'}],// 正常
+    leaveDate = [{'signDate': '2018-12-04'}];// 请假   
     // 缺勤
     if (absenteeismDate.length) {
         _.map(absenteeismDate, function(item) {
@@ -29,6 +19,14 @@ $(document).ready(function(){
                 // sessionStorage.setItem(item.signDate, day);
                 window.open('../../view/shanDongYiStoreWebchat/applyForAddPunchCard.html', '_self');                                 
             })
+        });
+    };
+    // 正常
+    if (dailyCardDate.length) {
+        _.map(dailyCardDate, function(item) {
+            // 将'yyyy-MM-dd'转换成'yyyyMMdd'
+            var date = item.signDate.replace(/\-| |:/g, '');
+            $('.calendar').find('#' + date).addClass('widget-card');                             
         });
     };
     // 请假
