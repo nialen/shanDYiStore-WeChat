@@ -7,3 +7,5 @@
 
 
 - 请假 **askForLeave**
+- 打卡 **checkingInPunchCard**
+- 补打卡 **applyForAddPunchCard**
