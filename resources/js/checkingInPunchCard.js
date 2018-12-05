@@ -16,7 +16,7 @@ $(document).ready(function(){
             $('.calendar').find('#' + date).click(function(){   
                 // 将'yyyyMMdd'转换成'yyyy-MM-dd'                                 
                 var day = item.signDate.replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3");                                   
-                // sessionStorage.setItem(item.signDate, day);
+                sessionStorage.setItem('signDate', day);
                 window.open('../../view/shanDongYiStoreWebchat/applyForAddPunchCard.html', '_self');                                 
             })
         });

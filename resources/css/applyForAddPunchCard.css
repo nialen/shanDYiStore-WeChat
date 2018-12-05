@@ -38,7 +38,8 @@ body{
 .selections li .txt-iput{
     flex: 1;
     width: 193px;
-    height: 43px;
+    height: 45px;
+    padding-right: 16px;
     text-align: right;
     border: 0;
     font-size: 14px;
@@ -53,12 +54,12 @@ body{
     line-height: 47px;
 }
 .textarea-iput{
-    height: 135px;
+    height: 116px;
     margin: -8px 0 0 0;   
 }
 .textarea-iput textarea{
     width: 96%;
-    height: 135px;
+    height: 116px;
     padding: 0 10px 0 6px;
     font-size: 14px;
     outline: none;
@@ -99,6 +100,9 @@ body{
     background: #ff7800;
     color: #fff;
     border:0;
+}
+.submit:disabled{
+    background: #d1d1d1;
 }
 .pics{
     display: flex;  
