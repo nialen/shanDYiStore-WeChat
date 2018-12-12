@@ -52,7 +52,7 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'swiper'
                 data.append('image', files[0]);
                 $scope.ajaxFileUpload(files[0]);
             };
-
+            $scope.vacationPicUrl = [];
             $scope.ajaxFileUpload = function(obj) {
                 $.ajaxFileUpload({
                     fileElementId: obj.id,
@@ -61,7 +61,8 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'swiper'
                     fileElementId: 'file', //文件上传空间的id属性  <input type="file" id="file" name="file" />
                     dataType: 'json', //返回值类型 一般设置为json
                     success: function (data, status) {  //服务器成功响应处理函数
-                        console.log(data)
+                        // console.log(data)
+                        $scope.vacationPicUrl.push(data);
                     }, error: function (data, status, e) {//服务器响应失败处理函数
                         alert(e);
                     }
@@ -69,8 +70,9 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'swiper'
                 return false;
             };
 
-            $scope.img_del = function () {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
-                $scope.pics = [];
+            $scope.img_del = function (key) {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
+                $scope.pics.splice(key, 1);
+                $scope.vacationPicUrl.splice(key, 1);
             };
 
             $scope.picview = false;
@@ -92,7 +94,7 @@ define(['angular', 'jquery', 'httpMethod', 'lodash', 'angular-animate', 'swiper'
                     'endDate': _.get($scope, 'askForLeaveForm.endDate'),
                     'duration': $scope.askForLeaveForm.duration,
                     'vacationReason': $scope.askForLeaveForm.vacationReason,
-                    'vacationPicUrl': '',
+                    'vacationPicUrl': $scope.vacationPicUrl,
                     'approvalStaff': $scope.askForLeaveForm.approvalStaff
                 }
                 httpMethod.queryMyCustListByClient(param).then(function(rsp) {
