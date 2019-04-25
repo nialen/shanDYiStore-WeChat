@@ -4,9 +4,9 @@ $(document).ready(function(){
         isRange: true,
         onChange: function() {}           
     });
-    var absenteeismDate = [{'signDate': '2018-12-01'}],// 缺勤
-    dailyCardDate = [{'signDate': '2018-12-02'}],// 正常
-    leaveDate = [{'signDate': '2018-12-04'}];// 请假   
+    var absenteeismDate = [{'signDate': '2019-03-01'}],// 缺勤
+    dailyCardDate = [{'signDate': '2019-03-02'}],// 正常
+    leaveDate = [{'signDate': '2019-03-03'}];// 请假   
     // 缺勤
     if (absenteeismDate.length) {
         _.map(absenteeismDate, function(item) {
